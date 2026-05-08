@@ -102,14 +102,14 @@ export const HeroSection: React.FC<{ onCTAClick: () => void }> = ({ onCTAClick }
               ].map((item, i) => (
                 <motion.div
                   key={i}
-                  className="bg-white rounded-2xl p-5 shadow-md border-2 border-transparent hover:border-[#FF69B4] transition-all"
+                  className="bg-white rounded-2xl p-4 shadow-md border-2 border-transparent hover:border-[#FF69B4] transition-all"
                   whileHover={{ y: -5, boxShadow: '0 20px 40px -10px rgba(255,105,180,0.2)' }}
                 >
-                  <div className="flex items-center gap-2 mb-2">
-                    <Calendar className="w-5 h-5" style={{ color: item.color }} />
-                    <span className="text-base font-bold text-gray-900">{item.age}</span>
+                  <div className="flex items-center gap-1.5 mb-2">
+                    <Calendar className="w-4 h-4 shrink-0" style={{ color: item.color }} />
+                    <span className="text-sm font-bold text-gray-900 whitespace-nowrap">{item.age}</span>
                   </div>
-                  <div className="text-xl font-extrabold mb-1" style={{ color: item.color }}>
+                  <div className="text-lg font-extrabold mb-1 whitespace-nowrap" style={{ color: item.color }}>
                     {item.time}
                   </div>
                   <div className="text-sm text-gray-600 font-semibold">
