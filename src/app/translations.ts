@@ -25,7 +25,7 @@ export const translations = {
     age23: '2–3 let',
     time23: '15:20–15:50',
     days23: 'Po, St',
-    ctaFree: 'Zapsat se na ZDARMA zkušební lekci',
+    ctaFree: 'Zapsat se na zkušební lekci (150 Kč)',
     ctaVideo: 'Podívejte se na resumé choreografa',
     animalClick: 'Klikněte na zvíře a zjistěte, jakou superschopnost vaše dítě již má',
     stats500Kids: '500+ dětí',
@@ -80,7 +80,7 @@ export const translations = {
     transformation35: 'Transformace: od "bojím se" k "chci ještě", od nudy k radosti',
     transformation58: 'Transformace: od ostychu k odvaze, od "neumím" k pokusu',
     ageProgramsCTA: 'Vybrat program pro své dítě',
-    ageProgramsFirstFree: 'První lekce — ZDARMA ✨',
+    ageProgramsFirstFree: 'První lekce — 150 Kč ✨',
     
     // Transformation Journey Section
     journeyBadge: 'Od první lekce k superschopnosti',
@@ -190,7 +190,7 @@ export const translations = {
     testResultLion: 'Lev! Je narozený vůdce',
     testResultButterfly: 'Motýl! Je to tvůrčí duše',
     testResultCheetah: 'Gepard! Je rychlý a energický',
-    testCTA: 'Zapsat se na bezplatnou zkušební',
+    testCTA: 'Zapsat se na zkušební lekci',
     
     // Age Programs
     programsTitle: 'Tři skupiny, které určitě budou tvému dítěti sedět',
@@ -207,7 +207,7 @@ export const translations = {
     benefit2: 'Vlastní taneční hlas',
     benefit3: 'Videa pro sociální sítě',
     benefit4: 'Kamarády bez šikany',
-    ctaChooseGroup: 'Vybrat skupinu a zapsat se na BEZPLATNOU zkušební',
+    ctaChooseGroup: 'Vybrat skupinu a zapsat se na zkušební',
     
     // Results
     resultsTitle: 'Rodiče už píší: "Dítě samo prosí jít na lekce a oči mu svítí!"',
@@ -264,7 +264,7 @@ export const translations = {
     price350: '350 Kč',
     price1200: '1 200 Kč',
     price2800: '2 800 Kč',
-    priceFree: '🎁 ZDARMA zkušební lekce',
+    priceFree: '🎁 Zkušební lekce 150 Kč',
     priceSubscription: 'Permanentka 2× týdně',
     priceSingle: 'Jednorázová lekce',
     planTrialName: 'Zkušební lekce',
@@ -376,7 +376,7 @@ export const translations = {
     
     // Final CTA
     ctaTitle: 'Připravena darovat dítěti superschopnost už tento měsíc?',
-    ctaSubtitle: 'Zaregistrujte se na BEZPLATNOU zkušební lekci. Bez závazků, bez plateb.',
+    ctaSubtitle: 'Zaregistrujte se na zkušební lekci za 150 Kč. Bez závazků.',
     finalTitle: 'Připravena darovat dítěti superschopnost už tento měsíc?',
     formTitle: 'Registrace na zkušební lekci',
     formParentNameLabel: 'Vaše jméno',
@@ -390,14 +390,14 @@ export const translations = {
     formAgeLabel: 'Věková skupina',
     formAgePlaceholder: 'Vyberte skupinu',
     formDateLabel: 'Datum zkušební lekce',
-    formTrialClassLabel: 'BEZPLATNÁ zkušební lekce',
+    formTrialClassLabel: 'Zkušební lekce (150 Kč)',
     formTrialDateLabel: 'Preferovaný datum lekce',
     formDatePlaceholder: 'Napište datum (např. 25.03.2026)',
     formGroup25: '2,5-3,5 let (16:00-16:40, Po/St)',
     formGroup35: '3,5-5 let (16:50-17:35, Po/St)',
     formGroup58: '5,5-8 let (17:45-18:35, Po/St)',
-    formTrialOption1: 'BEZPLATNÁ zkušební lekce 25.03',
-    formTrialOption2: 'BEZPLATNÁ zkušební lekce 30.03',
+    formTrialOption1: 'Zkušební lekce 25.03 (150 Kč)',
+    formTrialOption2: 'Zkušební lekce 30.03 (150 Kč)',
     trialDate1: '25. března 2025',
     trialDate2: '30. března 2025',
     formConsent: 'Souhlasím se zpracováním údajů',
@@ -484,7 +484,7 @@ export const translations = {
     age23: '2–3 years',
     time23: '15:20–15:50',
     days23: 'Mon, Wed',
-    ctaFree: 'Book a FREE trial class',
+    ctaFree: 'Book a trial class (150 CZK)',
     ctaVideo: 'View choreographer resume',
     animalClick: 'Click on an animal and discover what superpower your child already has',
     stats500Kids: '500+ kids',
@@ -540,7 +540,7 @@ export const translations = {
     transformation35: 'Transformation: from "I am afraid" to "I want more", from boredom to joy',
     transformation58: 'Transformation: from shyness to courage, from "I don\'t know" to trying',
     ageProgramsCTA: 'Choose a program for your child',
-    ageProgramsFirstFree: 'First class — FREE ✨',
+    ageProgramsFirstFree: 'First class — 150 CZK ✨',
     
     // Transformation Journey Section
     journeyBadge: 'From first class to superpower',
@@ -650,7 +650,7 @@ export const translations = {
     testResultLion: 'Lion! Born leader',
     testResultButterfly: 'Butterfly! Creative soul',
     testResultCheetah: 'Cheetah! Fast and energetic',
-    testCTA: 'Book a free trial',
+    testCTA: 'Book a trial class',
     
     // Age Programs
     programsTitle: 'Three groups that will definitely suit your child',
@@ -667,7 +667,7 @@ export const translations = {
     benefit2: 'Own dance voice',
     benefit3: 'Videos for social media',
     benefit4: 'Friends without bullying',
-    ctaChooseGroup: 'Choose a group and book a FREE trial',
+    ctaChooseGroup: 'Choose a group and book a trial',
     
     // Results
     resultsTitle: 'Parents already write: "The child begs to go to class and their eyes shine!"',
@@ -724,7 +724,7 @@ export const translations = {
     price350: '350 Kč',
     price1200: '1 200 Kč',
     price2800: '2 800 Kč',
-    priceFree: '🎁 FREE trial class',
+    priceFree: '🎁 Trial class 150 CZK',
     priceSubscription: 'Membership 2× per week',
     priceSingle: 'Drop-in class',
     planTrialName: 'Trial class',
@@ -836,7 +836,7 @@ export const translations = {
     
     // Final CTA
     ctaTitle: 'Ready to give your child a superpower this month?',
-    ctaSubtitle: 'Register for a FREE trial class. No commitments, no payment.',
+    ctaSubtitle: 'Register for a trial class for 150 CZK. No commitments.',
     finalTitle: 'Ready to give your child a superpower this month?',
     formTitle: 'Trial Class Registration',
     formParentNameLabel: 'Your name',
@@ -850,14 +850,14 @@ export const translations = {
     formAgeLabel: 'Age group',
     formAgePlaceholder: 'Select group',
     formDateLabel: 'Trial class date',
-    formTrialClassLabel: 'FREE trial class',
+    formTrialClassLabel: 'Trial class (150 CZK)',
     formTrialDateLabel: 'Preferred class date',
     formDatePlaceholder: 'Enter date (e.g. 25.03.2026)',
     formGroup25: '2.5-3.5 years (16:00-16:40, Mon/Wed)',
     formGroup35: '3.5-5 years (16:50-17:35, Mon/Wed)',
     formGroup58: '5.5-8 years (17:45-18:35, Mon/Wed)',
-    formTrialOption1: 'FREE trial class 25.03',
-    formTrialOption2: 'FREE trial class 30.03',
+    formTrialOption1: 'Trial class 25.03 (150 CZK)',
+    formTrialOption2: 'Trial class 30.03 (150 CZK)',
     trialDate1: '25. March 2025',
     trialDate2: '30. March 2025',
     formConsent: 'I agree to data processing',
@@ -944,7 +944,7 @@ export const translations = {
     age23: '2–3 років',
     time23: '15:20–15:50',
     days23: 'Пн, Ср',
-    ctaFree: 'Записатися на БЕЗКОШТОВНЕ пробне заняття',
+    ctaFree: 'Записатися на пробне заняття (150 крон)',
     ctaVideo: 'Переглянути резюме хореографа',
     animalClick: 'Натисни на тварину і дізнайся, яка суперсила вже є в твоїй дитині',
     stats500Kids: '500+ дітей',
@@ -999,7 +999,7 @@ export const translations = {
     transformation35: 'Трансформація: від "боїмся" до "хочу ще", від скуки до радості',
     transformation58: 'Трансформація: від соромливості до хоробрий, від "не знаю" до спроби',
     ageProgramsCTA: 'Вибрати програму для своєї дитини',
-    ageProgramsFirstFree: 'Перше заняття — БЕЗКОШТОВНЕ ✨',
+    ageProgramsFirstFree: 'Перше заняття — 150 крон ✨',
     
     // Transformation Journey Section
     journeyBadge: 'Від першого заняття до суперсили',
@@ -1109,7 +1109,7 @@ export const translations = {
     testResultLion: 'Лев! Вона народжена лідером',
     testResultButterfly: 'Метелик! Вона творча душа',
     testResultCheetah: 'Гепард! Вона швидка та енергійна',
-    testCTA: 'Записатися на безкоштовне пробне',
+    testCTA: 'Записатися на пробне заняття',
     
     // Age Programs
     programsTitle: 'Три групи, які точно підійдуть твоїй дитині',
@@ -1126,7 +1126,7 @@ export const translations = {
     benefit2: 'Власний танцювальний голос',
     benefit3: 'Відео для соцмереж',
     benefit4: 'Друзі без булінгу',
-    ctaChooseGroup: 'Обрати групу та записатися на БЕЗКОШТОВНЕ пробне',
+    ctaChooseGroup: 'Обрати групу та записатися на пробне',
     
     // Results
     resultsTitle: 'Батьки вже пишуть: "Дитина сама проситься на заняття і очі горять!"',
@@ -1183,7 +1183,7 @@ export const translations = {
     price350: '350 Kč',
     price1200: '1 200 Kč',
     price2800: '2 800 Kč',
-    priceFree: '🎁 БЕЗКОШТОВНЕ пробне заняття',
+    priceFree: '🎁 Пробне заняття 150 крон',
     priceSubscription: 'Абонемент 2 рази на тиждень',
     priceSingle: 'Разове заняття',
     planTrialName: 'Пробне заняття',
@@ -1295,7 +1295,7 @@ export const translations = {
     
     // Final CTA
     ctaTitle: 'Готова подарувати дитині суперсилу вже цього місяця?',
-    ctaSubtitle: 'Зареєструйтесь на БЕЗКОШТОВНЕ пробне заняття. Без зобов\'язань, без оплати.',
+    ctaSubtitle: 'Зареєструйтесь на пробне заняття за 150 крон. Без зобов\'язань.',
     finalTitle: 'Готова подарувати дитині суперсилу вже цього місяця?',
     formTitle: 'Реєстрація на пробне заняття',
     formParentNameLabel: 'Ваше ім\'я',
@@ -1309,14 +1309,14 @@ export const translations = {
     formAgeLabel: 'Вікова група',
     formAgePlaceholder: 'Оберіть групу',
     formDateLabel: 'Дата пробного заняття',
-    formTrialClassLabel: 'БЕЗКОШТОВНЕ пробне заняття',
+    formTrialClassLabel: 'Пробне заняття (150 крон)',
     formTrialDateLabel: 'Бажана дата заняття',
     formDatePlaceholder: 'Вкажіть дату (напр. 25.03.2026)',
     formGroup25: '2,5-3,5 років (16:00-16:40, Пн/Ср)',
     formGroup35: '3,5-5 років (16:50-17:35, Пн/Ср)',
     formGroup58: '5,5-8 років (17:45-18:35, Пн/Ср)',
-    formTrialOption1: 'БЕЗКОШТОВНЕ пробне заняття 25.03',
-    formTrialOption2: 'БЕЗКОШТОВНЕ пробне заняття 30.03',
+    formTrialOption1: 'Пробне заняття 25.03 (150 крон)',
+    formTrialOption2: 'Пробне заняття 30.03 (150 крон)',
     trialDate1: '25. березня 2025',
     trialDate2: '30. березня 2025',
     formConsent: 'Я погоджуюся на обробку даних',

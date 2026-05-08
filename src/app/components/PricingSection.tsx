@@ -31,7 +31,7 @@ const plans: PlanConfig[] = [
     nameKey: 'planTrialName',
     subtitleKey: 'planTrialSubtitle',
     priceKey: 'price0',
-    priceDisplay: 'ZDARMA',
+    priceDisplay: '150 Kč',
     emoji: '🎁',
     accentColor: '#22c55e',
     bgColor: '#f0fdf4',

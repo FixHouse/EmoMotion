@@ -9,8 +9,8 @@ export const MetaTags: React.FC = () => {
     const titleUA = 'EmoMotion — Студія самовираження для дітей в Празі | Танці без сліз';
     const titleCS = 'EmoMotion — Studio sebevyjádření pro děti v Praze | Tanec bez slz';
     
-    const descUA = 'Авторська студія танцю та самовираження для дітей 2,5-8 років у Празі. Маленькі групи, анти-булінг підхід, безкоштовне пробне заняття. Кожна дитина знаходить свою суперсилу через рух!';
-    const descCS = 'Autorské studio tance a sebevyjádření pro děti 2,5-8 let v Praze. Malé skupiny, anti-šikanový přístup, bezplatná zkušební lekce. Každé dítě najde svou superschopnost pohybem!';
+    const descUA = 'Авторська студія танцю та самовираження для дітей 2,5-8 років у Празі. Маленькі групи, анти-булінг підхід, пробне заняття 150 крон. Кожна дитина знаходить свою суперсилу через рух!';
+    const descCS = 'Autorské studio tance a sebevyjádření pro děti 2,5-8 let v Praze. Malé skupiny, anti-šikanový přístup, zkušební lekce za 150 Kč. Každé dítě najde svou superschopnost pohybem!';
 
     document.title = language === 'uk' ? titleUA : titleCS;
     
