@@ -9,22 +9,49 @@ export const AgePrograms: React.FC<{ onCTAClick: () => void }> = ({ onCTAClick }
 
   const programs = [
     {
+      emoji: '👶',
+      color: '#FACC15',
+      lightBg: '#FEF9C3',
+      darkColor: '#CA8A04',
+      ageRangeKey: 'ageRange23',
+      titleKey: 'program23Title',
+      durationKey: 'duration30',
+      groupSizeKey: 'groupSize6',
+      descriptionKey: 'program23Description',
+      transformationKey: 'transformation23',
+    },
+    {
       emoji: '🎨',
       color: '#FF69B4',
       lightBg: '#FFF0F5',
       darkColor: '#FF1493',
+      ageRangeKey: 'ageRange25',
+      durationKey: 'duration40',
+      groupSizeKey: 'groupSize8',
+      descriptionKey: 'program25Description',
+      transformationKey: 'transformation25',
     },
     {
       emoji: '🎭',
       color: '#7DD3FC',
       lightBg: '#E0F2FE',
       darkColor: '#0EA5E9',
+      ageRangeKey: 'ageRange35',
+      durationKey: 'duration45',
+      groupSizeKey: 'groupSize10',
+      descriptionKey: 'program35Description',
+      transformationKey: 'transformation35',
     },
     {
       emoji: '✨',
       color: '#A78BFA',
       lightBg: '#EDE9FE',
       darkColor: '#7C3AED',
+      ageRangeKey: 'ageRange58',
+      durationKey: 'duration50',
+      groupSizeKey: 'groupSize10',
+      descriptionKey: 'program58Description',
+      transformationKey: 'transformation58',
     },
   ];
 
@@ -89,7 +116,7 @@ export const AgePrograms: React.FC<{ onCTAClick: () => void }> = ({ onCTAClick }
         </motion.div>
 
         {/* Programs Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 mb-12 sm:mb-16 max-w-7xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 gap-6 lg:gap-6 mb-12 sm:mb-16 max-w-7xl mx-auto">
           {programs.map((program, index) => (
             <motion.div
               key={index}
@@ -123,14 +150,24 @@ export const AgePrograms: React.FC<{ onCTAClick: () => void }> = ({ onCTAClick }
                 <div className="relative p-6 sm:p-7">
                   {/* Age Badge */}
                   <motion.div
-                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full mb-6 font-bold text-white text-sm shadow-lg"
+                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full mb-3 font-bold text-white text-sm shadow-lg"
                     style={{ backgroundColor: program.color }}
                     whileHover={{ scale: 1.05 }}
                     transition={{ type: "spring", stiffness: 300 }}
                   >
                     <span className="text-2xl">{program.emoji}</span>
-                    <span>{t(index === 0 ? 'ageRange25' : index === 1 ? 'ageRange35' : 'ageRange58')}</span>
+                    <span>{t(program.ageRangeKey)}</span>
                   </motion.div>
+
+                  {/* Optional Program Title */}
+                  {program.titleKey && (
+                    <h3
+                      className="text-xl sm:text-2xl font-extrabold mb-4"
+                      style={{ color: program.darkColor, fontFamily: 'Poppins, sans-serif' }}
+                    >
+                      {t(program.titleKey)}
+                    </h3>
+                  )}
 
                   {/* Info Cards */}
                   <div className="grid grid-cols-2 gap-3 mb-6">
@@ -149,7 +186,7 @@ export const AgePrograms: React.FC<{ onCTAClick: () => void }> = ({ onCTAClick }
                         <span className="text-xs font-bold text-gray-600">{t('duration')}</span>
                       </div>
                       <p className="text-sm font-bold" style={{ color: program.darkColor }}>
-                        {t(index === 0 ? 'duration40' : index === 1 ? 'duration45' : 'duration50')}
+                        {t(program.durationKey)}
                       </p>
                     </motion.div>
 
@@ -168,14 +205,14 @@ export const AgePrograms: React.FC<{ onCTAClick: () => void }> = ({ onCTAClick }
                         <span className="text-xs font-bold text-gray-600">{t('group')}</span>
                       </div>
                       <p className="text-sm font-bold" style={{ color: program.darkColor }}>
-                        {t(index === 0 ? 'groupSize8' : 'groupSize10')}
+                        {t(program.groupSizeKey)}
                       </p>
                     </motion.div>
                   </div>
 
                   {/* Description */}
                   <p className="text-sm text-gray-700 leading-relaxed mb-6">
-                    {t(index === 0 ? 'program25Description' : index === 1 ? 'program35Description' : 'program58Description')}
+                    {t(program.descriptionKey)}
                   </p>
 
                   {/* Transformation Block */}
@@ -207,7 +244,7 @@ export const AgePrograms: React.FC<{ onCTAClick: () => void }> = ({ onCTAClick }
                           {t('transformationLabel')}
                         </p>
                         <p className="text-sm font-semibold text-gray-800 leading-relaxed">
-                          {t(index === 0 ? 'transformation25' : index === 1 ? 'transformation35' : 'transformation58')}
+                          {t(program.transformationKey)}
                         </p>
                       </div>
                     </div>
