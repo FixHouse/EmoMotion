@@ -11,9 +11,8 @@ export const LocationsMap: React.FC = () => {
       name: 'Žitná',
       fullAddress: 'Žitná 570/26, Praha 2',
       color: '#FF69B4',
-      lat: 50.0757,
-      lng: 14.4194,
-      mapUrl: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2561.7!2d14.4194!3d50.0757!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x470b948c1d5d7b9d%3A0x0!2zNTDCsDA0JzMyLjUiTiAxNMKwMjUnMDkuOCJF!5e0!3m2!1sen!2scz!4v1710247900000!5m2!1sen!2scz',
+      mapUrl: 'https://www.google.com/maps?q=%C5%BDitn%C3%A1+570%2F26%2C+Praha+2&hl=cs&z=17&output=embed',
+      navigateUrl: 'https://www.google.com/maps/search/?api=1&query=%C5%BDitn%C3%A1+570%2F26%2C+Praha+2',
     }
   ];
 
@@ -91,7 +90,7 @@ export const LocationsMap: React.FC = () => {
             </div>
           </div>
           <a
-            href={`https://www.google.com/maps/search/?api=1&query=${locations[activeLocation].lat},${locations[activeLocation].lng}`}
+            href={locations[activeLocation].navigateUrl}
             target="_blank"
             rel="noopener noreferrer"
             className="flex-shrink-0"
