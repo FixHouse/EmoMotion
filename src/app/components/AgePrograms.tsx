@@ -130,7 +130,7 @@ export const AgePrograms: React.FC<{ onCTAClick: () => void }> = ({ onCTAClick }
             >
               {/* Card */}
               <motion.div
-                className="relative bg-white rounded-3xl shadow-xl overflow-hidden h-full"
+                className="relative bg-white rounded-3xl shadow-xl overflow-hidden h-full flex flex-col"
                 style={{
                   borderTop: `4px solid ${program.color}`,
                 }}
@@ -147,27 +147,28 @@ export const AgePrograms: React.FC<{ onCTAClick: () => void }> = ({ onCTAClick }
                   transition={{ duration: 0.3 }}
                 />
 
-                <div className="relative p-6 sm:p-7">
-                  {/* Age Badge */}
-                  <motion.div
-                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full mb-3 font-bold text-white text-sm shadow-lg"
-                    style={{ backgroundColor: program.color }}
-                    whileHover={{ scale: 1.05 }}
-                    transition={{ type: "spring", stiffness: 300 }}
-                  >
-                    <span className="text-2xl">{program.emoji}</span>
-                    <span>{t(program.ageRangeKey)}</span>
-                  </motion.div>
-
-                  {/* Optional Program Title */}
-                  {program.titleKey && (
-                    <h3
-                      className="text-xl sm:text-2xl font-extrabold mb-4"
-                      style={{ color: program.darkColor, fontFamily: 'Poppins, sans-serif' }}
+                <div className="relative p-6 sm:p-7 flex-1 flex flex-col">
+                  {/* Age Badge + Optional Title (same row) */}
+                  <div className="flex flex-wrap items-center gap-3 mb-6">
+                    <motion.div
+                      className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full font-bold text-white text-sm shadow-lg"
+                      style={{ backgroundColor: program.color }}
+                      whileHover={{ scale: 1.05 }}
+                      transition={{ type: "spring", stiffness: 300 }}
                     >
-                      {t(program.titleKey)}
-                    </h3>
-                  )}
+                      <span className="text-2xl">{program.emoji}</span>
+                      <span>{t(program.ageRangeKey)}</span>
+                    </motion.div>
+
+                    {program.titleKey && (
+                      <h3
+                        className="text-lg sm:text-xl font-extrabold leading-tight"
+                        style={{ color: program.darkColor, fontFamily: 'Poppins, sans-serif' }}
+                      >
+                        {t(program.titleKey)}
+                      </h3>
+                    )}
+                  </div>
 
                   {/* Info Cards */}
                   <div className="grid grid-cols-2 gap-3 mb-6">
@@ -215,10 +216,10 @@ export const AgePrograms: React.FC<{ onCTAClick: () => void }> = ({ onCTAClick }
                     {t(program.descriptionKey)}
                   </p>
 
-                  {/* Transformation Block */}
+                  {/* Transformation Block (pushed to bottom for cross-card alignment) */}
                   <motion.div
-                    className="rounded-2xl p-4 border-2"
-                    style={{ 
+                    className="rounded-2xl p-4 border-2 mt-auto"
+                    style={{
                       backgroundColor: program.lightBg,
                       borderColor: program.color,
                     }}
