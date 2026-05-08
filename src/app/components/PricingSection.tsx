@@ -3,7 +3,16 @@ import { useLanguage } from '../LanguageContext';
 import { motion } from 'motion/react';
 import { Clock, Check, Star, Calendar } from 'lucide-react';
 
-const schedule = [
+type ScheduleItem = {
+  age: string;
+  time: string;
+  spots: string;
+  color: string;
+  titleKey?: string;
+};
+
+const schedule: ScheduleItem[] = [
+  { age: 'age23', time: 'time23full', spots: '0 з 6', color: '#FACC15', titleKey: 'program23Title' },
   { age: 'age35', time: 'time35', spots: '3 з 10', color: '#FF69B4' },
   { age: 'age68', time: 'time68', spots: '5 з 10', color: '#7DD3FC' },
   { age: 'age58', time: 'time58', spots: '6 з 10', color: '#A78BFA' },
@@ -290,25 +299,33 @@ export const PricingSection: React.FC<{ onCTAClick: () => void }> = ({ onCTAClic
             </h3>
           </div>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
             {schedule.map((item, index) => (
               <motion.div
                 key={index}
-                className="bg-gradient-to-br from-gray-50 to-white rounded-2xl p-6 border-2 border-transparent hover:border-[#FF69B4]/30 transition-all"
+                className="bg-gradient-to-br from-gray-50 to-white rounded-2xl p-4 border-2 border-transparent hover:border-[#FF69B4]/30 transition-all"
                 initial={{ opacity: 0, x: -20 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
                 whileHover={{ y: -5 }}
               >
-                <div className="flex items-center gap-2 mb-3">
-                  <Calendar className="w-5 h-5" style={{ color: item.color }} />
-                  <h4 className="text-lg sm:text-xl font-bold" style={{ color: item.color }}>
+                <div className="flex items-center gap-1.5 mb-2 flex-wrap">
+                  <Calendar className="w-4 h-4 shrink-0" style={{ color: item.color }} />
+                  <h4 className="text-sm sm:text-base font-bold whitespace-nowrap" style={{ color: item.color }}>
                     {t(item.age as any)}
                   </h4>
+                  {item.titleKey && (
+                    <span
+                      className="text-xs sm:text-sm font-extrabold whitespace-nowrap"
+                      style={{ color: item.color }}
+                    >
+                      {t(item.titleKey as any)}
+                    </span>
+                  )}
                 </div>
 
-                <p className="text-base sm:text-lg font-bold text-gray-700 mb-3">
+                <p className="text-sm font-bold text-gray-700 mb-3 whitespace-nowrap">
                   {t(item.time as any)}
                 </p>
 
@@ -323,7 +340,7 @@ export const PricingSection: React.FC<{ onCTAClick: () => void }> = ({ onCTAClic
                       transition={{ duration: 1, delay: index * 0.2 }}
                     />
                   </div>
-                  <span className="text-sm font-bold text-gray-600 whitespace-nowrap">
+                  <span className="text-xs font-bold text-gray-600 whitespace-nowrap">
                     {item.spots} {t('spotsLabel')}
                   </span>
                 </div>
