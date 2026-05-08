@@ -13,6 +13,7 @@ export const FinalCTA: React.FC = () => {
     childName: '',
     childAge: '',
     phone: '',
+    email: '',
     ageGroup: '',
     date: '',
     consent: false,
@@ -25,9 +26,14 @@ export const FinalCTA: React.FC = () => {
     e.preventDefault();
     
     if (!formData.consent) {
-      alert(language === 'cs' ? 'Prosím, souhlaste se zpracováním osobních údajů' : 
-            language === 'en' ? 'Please consent to personal data processing' : 
+      alert(language === 'cs' ? 'Prosím, souhlaste se zpracováním osobních údajů' :
+            language === 'en' ? 'Please consent to personal data processing' :
             'Будь ласка, дайте згоду на обробку персональних даних');
+      return;
+    }
+
+    if (!formData.email.includes('@')) {
+      alert(t('formEmailInvalid'));
       return;
     }
 
@@ -73,6 +79,10 @@ export const FinalCTA: React.FC = () => {
     const phoneLabel = language === 'cs' ? 'Telefon' :
                        language === 'en' ? 'Phone' :
                        'Телефон';
+
+    const emailLabel = language === 'cs' ? 'E-mail' :
+                       language === 'en' ? 'Email' :
+                       'Email';
     
     const dateLabel = language === 'cs' ? 'Datum zkušební lekce' :
                       language === 'en' ? 'Trial class date' :
@@ -99,6 +109,7 @@ export const FinalCTA: React.FC = () => {
 🎂 <b>${childAgeLabel}:</b> ${formData.childAge} років / let / years
 👥 <b>${groupLabel}:</b> ${ageGroupText}
 📱 <b>${phoneLabel}:</b> ${formData.phone}
+✉️ <b>${emailLabel}:</b> ${formData.email}
 📅 <b>${dateLabel}:</b> ${dateText}
 ━━━━━━━━━━━━━━━━━━━━
 
@@ -126,7 +137,7 @@ export const FinalCTA: React.FC = () => {
         }, i * 30);
       }
 
-      setFormData({ parentName: '', childName: '', childAge: '', phone: '', ageGroup: '', date: '', consent: false });
+      setFormData({ parentName: '', childName: '', childAge: '', phone: '', email: '', ageGroup: '', date: '', consent: false });
       
       setTimeout(() => {
         setIsSuccess(false);
@@ -319,6 +330,21 @@ export const FinalCTA: React.FC = () => {
                   onChange={(e) => setFormData({ ...formData, date: e.target.value })}
                   placeholder={t('formDatePlaceholder')}
                   className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-[#FF69B4] focus:outline-none transition-colors text-gray-800 bg-white"
+                />
+              </div>
+
+              {/* Email */}
+              <div className="md:col-span-2">
+                <label className="block text-sm font-bold text-gray-700 mb-2">
+                  {t('formEmailLabel')}
+                </label>
+                <input
+                  type="email"
+                  required
+                  value={formData.email}
+                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                  placeholder={t('formEmailPlaceholder')}
+                  className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-[#FF69B4] focus:outline-none transition-colors text-gray-800"
                 />
               </div>
             </div>
