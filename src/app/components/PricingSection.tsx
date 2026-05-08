@@ -12,10 +12,10 @@ type ScheduleItem = {
 };
 
 const schedule: ScheduleItem[] = [
-  { age: 'age23', time: 'time23full', spots: '0 з 6', color: '#FACC15', titleKey: 'program23Title' },
-  { age: 'age35', time: 'time35', spots: '3 з 10', color: '#FF69B4' },
-  { age: 'age68', time: 'time68', spots: '5 з 10', color: '#7DD3FC' },
-  { age: 'age58', time: 'time58', spots: '6 з 10', color: '#A78BFA' },
+  { age: 'age23', time: 'time23full', spots: '4 з 6', color: '#FACC15', titleKey: 'program23Title' },
+  { age: 'age35', time: 'time35', spots: '6 з 10', color: '#FF69B4' },
+  { age: 'age68', time: 'time68', spots: '9 з 10', color: '#7DD3FC' },
+  { age: 'age58', time: 'time58', spots: '5 з 10', color: '#A78BFA' },
 ];
 
 type PlanConfig = {
