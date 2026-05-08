@@ -92,9 +92,10 @@ export const HeroSection: React.FC<{ onCTAClick: () => void }> = ({ onCTAClick }
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.7 }}
-              className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 max-w-3xl mx-auto lg:mx-0"
+              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 max-w-4xl mx-auto lg:mx-0"
             >
               {[
+                { age: t('age23'), time: t('time23'), days: t('days23'), color: '#FACC15' },
                 { age: t('age46'), time: t('time46'), days: t('days46'), color: '#FF69B4' },
                 { age: t('age79'), time: t('time79'), days: t('days79'), color: '#7DD3FC' },
                 { age: t('age1012'), time: t('time1012'), days: t('days1012'), color: '#A78BFA' },
