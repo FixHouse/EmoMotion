@@ -5,7 +5,7 @@ export const translations = {
     
     // Hero Section
     heroTitle: 'Kde vaše dítě najde svou supervelmoc pohybem',
-    heroSubtitle: 'Autorská metodika pro děti 2–8 let. Ne taneční studio — prostor pro emoční rozvoj a sebevědomí.',
+    heroSubtitle: 'Autorská metodika pro děti 2–8 let. Prostor pro emoční rozvoj a sebevědomí skrze pohyb.',
     heroSchedule: 'Lekce v Praze',
     age35: '2,5–3,5 let',
     age68: '3,5–5 let',
@@ -455,7 +455,7 @@ export const translations = {
     
     // Hero Section
     heroTitle: 'Where your child finds their superpower through movement',
-    heroSubtitle: 'Unique method for kids 2–8 years old. Not just a dance studio — a space for emotional expression and confidence.',
+    heroSubtitle: 'Unique method for kids 2–8 years old. A space for emotional expression and confidence through movement.',
     heroSchedule: 'Classes in Prague',
     age35: '2.5–3.5 years',
     age68: '3.5–5 years',
@@ -906,7 +906,7 @@ export const translations = {
     
     // Hero Section
     heroTitle: 'Де твоя дитина знайде свою суперсилу через рух',
-    heroSubtitle: 'Авторська методика для дітей 2–8 років. Не просто танцювальна студія — це простір для емоційного розкриття та впевненості.',
+    heroSubtitle: 'Авторська методика для дітей 2–8 років. Простір для емоційного розкриття та впевненості через рух.',
     heroSchedule: 'Заняття у Празі',
     age35: '2,5–3,5 років',
     age68: '3,5–5 років',
