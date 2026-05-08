@@ -134,7 +134,7 @@ export const AgePrograms: React.FC<{ onCTAClick: () => void }> = ({ onCTAClick }
                 style={{
                   borderTop: `4px solid ${program.color}`,
                 }}
-                whileHover={{ y: -8, scale: 1.02 }}
+                whileHover={{ y: -8 }}
                 transition={{ duration: 0.3 }}
               >
                 {/* Glow effect on hover */}
@@ -149,20 +149,20 @@ export const AgePrograms: React.FC<{ onCTAClick: () => void }> = ({ onCTAClick }
 
                 <div className="relative p-6 sm:p-7 flex-1 flex flex-col">
                   {/* Age Badge + Optional Title (same row) */}
-                  <div className="flex flex-wrap items-center gap-3 mb-6">
+                  <div className="flex items-center gap-2 mb-6">
                     <motion.div
-                      className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full font-bold text-white text-sm shadow-lg"
+                      className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full font-bold text-white text-xs shadow-lg shrink-0"
                       style={{ backgroundColor: program.color }}
                       whileHover={{ scale: 1.05 }}
                       transition={{ type: "spring", stiffness: 300 }}
                     >
-                      <span className="text-2xl">{program.emoji}</span>
+                      <span className="text-lg">{program.emoji}</span>
                       <span>{t(program.ageRangeKey)}</span>
                     </motion.div>
 
                     {program.titleKey && (
                       <h3
-                        className="text-lg sm:text-xl font-extrabold leading-tight"
+                        className="text-sm font-extrabold leading-tight whitespace-nowrap"
                         style={{ color: program.darkColor, fontFamily: 'Poppins, sans-serif' }}
                       >
                         {t(program.titleKey)}
