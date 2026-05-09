@@ -12,6 +12,7 @@ import { PricingSection } from './PricingSection';
 import { FinalCTA } from './FinalCTA';
 import { Footer } from './Footer';
 import { ScrollToTop } from './ScrollToTop';
+import { PaymentSuccessBanner } from './PaymentSuccessBanner';
 
 export const AppContent: React.FC = () => {
   const scrollToFinalCTA = () => {
@@ -34,6 +35,9 @@ export const AppContent: React.FC = () => {
       
       {/* Scroll to Top */}
       <ScrollToTop />
+
+      {/* Payment Success Banner (shown when returning from Stripe) */}
+      <PaymentSuccessBanner />
 
       {/* All Sections */}
       <div id="hero">
