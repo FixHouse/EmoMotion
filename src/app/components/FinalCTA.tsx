@@ -64,9 +64,13 @@ export const FinalCTA: React.FC = () => {
     const refId = `EMO-${Date.now().toString(36).toUpperCase()}-${Math.random().toString(36).substring(2, 6).toUpperCase()}`;
 
     // Get age group full text
-    const ageGroupText = formData.ageGroup === '2.5-3.5' 
-      ? (language === 'cs' ? '2,5-3,5 let (16:00-16:40, Po/St)' : 
-         language === 'en' ? '2.5-3.5 years (16:00-16:40, Mon/Wed)' : 
+    const ageGroupText = formData.ageGroup === '2-3'
+      ? (language === 'cs' ? '2-3 let (15:20-15:50, Po/St)' :
+         language === 'en' ? '2-3 years (15:20-15:50, Mon/Wed)' :
+         '2-3 років (15:20-15:50, Пн/Ср)')
+      : formData.ageGroup === '2.5-3.5'
+      ? (language === 'cs' ? '2,5-3,5 let (16:00-16:40, Po/St)' :
+         language === 'en' ? '2.5-3.5 years (16:00-16:40, Mon/Wed)' :
          '2,5-3,5 років (16:00-16:40, Пн/Ср)')
       : formData.ageGroup === '3.5-5'
       ? (language === 'cs' ? '3,5-5 let (16:50-17:35, Po/St)' : 
@@ -325,6 +329,7 @@ export const FinalCTA: React.FC = () => {
                   className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-[#FF69B4] focus:outline-none transition-colors text-gray-800 bg-white"
                 >
                   <option value="">{t('formChildAgePlaceholder')}</option>
+                  <option value="2">2</option>
                   <option value="2.5">2.5</option>
                   <option value="3">3</option>
                   <option value="4">4</option>
@@ -362,6 +367,7 @@ export const FinalCTA: React.FC = () => {
                   className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-[#FF69B4] focus:outline-none transition-colors text-gray-800 bg-white"
                 >
                   <option value="">{t('formAgePlaceholder')}</option>
+                  <option value="2-3">{t('formGroup23')}</option>
                   <option value="2.5-3.5">{t('formGroup25')}</option>
                   <option value="3.5-5">{t('formGroup35')}</option>
                   <option value="5.5-8">{t('formGroup58')}</option>
