@@ -300,11 +300,11 @@ export const PricingSection: React.FC<{ onCTAClick: () => void }> = ({ onCTAClic
             </h3>
           </div>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-3 sm:gap-4">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-2 sm:gap-3">
             {schedule.map((item, index) => (
               <motion.div
                 key={index}
-                className="bg-gradient-to-br from-gray-50 to-white rounded-2xl p-4 border-2 border-transparent hover:border-[#FF69B4]/30 transition-all"
+                className="bg-gradient-to-br from-gray-50 to-white rounded-2xl p-3 lg:p-4 border-2 border-transparent hover:border-[#FF69B4]/30 transition-all min-w-0"
                 initial={{ opacity: 0, x: -20 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
