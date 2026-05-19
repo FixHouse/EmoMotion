@@ -302,7 +302,7 @@ export const PricingSection: React.FC<{ onCTAClick: (planKey?: string) => void }
             {schedule.map((item, index) => (
               <motion.div
                 key={index}
-                className="bg-gradient-to-br from-gray-50 to-white rounded-2xl p-3 lg:p-4 border-2 border-transparent hover:border-[#FF69B4]/30 transition-all min-w-0"
+                className="flex flex-col h-full bg-gradient-to-br from-gray-50 to-white rounded-2xl p-3 lg:p-4 border-2 border-transparent hover:border-[#FF69B4]/30 transition-all min-w-0"
                 initial={{ opacity: 0, x: -20 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
@@ -328,7 +328,7 @@ export const PricingSection: React.FC<{ onCTAClick: (planKey?: string) => void }
                   {t(item.time as any)}
                 </p>
 
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2 mt-auto">
                   <div className="flex-1 h-2 bg-gray-200 rounded-full overflow-hidden">
                     <motion.div
                       className="h-full rounded-full"
