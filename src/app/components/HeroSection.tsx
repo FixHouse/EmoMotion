@@ -41,13 +41,13 @@ export const HeroSection: React.FC<{ onCTAClick: () => void }> = ({ onCTAClick }
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20">
-        <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center">
+        <div className="grid lg:grid-cols-5 gap-8 lg:gap-12 items-center">
           {/* Left Content */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="text-center lg:text-left space-y-6 sm:space-y-8"
+            className="lg:col-span-3 text-center lg:text-left space-y-6 sm:space-y-8"
           >
             {/* Main Heading */}
             <div>
@@ -187,7 +187,7 @@ export const HeroSection: React.FC<{ onCTAClick: () => void }> = ({ onCTAClick }
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, delay: 0.4 }}
-            className="relative"
+            className="lg:col-span-2 relative"
           >
             {/* Decorative ring */}
             <div className="absolute inset-0 rounded-full bg-gradient-to-br from-[#FF69B4]/10 to-[#7DD3FC]/10 blur-3xl" />
