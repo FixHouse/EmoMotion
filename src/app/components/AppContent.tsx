@@ -21,7 +21,10 @@ export const AppContent: React.FC = () => {
   const [selectedPlan, setSelectedPlan] = useState<string>('planTrialName');
 
   const scrollToFinalCTA = (planKey?: string) => {
-    setSelectedPlan(planKey || 'planTrialName');
+    // Defensive: callers may forward a React event by accident (onClick={fn}).
+    // Only accept actual string keys; everything else is treated as the trial.
+    const nextPlan = typeof planKey === 'string' ? planKey : 'planTrialName';
+    setSelectedPlan(nextPlan);
     const element = document.getElementById('cta');
     if (element) {
       element.scrollIntoView({ behavior: 'smooth', block: 'start' });

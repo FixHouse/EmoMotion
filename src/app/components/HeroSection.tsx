@@ -128,7 +128,7 @@ export const HeroSection: React.FC<{ onCTAClick: () => void }> = ({ onCTAClick }
               transition={{ delay: 0.9 }}
             >
               <motion.button
-                onClick={onCTAClick}
+                onClick={() => onCTAClick()}
                 className="group relative px-8 py-5 bg-gradient-to-r from-[#FF69B4] to-[#FF1493] text-white rounded-2xl font-bold text-lg shadow-xl overflow-hidden"
                 whileHover={{ scale: 1.02, boxShadow: '0 25px 50px -12px rgba(255,105,180,0.5)' }}
                 whileTap={{ scale: 0.98 }}

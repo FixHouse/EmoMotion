@@ -316,7 +316,7 @@ export const AgePrograms: React.FC<{ onCTAClick: () => void }> = ({ onCTAClick }
             />
 
             <button
-              onClick={onCTAClick}
+              onClick={() => onCTAClick()}
               className="relative px-8 sm:px-10 py-4 sm:py-5 bg-gradient-to-r from-[#FF69B4] to-[#FF1493] text-white rounded-2xl font-bold text-base sm:text-lg shadow-2xl hover:shadow-pink-500/50 transition-all duration-300 flex items-center gap-3"
             >
               <span>{t('ageProgramsCTA')}</span>
