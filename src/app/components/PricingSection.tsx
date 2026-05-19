@@ -59,7 +59,7 @@ const plans: PlanConfig[] = [
     bgColor: '#fffbeb',
     borderColor: '#fcd34d',
     features: ['feature1Single', 'feature2Single', 'feature3Single'],
-    buttonStyle: 'subtle',
+    buttonStyle: 'gold',
   },
   {
     nameKey: 'plan4Name',
