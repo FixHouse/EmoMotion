@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useState } from 'react';
 import { MetaTags } from './MetaTags';
 import { LanguageSwitcher } from './LanguageSwitcher';
 import { MobileMenu } from './MobileMenu';
@@ -15,7 +15,13 @@ import { ScrollToTop } from './ScrollToTop';
 import { PaymentSuccessBanner } from './PaymentSuccessBanner';
 
 export const AppContent: React.FC = () => {
-  const scrollToFinalCTA = () => {
+  // Which plan was clicked to bring the user to the form.
+  // 'planTrialName' = trial lesson (150 Kc, card payment allowed via Stripe).
+  // Any other key = paid package (cash only, no Stripe).
+  const [selectedPlan, setSelectedPlan] = useState<string>('planTrialName');
+
+  const scrollToFinalCTA = (planKey?: string) => {
+    setSelectedPlan(planKey || 'planTrialName');
     const element = document.getElementById('cta');
     if (element) {
       element.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -56,7 +62,7 @@ export const AppContent: React.FC = () => {
       <div id="pricing">
         <PricingSection onCTAClick={scrollToFinalCTA} />
       </div>
-      <FinalCTA />
+      <FinalCTA selectedPlan={selectedPlan} />
       <Footer />
     </div>
   );

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useLanguage } from '../LanguageContext';
 import { motion } from 'motion/react';
 import { Sparkles, Phone, Instagram, MessageCircle, MapPin, CheckCircle, Send, CreditCard, Banknote } from 'lucide-react';
@@ -22,8 +22,9 @@ function buildStripeUrl(baseUrl: string, email: string, refId: string, language:
   return url.toString();
 }
 
-export const FinalCTA: React.FC = () => {
+export const FinalCTA: React.FC<{ selectedPlan?: string }> = ({ selectedPlan = 'planTrialName' }) => {
   const { t, language } = useLanguage();
+  const isTrialPlan = selectedPlan === 'planTrialName';
   const [formData, setFormData] = useState({
     parentName: '',
     childName: '',
@@ -38,6 +39,14 @@ export const FinalCTA: React.FC = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [showPrivacyModal, setShowPrivacyModal] = useState(false);
+
+  // Non-trial plans (4 lekce, 8 lekcí, 12 lekcí, jednorázová) don't have card
+  // payment — Stripe link is only for the 150 Kč trial. Force cash automatically.
+  useEffect(() => {
+    if (!isTrialPlan && formData.paymentMethod !== 'cash') {
+      setFormData((prev) => ({ ...prev, paymentMethod: 'cash' }));
+    }
+  }, [isTrialPlan, formData.paymentMethod]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -173,8 +182,9 @@ export const FinalCTA: React.FC = () => {
     const success = await sendToTelegram(message);
 
     if (success) {
-      // If user chose card payment — redirect to Stripe Payment Link
-      if (formData.paymentMethod === 'card') {
+      // Stripe Payment Link is for the 150 Kč trial lesson ONLY.
+      // Never redirect when a paid package (4/8/12 lekcí or single) is selected.
+      if (isTrialPlan && formData.paymentMethod === 'card') {
         const stripeUrl = buildStripeUrl(STRIPE_PAYMENT_LINK_URL, formData.email, refId, language);
         window.location.href = stripeUrl;
         return;
@@ -410,43 +420,49 @@ export const FinalCTA: React.FC = () => {
               </div>
             </div>
 
-            {/* Trial Class Badge */}
+            {/* Trial Class / Selected Plan Badge */}
             <div className="bg-gradient-to-r from-[#FFF0F5] to-[#E0F2FE] rounded-xl p-4 flex items-center justify-center gap-2">
               <Sparkles className="w-5 h-5 text-[#FF69B4]" />
-              <span className="font-bold text-gray-800">{t('formTrialClassLabel')}</span>
+              <span className="font-bold text-gray-800">
+                {isTrialPlan ? t('formTrialClassLabel') : t(selectedPlan as any)}
+              </span>
               <Sparkles className="w-5 h-5 text-[#7DD3FC]" />
             </div>
 
-            {/* Payment Method Selection */}
+            {/* Payment Method Selection — card option only for trial lesson (150 Kc) */}
             <div>
               <label className="block text-sm font-bold text-gray-700 mb-1">
-                {t('formPaymentMethodLabel')}
+                {isTrialPlan ? t('formPaymentMethodLabel') : t('formPaymentMethodLabelPackage')}
               </label>
-              <p className="text-xs text-gray-500 mb-3">{t('formPaymentMethodHint')}</p>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                <label
-                  className={`relative flex items-start gap-3 p-4 rounded-xl border-2 cursor-pointer transition-all ${
-                    formData.paymentMethod === 'card'
-                      ? 'border-[#FF69B4] bg-gradient-to-br from-[#FFF0F5] to-white shadow-md'
-                      : 'border-gray-200 bg-white hover:border-[#FF69B4]/40'
-                  }`}
-                >
-                  <input
-                    type="radio"
-                    name="paymentMethod"
-                    value="card"
-                    checked={formData.paymentMethod === 'card'}
-                    onChange={() => setFormData({ ...formData, paymentMethod: 'card' })}
-                    className="mt-1 w-4 h-4 text-[#FF69B4] focus:ring-[#FF69B4] flex-shrink-0"
-                  />
-                  <div className="flex-1">
-                    <div className="flex items-center gap-2 mb-1">
-                      <CreditCard className="w-5 h-5 text-[#FF69B4]" />
-                      <span className="font-bold text-gray-800 text-sm">{t('formPaymentCard')}</span>
+              <p className="text-xs text-gray-500 mb-3">
+                {isTrialPlan ? t('formPaymentMethodHint') : t('formPaymentMethodHintPackage')}
+              </p>
+              <div className={`grid grid-cols-1 ${isTrialPlan ? 'md:grid-cols-2' : ''} gap-3`}>
+                {isTrialPlan && (
+                  <label
+                    className={`relative flex items-start gap-3 p-4 rounded-xl border-2 cursor-pointer transition-all ${
+                      formData.paymentMethod === 'card'
+                        ? 'border-[#FF69B4] bg-gradient-to-br from-[#FFF0F5] to-white shadow-md'
+                        : 'border-gray-200 bg-white hover:border-[#FF69B4]/40'
+                    }`}
+                  >
+                    <input
+                      type="radio"
+                      name="paymentMethod"
+                      value="card"
+                      checked={formData.paymentMethod === 'card'}
+                      onChange={() => setFormData({ ...formData, paymentMethod: 'card' })}
+                      className="mt-1 w-4 h-4 text-[#FF69B4] focus:ring-[#FF69B4] flex-shrink-0"
+                    />
+                    <div className="flex-1">
+                      <div className="flex items-center gap-2 mb-1">
+                        <CreditCard className="w-5 h-5 text-[#FF69B4]" />
+                        <span className="font-bold text-gray-800 text-sm">{t('formPaymentCard')}</span>
+                      </div>
+                      <p className="text-xs text-gray-600">{t('formPaymentCardDesc')}</p>
                     </div>
-                    <p className="text-xs text-gray-600">{t('formPaymentCardDesc')}</p>
-                  </div>
-                </label>
+                  </label>
+                )}
 
                 <label
                   className={`relative flex items-start gap-3 p-4 rounded-xl border-2 cursor-pointer transition-all ${
@@ -466,9 +482,13 @@ export const FinalCTA: React.FC = () => {
                   <div className="flex-1">
                     <div className="flex items-center gap-2 mb-1">
                       <Banknote className="w-5 h-5 text-[#7DD3FC]" />
-                      <span className="font-bold text-gray-800 text-sm">{t('formPaymentCash')}</span>
+                      <span className="font-bold text-gray-800 text-sm">
+                        {isTrialPlan ? t('formPaymentCash') : t('formPaymentCashPackage')}
+                      </span>
                     </div>
-                    <p className="text-xs text-gray-600">{t('formPaymentCashDesc')}</p>
+                    <p className="text-xs text-gray-600">
+                      {isTrialPlan ? t('formPaymentCashDesc') : t('formPaymentCashDescPackage')}
+                    </p>
                   </div>
                 </label>
               </div>

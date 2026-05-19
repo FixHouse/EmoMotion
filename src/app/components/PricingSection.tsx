@@ -104,7 +104,7 @@ const plans: PlanConfig[] = [
   },
 ];
 
-export const PricingSection: React.FC<{ onCTAClick: () => void }> = ({ onCTAClick }) => {
+export const PricingSection: React.FC<{ onCTAClick: (planKey?: string) => void }> = ({ onCTAClick }) => {
   const { t } = useLanguage();
 
   const getButtonClass = (style: PlanConfig['buttonStyle']) => {
@@ -255,14 +255,12 @@ export const PricingSection: React.FC<{ onCTAClick: () => void }> = ({ onCTAClic
                 {/* CTA Button */}
                 <div className="px-4 pb-5">
                   <motion.button
-                    onClick={onCTAClick}
+                    onClick={() => onCTAClick(plan.nameKey)}
                     className={`w-full py-3 rounded-2xl font-bold text-sm transition-all ${getButtonClass(plan.buttonStyle)}`}
                     whileHover={{ scale: 1.04 }}
                     whileTap={{ scale: 0.96 }}
                   >
-                    {plan.buttonStyle === 'subtle'
-                      ? t('ctaChoosePlan')
-                      : t('ctaBookNow')}
+                    {t('ctaBookNow')}
                   </motion.button>
                 </div>
               </motion.div>
