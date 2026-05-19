@@ -15,6 +15,7 @@ const schedule: ScheduleItem[] = [
   { age: 'age23', time: 'time23full', spots: '4 з 6', color: '#FACC15', titleKey: 'program23Title' },
   { age: 'age35', time: 'time35', spots: '6 з 10', color: '#FF69B4' },
   { age: 'age68', time: 'time68', spots: '9 з 10', color: '#7DD3FC' },
+  { age: 'age3545', time: 'time3545full', spots: '0 з 10', color: '#34D399' },
   { age: 'age58', time: 'time58', spots: '5 з 10', color: '#A78BFA' },
 ];
 
@@ -299,7 +300,7 @@ export const PricingSection: React.FC<{ onCTAClick: () => void }> = ({ onCTAClic
             </h3>
           </div>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-3 sm:gap-4">
             {schedule.map((item, index) => (
               <motion.div
                 key={index}

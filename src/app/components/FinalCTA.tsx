@@ -73,9 +73,13 @@ export const FinalCTA: React.FC = () => {
          language === 'en' ? '2.5-3.5 years (16:00-16:40, Mon/Wed)' :
          '2,5-3,5 років (16:00-16:40, Пн/Ср)')
       : formData.ageGroup === '3.5-5'
-      ? (language === 'cs' ? '3,5-5 let (16:50-17:35, Po/St)' : 
-         language === 'en' ? '3.5-5 years (16:50-17:35, Mon/Wed)' : 
+      ? (language === 'cs' ? '3,5-5 let (16:50-17:35, Po/St)' :
+         language === 'en' ? '3.5-5 years (16:50-17:35, Mon/Wed)' :
          '3,5-5 років (16:50-17:35, Пн/Ср)')
+      : formData.ageGroup === '3.5-4.5'
+      ? (language === 'cs' ? '3,5-4,5 let (17:30-18:10, Pa)' :
+         language === 'en' ? '3.5-4.5 years (17:30-18:10, Fri)' :
+         '3,5-4,5 років (17:30-18:10, Пт)')
       : formData.ageGroup === '5.5-8'
       ? (language === 'cs' ? '5,5-8 let (17:45-18:35, Po/St)' : 
          language === 'en' ? '5.5-8 years (17:45-18:35, Mon/Wed)' : 
@@ -370,6 +374,7 @@ export const FinalCTA: React.FC = () => {
                   <option value="2-3">{t('formGroup23')}</option>
                   <option value="2.5-3.5">{t('formGroup25')}</option>
                   <option value="3.5-5">{t('formGroup35')}</option>
+                  <option value="3.5-4.5">{t('formGroup3545')}</option>
                   <option value="5.5-8">{t('formGroup58')}</option>
                 </select>
               </div>
