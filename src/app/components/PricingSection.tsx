@@ -17,6 +17,7 @@ const schedule: ScheduleItem[] = [
   { age: 'age68', time: 'time68', spots: '9 з 10', color: '#7DD3FC' },
   { age: 'age3545', time: 'time3545full', spots: '0 з 10', color: '#34D399' },
   { age: 'age58', time: 'time58', spots: '5 з 10', color: '#A78BFA' },
+  { age: 'age2535pa', time: 'time2535pafull', spots: '0 з 10', color: '#FB923C' },
 ];
 
 type PlanConfig = {
@@ -298,7 +299,7 @@ export const PricingSection: React.FC<{ onCTAClick: (planKey?: string) => void }
             </h3>
           </div>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-2 sm:gap-3">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-2 sm:gap-3">
             {schedule.map((item, index) => (
               <motion.div
                 key={index}

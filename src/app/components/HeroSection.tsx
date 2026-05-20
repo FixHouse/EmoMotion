@@ -92,7 +92,7 @@ export const HeroSection: React.FC<{ onCTAClick: () => void }> = ({ onCTAClick }
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.7 }}
-              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-2 sm:gap-3 max-w-6xl mx-auto lg:mx-0"
+              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 sm:gap-3 max-w-6xl mx-auto lg:mx-0"
             >
               {[
                 { age: t('age23'), time: t('time23'), days: t('days23'), color: '#FACC15' },
@@ -100,6 +100,7 @@ export const HeroSection: React.FC<{ onCTAClick: () => void }> = ({ onCTAClick }
                 { age: t('age79'), time: t('time79'), days: t('days79'), color: '#7DD3FC' },
                 { age: t('age3545'), time: t('time3545'), days: t('days3545'), color: '#34D399' },
                 { age: t('age1012'), time: t('time1012'), days: t('days1012'), color: '#A78BFA' },
+                { age: t('age2535pa'), time: t('time2535pa'), days: t('days2535pa'), color: '#FB923C' },
               ].map((item, i) => (
                 <motion.div
                   key={i}
