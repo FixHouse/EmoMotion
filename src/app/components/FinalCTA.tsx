@@ -387,9 +387,9 @@ export const FinalCTA: React.FC<{ selectedPlan?: string }> = ({ selectedPlan = '
                   <option value="">{t('formAgePlaceholder')}</option>
                   <option value="2-3">{t('formGroup23')}</option>
                   <option value="2.5-3.5">{t('formGroup25')}</option>
-                  <option value="3.5-5">{t('formGroup35')}</option>
-                  <option value="3.5-4.5">{t('formGroup3545')}</option>
                   <option value="2.5-3.5-pa">{t('formGroup2535pa')}</option>
+                  <option value="3.5-4.5">{t('formGroup3545')}</option>
+                  <option value="3.5-5">{t('formGroup35')}</option>
                   <option value="5.5-8">{t('formGroup58')}</option>
                 </select>
               </div>
