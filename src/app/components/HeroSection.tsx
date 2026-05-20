@@ -97,10 +97,10 @@ export const HeroSection: React.FC<{ onCTAClick: () => void }> = ({ onCTAClick }
               {[
                 { age: t('age23'), time: t('time23'), days: t('days23'), color: '#FACC15' },
                 { age: t('age46'), time: t('time46'), days: t('days46'), color: '#FF69B4' },
-                { age: t('age79'), time: t('time79'), days: t('days79'), color: '#7DD3FC' },
-                { age: t('age3545'), time: t('time3545'), days: t('days3545'), color: '#34D399' },
-                { age: t('age1012'), time: t('time1012'), days: t('days1012'), color: '#A78BFA' },
                 { age: t('age2535pa'), time: t('time2535pa'), days: t('days2535pa'), color: '#FB923C' },
+                { age: t('age3545'), time: t('time3545'), days: t('days3545'), color: '#34D399' },
+                { age: t('age79'), time: t('time79'), days: t('days79'), color: '#7DD3FC' },
+                { age: t('age1012'), time: t('time1012'), days: t('days1012'), color: '#A78BFA' },
               ].map((item, i) => (
                 <motion.div
                   key={i}

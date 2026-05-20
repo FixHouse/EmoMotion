@@ -94,9 +94,9 @@ export const FinalCTA: React.FC<{ selectedPlan?: string }> = ({ selectedPlan = '
          language === 'en' ? '2.5-3.5 years (18:20-19:00, Fri)' :
          '2,5-3,5 років (18:20-19:00, Пт)')
       : formData.ageGroup === '5.5-8'
-      ? (language === 'cs' ? '5,5-8 let (17:45-18:35, Po/St)' : 
-         language === 'en' ? '5.5-8 years (17:45-18:35, Mon/Wed)' : 
-         '5,5-8 років (17:45-18:35, Пн/Ср)')
+      ? (language === 'cs' ? '5-8 let (17:45-18:35, Po/St)' :
+         language === 'en' ? '5-8 years (17:45-18:35, Mon/Wed)' :
+         '5-8 років (17:45-18:35, Пн/Ср)')
       : formData.ageGroup;
 
     const dateText = formData.date;
