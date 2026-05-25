@@ -73,7 +73,15 @@ export const FinalCTA: React.FC<{ selectedPlan?: string }> = ({ selectedPlan = '
     const refId = `EMO-${Date.now().toString(36).toUpperCase()}-${Math.random().toString(36).substring(2, 6).toUpperCase()}`;
 
     // Get age group full text
-    const ageGroupText = formData.ageGroup === '2-3'
+    const ageGroupText = formData.ageGroup === '2-3-1100'
+      ? (language === 'cs' ? '2-3 let (11:00-11:30, Po/St)' :
+         language === 'en' ? '2-3 years (11:00-11:30, Mon/Wed)' :
+         '2-3 років (11:00-11:30, Пн/Ср)')
+      : formData.ageGroup === '2-3-1130'
+      ? (language === 'cs' ? '2-3 let (11:30-12:00, Po/St)' :
+         language === 'en' ? '2-3 years (11:30-12:00, Mon/Wed)' :
+         '2-3 років (11:30-12:00, Пн/Ср)')
+      : formData.ageGroup === '2-3'
       ? (language === 'cs' ? '2-3 let (15:20-15:50, Po/St)' :
          language === 'en' ? '2-3 years (15:20-15:50, Mon/Wed)' :
          '2-3 років (15:20-15:50, Пн/Ср)')
@@ -385,6 +393,8 @@ export const FinalCTA: React.FC<{ selectedPlan?: string }> = ({ selectedPlan = '
                   className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-[#FF69B4] focus:outline-none transition-colors text-gray-800 bg-white"
                 >
                   <option value="">{t('formAgePlaceholder')}</option>
+                  <option value="2-3-1100">{t('formGroup23_1100')}</option>
+                  <option value="2-3-1130">{t('formGroup23_1130')}</option>
                   <option value="2-3">{t('formGroup23')}</option>
                   <option value="2.5-3.5">{t('formGroup25')}</option>
                   <option value="2.5-3.5-pa">{t('formGroup2535pa')}</option>

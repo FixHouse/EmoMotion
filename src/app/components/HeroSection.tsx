@@ -95,6 +95,8 @@ export const HeroSection: React.FC<{ onCTAClick: () => void }> = ({ onCTAClick }
               className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 sm:gap-3 max-w-6xl mx-auto lg:mx-0"
             >
               {[
+                { age: t('age23'), time: t('time23_1100'), days: t('days23'), color: '#FACC15' },
+                { age: t('age23'), time: t('time23_1130'), days: t('days23'), color: '#FACC15' },
                 { age: t('age23'), time: t('time23'), days: t('days23'), color: '#FACC15' },
                 { age: t('age46'), time: t('time46'), days: t('days46'), color: '#FF69B4' },
                 { age: t('age2535pa'), time: t('time2535pa'), days: t('days2535pa'), color: '#FB923C' },
