@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { useLanguage } from '../LanguageContext';
 import { motion } from 'motion/react';
-import { Sparkles, Phone, Instagram, MessageCircle, MapPin, CheckCircle, Send, CreditCard, Banknote } from 'lucide-react';
+import { Sparkles, Phone, Instagram, MessageCircle, MapPin, CheckCircle, Send, CreditCard, Banknote, Calendar as CalendarIcon } from 'lucide-react';
+import { format, parse, startOfDay } from 'date-fns';
+import { cs as csLocale, enUS, uk as ukLocale } from 'date-fns/locale';
 import { sendToTelegram } from '../utils/telegram';
 import { PrivacyPolicy } from './PrivacyPolicy';
 import { LocationsMap } from './LocationsMap';
+import { Calendar } from './ui/calendar';
+import { Popover, PopoverTrigger, PopoverContent } from './ui/popover';
 
 type PaymentMethod = 'card' | 'cash' | '';
 
@@ -39,6 +43,15 @@ export const FinalCTA: React.FC<{ selectedPlan?: string }> = ({ selectedPlan = '
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [showPrivacyModal, setShowPrivacyModal] = useState(false);
+  const [isDateOpen, setIsDateOpen] = useState(false);
+
+  const dateLocale = language === 'cs' ? csLocale : language === 'en' ? enUS : ukLocale;
+  const selectedDate = formData.date
+    ? (() => {
+        const parsed = parse(formData.date, 'dd.MM.yyyy', new Date());
+        return isNaN(parsed.getTime()) ? undefined : parsed;
+      })()
+    : undefined;
 
   // Non-trial plans (4 lekce, 8 lekcí, 12 lekcí, jednorázová) don't have card
   // payment — Stripe link is only for the 150 Kč trial. Force cash automatically.
@@ -60,6 +73,11 @@ export const FinalCTA: React.FC<{ selectedPlan?: string }> = ({ selectedPlan = '
 
     if (!formData.email.includes('@')) {
       alert(t('formEmailInvalid'));
+      return;
+    }
+
+    if (!formData.date) {
+      alert(t('formDateRequired'));
       return;
     }
 
@@ -404,19 +422,44 @@ export const FinalCTA: React.FC<{ selectedPlan?: string }> = ({ selectedPlan = '
                 </select>
               </div>
 
-              {/* Trial Date - Text input */}
+              {/* Trial Date - Calendar picker */}
               <div className="space-y-2">
                 <label className="block text-sm font-bold text-gray-700 mb-2">
                   {t('formTrialDateLabel')}
                 </label>
-                <input
-                  type="text"
-                  required
-                  value={formData.date}
-                  onChange={(e) => setFormData({ ...formData, date: e.target.value })}
-                  placeholder={t('formDatePlaceholder')}
-                  className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-[#FF69B4] focus:outline-none transition-colors text-gray-800 bg-white"
-                />
+                <Popover open={isDateOpen} onOpenChange={setIsDateOpen}>
+                  <PopoverTrigger asChild>
+                    <button
+                      type="button"
+                      className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 hover:border-gray-300 focus:border-[#FF69B4] focus:outline-none transition-colors bg-white text-left flex items-center justify-between"
+                    >
+                      <span className={formData.date ? 'text-gray-800' : 'text-gray-400'}>
+                        {formData.date || t('formDatePlaceholder')}
+                      </span>
+                      <CalendarIcon className="w-5 h-5 text-gray-400 shrink-0 ml-2" />
+                    </button>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-auto p-0 data-[state=closed]:hidden" align="start">
+                    <Calendar
+                      mode="single"
+                      selected={selectedDate}
+                      onSelect={(date) => {
+                        if (date) {
+                          setFormData({ ...formData, date: format(date, 'dd.MM.yyyy') });
+                          setIsDateOpen(false);
+                        }
+                      }}
+                      disabled={{ before: startOfDay(new Date()) }}
+                      locale={dateLocale}
+                      defaultMonth={selectedDate}
+                      classNames={{
+                        day_selected: 'bg-[#FF69B4] text-white hover:bg-[#FF69B4] hover:text-white focus:bg-[#FF69B4] focus:text-white',
+                        day_today: 'text-[#FF69B4] font-bold',
+                      }}
+                      initialFocus
+                    />
+                  </PopoverContent>
+                </Popover>
               </div>
 
               {/* Email */}
