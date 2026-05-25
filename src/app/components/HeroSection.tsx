@@ -96,8 +96,8 @@ export const HeroSection: React.FC<{ onCTAClick: () => void }> = ({ onCTAClick }
             >
               {[
                 { age: t('age23'), time: t('time23_1100'), days: t('days23'), color: '#FACC15' },
-                { age: t('age23'), time: t('time23_1130'), days: t('days23'), color: '#FACC15' },
-                { age: t('age23'), time: t('time23'), days: t('days23'), color: '#FACC15' },
+                { age: t('age23'), time: t('time23_1130'), days: t('days23'), color: '#F472B6' },
+                { age: t('age23'), time: t('time23'), days: t('days23'), color: '#C084FC' },
                 { age: t('age46'), time: t('time46'), days: t('days46'), color: '#FF69B4' },
                 { age: t('age2535pa'), time: t('time2535pa'), days: t('days2535pa'), color: '#FB923C' },
                 { age: t('age3545'), time: t('time3545'), days: t('days3545'), color: '#34D399' },
