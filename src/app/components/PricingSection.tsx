@@ -37,6 +37,8 @@ type PlanConfig = {
   buttonStyle: 'primary' | 'featured' | 'subtle' | 'gold' | 'purple';
   isPopular?: boolean;
   isBest?: boolean;
+  capacity?: { taken: number; total: number };
+  spotsLabelKey?: string;
 };
 
 const plans: PlanConfig[] = [
@@ -92,18 +94,20 @@ const plans: PlanConfig[] = [
     isPopular: true,
   },
   {
-    nameKey: 'plan12Name',
-    subtitleKey: 'plan12Subtitle',
-    priceKey: 'price2800',
+    nameKey: 'plan30Name',
+    subtitleKey: 'plan30Subtitle',
+    priceKey: 'price6000',
     priceDisplay: '',
     emoji: '🦋',
     accentColor: '#8b5cf6',
     bgColor: '#f5f3ff',
     borderColor: '#a78bfa',
-    features: ['feature1Pack12', 'feature2Pack12', 'feature3Pack12', 'feature4Pack12', 'feature5Pack12'],
-    saveKey: 'plan12Save',
+    features: ['feature1Pack30', 'feature2Pack30', 'feature3Pack30', 'feature4Pack30', 'feature5Pack30', 'feature6Pack30'],
+    saveKey: 'plan30Save',
     buttonStyle: 'purple',
     isBest: true,
+    capacity: { taken: 0, total: 4 },
+    spotsLabelKey: 'plan30SpotsLabel',
   },
 ];
 
@@ -239,6 +243,29 @@ export const PricingSection: React.FC<{ onCTAClick: (planKey?: string) => void }
                     }
                   </div>
                 </div>
+
+                {/* Capacity (limited spots) */}
+                {plan.capacity && plan.spotsLabelKey && (
+                  <div className="px-4 pt-3">
+                    <p className="text-xs text-center font-semibold mb-1.5" style={{ color: plan.accentColor }}>
+                      {t(plan.spotsLabelKey as any)}
+                    </p>
+                    <div className="flex items-center gap-2">
+                      <div className="flex-1 h-2 bg-gray-200 rounded-full overflow-hidden">
+                        <div
+                          className="h-full rounded-full transition-all"
+                          style={{
+                            width: `${(plan.capacity.taken / plan.capacity.total) * 100}%`,
+                            backgroundColor: plan.accentColor,
+                          }}
+                        />
+                      </div>
+                      <span className="text-xs font-bold text-gray-700 whitespace-nowrap">
+                        {plan.capacity.taken} / {plan.capacity.total}
+                      </span>
+                    </div>
+                  </div>
+                )}
 
                 {/* Features */}
                 <div className="flex-1 px-4 py-4 space-y-2">
