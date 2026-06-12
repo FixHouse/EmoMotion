@@ -127,9 +127,23 @@ export const FinalCTA: React.FC<{ selectedPlan?: string }> = ({ selectedPlan = '
 
     const dateText = formData.date;
 
-    const titleText = language === 'cs' ? 'NOVÁ PŘIHLÁŠKA NA ZKUŠEBNÍ LEKCI!' :
-                      language === 'en' ? 'NEW TRIAL CLASS APPLICATION!' :
-                      'НОВА ЗАЯВКА НА ПРОБНЕ ЗАНЯТТЯ!';
+    const titleText = language === 'cs' ? 'NOVÁ PŘIHLÁŠKA!' :
+                      language === 'en' ? 'NEW APPLICATION!' :
+                      'НОВА ЗАЯВКА!';
+
+    const planPriceMap: Record<string, string> = {
+      planTrialName: '150 Kč',
+      planSingleName: t('price350' as any),
+      plan4Name: t('price1200' as any),
+      plan8Name: t('price2000' as any),
+      plan30Name: t('price6000' as any),
+    };
+    const planPriceText = planPriceMap[selectedPlan] || '';
+    const planNameText = t(selectedPlan as any);
+
+    const planLabel = language === 'cs' ? (isTrialPlan ? 'Zkušební lekce' : 'Balíček') :
+                      language === 'en' ? (isTrialPlan ? 'Trial lesson' : 'Package') :
+                      (isTrialPlan ? 'Пробне заняття' : 'Пакет');
     
     const parentNameLabel = language === 'cs' ? 'Jméno rodiče' :
                             language === 'en' ? 'Parent\'s name' :
@@ -155,9 +169,13 @@ export const FinalCTA: React.FC<{ selectedPlan?: string }> = ({ selectedPlan = '
                        language === 'en' ? 'Email' :
                        'Email';
     
-    const dateLabel = language === 'cs' ? 'Datum zkušební lekce' :
-                      language === 'en' ? 'Trial class date' :
-                      'Дата пробного заняття';
+    const dateLabel = isTrialPlan
+      ? (language === 'cs' ? 'Datum zkušební lekce' :
+         language === 'en' ? 'Trial class date' :
+         'Дата пробного заняття')
+      : (language === 'cs' ? 'Preferovaný datum startu' :
+         language === 'en' ? 'Preferred start date' :
+         'Бажана дата початку');
 
     const scheduleLabel = language === 'cs' ? 'Rozvrh' :
                           language === 'en' ? 'Schedule' :
@@ -189,6 +207,7 @@ export const FinalCTA: React.FC<{ selectedPlan?: string }> = ({ selectedPlan = '
 
     const message = `
 🎉 <b>${titleText}</b> ${languageEmoji}
+🎟 <b>${planLabel}:</b> ${planNameText}${planPriceText ? ` (${planPriceText})` : ''}
 
 ━━━━━━━━━━━━━━━━━━━━
 👤 <b>${parentNameLabel}:</b> ${formData.parentName}
