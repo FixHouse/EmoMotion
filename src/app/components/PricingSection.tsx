@@ -1,26 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useLanguage } from '../LanguageContext';
 import { motion } from 'motion/react';
-import { Clock, Check, Star, Calendar } from 'lucide-react';
-
-type ScheduleItem = {
-  age: string;
-  time: string;
-  spots: string;
-  color: string;
-  titleKey?: string;
-};
-
-const schedule: ScheduleItem[] = [
-  { age: 'age23', time: 'time23_1100full', spots: '5 з 6', color: '#FACC15' },
-  { age: 'age23', time: 'time23_1130full', spots: '3 з 6', color: '#F472B6' },
-  { age: 'age23', time: 'time23full', spots: '4 з 6', color: '#C084FC', titleKey: 'program23Title' },
-  { age: 'age35', time: 'time35', spots: '3 з 10', color: '#EF4444' },
-  { age: 'age2535pa', time: 'time2535pafull', spots: '5 з 10', color: '#FB923C' },
-  { age: 'age3545', time: 'time3545full', spots: '5 з 10', color: '#34D399' },
-  { age: 'age68', time: 'time68', spots: '9 з 10', color: '#0EA5E9' },
-  { age: 'age58', time: 'time58', spots: '5 з 10', color: '#6366F1' },
-];
+import { Clock, Check, Star, Calendar, MapPin } from 'lucide-react';
+import { locations, scheduleByLocation, LocationKey } from '../scheduleData';
 
 type PlanConfig = {
   nameKey: string;
@@ -113,6 +95,9 @@ const plans: PlanConfig[] = [
 
 export const PricingSection: React.FC<{ onCTAClick: (planKey?: string) => void }> = ({ onCTAClick }) => {
   const { t } = useLanguage();
+  const [activeLoc, setActiveLoc] = useState<LocationKey>('praha2');
+  const activeLocation = locations.find((l) => l.key === activeLoc)!;
+  const slots = scheduleByLocation[activeLoc];
 
   const getButtonClass = (style: PlanConfig['buttonStyle']) => {
     switch (style) {
@@ -328,53 +313,90 @@ export const PricingSection: React.FC<{ onCTAClick: (planKey?: string) => void }
             </h3>
           </div>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-2 sm:gap-3">
-            {schedule.map((item, index) => (
-              <motion.div
-                key={index}
-                className="flex flex-col h-full bg-gradient-to-br from-gray-50 to-white rounded-2xl p-3 lg:p-4 border-2 border-transparent hover:border-[#FF69B4]/30 transition-all min-w-0"
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                whileHover={{ y: -5 }}
-              >
-                <div className="flex items-center gap-1.5 mb-2 flex-wrap">
-                  <Calendar className="w-4 h-4 shrink-0" style={{ color: item.color }} />
-                  <h4 className="text-sm sm:text-base font-bold whitespace-nowrap" style={{ color: item.color }}>
-                    {t(item.age as any)}
-                  </h4>
-                  {item.titleKey && (
-                    <span
-                      className="text-xs sm:text-sm font-extrabold whitespace-nowrap"
-                      style={{ color: item.color }}
-                    >
-                      {t(item.titleKey as any)}
-                    </span>
-                  )}
-                </div>
-
-                <p className="text-sm font-bold text-gray-700 mb-3 whitespace-nowrap">
-                  {t(item.time as any)}
-                </p>
-
-                <div className="flex items-center gap-2 mt-auto">
-                  <div className="flex-1 h-2 bg-gray-200 rounded-full overflow-hidden">
-                    <motion.div
-                      className="h-full rounded-full"
-                      style={{ backgroundColor: item.color }}
-                      initial={{ width: 0 }}
-                      whileInView={{ width: `${(parseInt(item.spots.split(' ')[0]) / parseInt(item.spots.split(' ')[2])) * 100}%` }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 1, delay: index * 0.2 }}
-                    />
+          {/* Location tabs */}
+          <div className="flex flex-col sm:flex-row gap-2 mb-6">
+            {locations.map((loc) => {
+              const active = loc.key === activeLoc;
+              return (
+                <motion.button
+                  key={loc.key}
+                  type="button"
+                  onClick={() => setActiveLoc(loc.key)}
+                  className={`flex-1 flex items-center justify-center gap-2 px-4 py-3 rounded-xl font-bold text-sm sm:text-base shadow-md transition-all ${
+                    active
+                      ? 'bg-white text-gray-900 ring-2'
+                      : 'bg-gray-50 text-gray-600 hover:bg-white'
+                  }`}
+                  style={active ? ({ '--tw-ring-color': loc.color } as React.CSSProperties) : undefined}
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  <MapPin className="w-5 h-5 shrink-0" style={{ color: loc.color }} />
+                  <div className="flex flex-col items-start leading-tight">
+                    <span>{t(loc.nameKey as any)} · {t(loc.addressKey as any)}</span>
+                    <span className="text-xs font-semibold text-gray-500">{t(loc.daysFullKey as any)}</span>
                   </div>
-                  <span className="text-xs font-bold text-gray-600 whitespace-nowrap">
-                    {item.spots} {t('spotsLabel')}
-                  </span>
-                </div>
-              </motion.div>
-            ))}
+                </motion.button>
+              );
+            })}
+          </div>
+
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-2 sm:gap-3">
+            {slots.map((slot, index) => {
+              const days = slot.dayOverrideKey
+                ? t(slot.dayOverrideKey as any)
+                : t(activeLocation.daysKey as any);
+              const [takenStr, , totalStr] = slot.spots.split(' ');
+              const taken = parseInt(takenStr);
+              const total = parseInt(totalStr);
+              return (
+                <motion.div
+                  key={`${activeLoc}-${slot.id}`}
+                  className="flex flex-col h-full bg-gradient-to-br from-gray-50 to-white rounded-2xl p-3 lg:p-4 border-2 border-transparent hover:border-[#FF69B4]/30 transition-all min-w-0"
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: index * 0.08 }}
+                  whileHover={{ y: -5 }}
+                >
+                  <div className="flex items-center gap-1.5 mb-1 flex-wrap">
+                    <Calendar className="w-4 h-4 shrink-0" style={{ color: slot.color }} />
+                    <h4 className="text-sm sm:text-base font-bold whitespace-nowrap" style={{ color: slot.color }}>
+                      {t(slot.ageKey as any)}
+                    </h4>
+                  </div>
+                  {slot.titleKey && (
+                    <div
+                      className="text-xs sm:text-sm font-extrabold mb-1"
+                      style={{ color: slot.color }}
+                    >
+                      {t(slot.titleKey as any)}
+                    </div>
+                  )}
+
+                  <p className="text-sm font-bold text-gray-700 mb-1 whitespace-nowrap">
+                    {t(slot.timeKey as any)}
+                  </p>
+                  <p className="text-xs font-semibold text-gray-500 mb-3 whitespace-nowrap">
+                    {days}
+                  </p>
+
+                  <div className="flex items-center gap-2 mt-auto">
+                    <div className="flex-1 h-2 bg-gray-200 rounded-full overflow-hidden">
+                      <motion.div
+                        className="h-full rounded-full"
+                        style={{ backgroundColor: slot.color }}
+                        initial={{ width: 0 }}
+                        animate={{ width: `${(taken / total) * 100}%` }}
+                        transition={{ duration: 1, delay: index * 0.15 }}
+                      />
+                    </div>
+                    <span className="text-xs font-bold text-gray-600 whitespace-nowrap">
+                      {slot.spots} {t('spotsLabel')}
+                    </span>
+                  </div>
+                </motion.div>
+              );
+            })}
           </div>
         </motion.div>
       </div>

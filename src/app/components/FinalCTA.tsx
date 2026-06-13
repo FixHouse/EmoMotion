@@ -9,6 +9,7 @@ import { PrivacyPolicy } from './PrivacyPolicy';
 import { LocationsMap } from './LocationsMap';
 import { Calendar } from './ui/calendar';
 import { Popover, PopoverTrigger, PopoverContent } from './ui/popover';
+import { locations, scheduleByLocation, getSlotById, LocationKey } from '../scheduleData';
 
 type PaymentMethod = 'card' | 'cash' | '';
 
@@ -35,6 +36,7 @@ export const FinalCTA: React.FC<{ selectedPlan?: string }> = ({ selectedPlan = '
     childAge: '',
     phone: '',
     email: '',
+    location: '' as LocationKey | '',
     ageGroup: '',
     date: '',
     paymentMethod: '' as PaymentMethod,
@@ -76,6 +78,11 @@ export const FinalCTA: React.FC<{ selectedPlan?: string }> = ({ selectedPlan = '
       return;
     }
 
+    if (!formData.location) {
+      alert(t('locationRequired'));
+      return;
+    }
+
     if (!formData.date) {
       alert(t('formDateRequired'));
       return;
@@ -90,40 +97,21 @@ export const FinalCTA: React.FC<{ selectedPlan?: string }> = ({ selectedPlan = '
 
     const refId = `EMO-${Date.now().toString(36).toUpperCase()}-${Math.random().toString(36).substring(2, 6).toUpperCase()}`;
 
-    // Get age group full text
-    const ageGroupText = formData.ageGroup === '2-3-1100'
-      ? (language === 'cs' ? '2-3 let (11:00-11:30, Po/St)' :
-         language === 'en' ? '2-3 years (11:00-11:30, Mon/Wed)' :
-         '2-3 років (11:00-11:30, Пн/Ср)')
-      : formData.ageGroup === '2-3-1130'
-      ? (language === 'cs' ? '2-3 let (11:30-12:00, Po/St)' :
-         language === 'en' ? '2-3 years (11:30-12:00, Mon/Wed)' :
-         '2-3 років (11:30-12:00, Пн/Ср)')
-      : formData.ageGroup === '2-3'
-      ? (language === 'cs' ? '2-3 let (15:20-15:50, Po/St)' :
-         language === 'en' ? '2-3 years (15:20-15:50, Mon/Wed)' :
-         '2-3 років (15:20-15:50, Пн/Ср)')
-      : formData.ageGroup === '2.5-3.5'
-      ? (language === 'cs' ? '2,5-3,5 let (16:00-16:40, Po/St)' :
-         language === 'en' ? '2.5-3.5 years (16:00-16:40, Mon/Wed)' :
-         '2,5-3,5 років (16:00-16:40, Пн/Ср)')
-      : formData.ageGroup === '3.5-5'
-      ? (language === 'cs' ? '3,5-5 let (16:50-17:35, Po/St)' :
-         language === 'en' ? '3.5-5 years (16:50-17:35, Mon/Wed)' :
-         '3,5-5 років (16:50-17:35, Пн/Ср)')
-      : formData.ageGroup === '3.5-4.5'
-      ? (language === 'cs' ? '3,5-4,5 let (17:30-18:10, Pa)' :
-         language === 'en' ? '3.5-4.5 years (17:30-18:10, Fri)' :
-         '3,5-4,5 років (17:30-18:10, Пт)')
-      : formData.ageGroup === '2.5-3.5-pa'
-      ? (language === 'cs' ? '2,5-3,5 let (18:20-19:00, Pa)' :
-         language === 'en' ? '2.5-3.5 years (18:20-19:00, Fri)' :
-         '2,5-3,5 років (18:20-19:00, Пт)')
-      : formData.ageGroup === '5.5-8'
-      ? (language === 'cs' ? '5-8 let (17:45-18:35, Po/St)' :
-         language === 'en' ? '5-8 years (17:45-18:35, Mon/Wed)' :
-         '5-8 років (17:45-18:35, Пн/Ср)')
-      : formData.ageGroup;
+    // Build group text from new schedule data
+    const slotInfo = getSlotById(formData.ageGroup);
+    let ageGroupText = formData.ageGroup;
+    let locationText = '';
+    if (slotInfo) {
+      const { slot, location } = slotInfo;
+      const ageTxt = t(slot.ageKey as any);
+      const timeTxt = t(slot.timeKey as any);
+      const daysTxt = slot.dayOverrideKey
+        ? t(slot.dayOverrideKey as any)
+        : t(location.daysKey as any);
+      const titleTxt = slot.titleKey ? ` · ${t(slot.titleKey as any)}` : '';
+      ageGroupText = `${ageTxt} (${timeTxt}, ${daysTxt})${titleTxt}`;
+      locationText = `${t(location.nameKey as any)} — ${t(location.addressKey as any)}`;
+    }
 
     const dateText = formData.date;
 
@@ -222,8 +210,8 @@ export const FinalCTA: React.FC<{ selectedPlan?: string }> = ({ selectedPlan = '
 <b>${refLabel}:</b> <code>${refId}</code>
 ━━━━━━━━━━━━━━━━━━━━
 
-⏰ <b>${scheduleLabel}:</b> Понеділок та Середа / Pondělí a Středa / Monday & Wednesday
-📍 <b>${locationLabel}:</b> EmoMotion Studio, Praha
+⏰ <b>${scheduleLabel}:</b> ${slotInfo ? t(slotInfo.location.daysFullKey as any) : ''}
+📍 <b>${locationLabel}:</b> ${locationText || 'EmoMotion Studio, Praha'}
 
 ✨ EmoMotion Studio Prague
     `;
@@ -254,7 +242,7 @@ export const FinalCTA: React.FC<{ selectedPlan?: string }> = ({ selectedPlan = '
         }, i * 30);
       }
 
-      setFormData({ parentName: '', childName: '', childAge: '', phone: '', email: '', ageGroup: '', date: '', paymentMethod: '', consent: false });
+      setFormData({ parentName: '', childName: '', childAge: '', phone: '', email: '', location: '', ageGroup: '', date: '', paymentMethod: '', consent: false });
 
       setTimeout(() => {
         setIsSuccess(false);
@@ -418,6 +406,40 @@ export const FinalCTA: React.FC<{ selectedPlan?: string }> = ({ selectedPlan = '
                 />
               </div>
 
+              {/* Location selector */}
+              <div>
+                <label className="block text-sm font-bold text-gray-700 mb-2">
+                  {t('locationFormLabel')}
+                </label>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                  {locations.map((loc) => {
+                    const active = formData.location === loc.key;
+                    return (
+                      <button
+                        key={loc.key}
+                        type="button"
+                        onClick={() => setFormData({ ...formData, location: loc.key, ageGroup: '' })}
+                        className={`flex items-center gap-2 px-3 py-3 rounded-xl border-2 text-left transition-all ${
+                          active
+                            ? 'bg-white text-gray-900 border-[#FF69B4]'
+                            : 'bg-white text-gray-700 border-gray-200 hover:border-gray-300'
+                        }`}
+                      >
+                        <MapPin className="w-5 h-5 shrink-0" style={{ color: loc.color }} />
+                        <div className="flex flex-col leading-tight min-w-0">
+                          <span className="text-sm font-bold truncate">
+                            {t(loc.nameKey as any)} · {t(loc.addressKey as any)}
+                          </span>
+                          <span className="text-xs text-gray-500 truncate">
+                            {t(loc.daysFullKey as any)}
+                          </span>
+                        </div>
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+
               {/* Age Group */}
               <div>
                 <label className="block text-sm font-bold text-gray-700 mb-2">
@@ -426,18 +448,27 @@ export const FinalCTA: React.FC<{ selectedPlan?: string }> = ({ selectedPlan = '
                 <select
                   required
                   value={formData.ageGroup}
+                  disabled={!formData.location}
                   onChange={(e) => setFormData({ ...formData, ageGroup: e.target.value })}
-                  className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-[#FF69B4] focus:outline-none transition-colors text-gray-800 bg-white"
+                  className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-[#FF69B4] focus:outline-none transition-colors text-gray-800 bg-white disabled:bg-gray-100 disabled:text-gray-400 disabled:cursor-not-allowed"
                 >
-                  <option value="">{t('formAgePlaceholder')}</option>
-                  <option value="2-3-1100">{t('formGroup23_1100')}</option>
-                  <option value="2-3-1130">{t('formGroup23_1130')}</option>
-                  <option value="2-3">{t('formGroup23')}</option>
-                  <option value="2.5-3.5">{t('formGroup25')}</option>
-                  <option value="2.5-3.5-pa">{t('formGroup2535pa')}</option>
-                  <option value="3.5-4.5">{t('formGroup3545')}</option>
-                  <option value="3.5-5">{t('formGroup35')}</option>
-                  <option value="5.5-8">{t('formGroup58')}</option>
+                  <option value="">
+                    {formData.location ? t('formAgePlaceholder') : t('locationFormPlaceholder')}
+                  </option>
+                  {formData.location &&
+                    scheduleByLocation[formData.location as LocationKey].map((slot) => {
+                      const ageTxt = t(slot.ageKey as any);
+                      const timeTxt = t(slot.timeKey as any);
+                      const daysTxt = slot.dayOverrideKey
+                        ? t(slot.dayOverrideKey as any)
+                        : t(locations.find((l) => l.key === formData.location)!.daysKey as any);
+                      const titleTxt = slot.titleKey ? ` · ${t(slot.titleKey as any)}` : '';
+                      return (
+                        <option key={slot.id} value={slot.id}>
+                          {ageTxt} ({timeTxt}, {daysTxt}){titleTxt}
+                        </option>
+                      );
+                    })}
                 </select>
               </div>
 

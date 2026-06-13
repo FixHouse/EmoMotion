@@ -1,13 +1,17 @@
 import React, { useState } from 'react';
 import { useLanguage } from '../LanguageContext';
 import { motion } from 'motion/react';
-import { Play, Sparkles, Calendar } from 'lucide-react';
+import { Play, Sparkles, Calendar, MapPin } from 'lucide-react';
 import { VideoModal } from './VideoModal';
 import { AnimalInteractive } from './AnimalInteractive';
+import { locations, scheduleByLocation, LocationKey } from '../scheduleData';
 
 export const HeroSection: React.FC<{ onCTAClick: () => void }> = ({ onCTAClick }) => {
   const { t } = useLanguage();
   const [showVideo, setShowVideo] = useState(false);
+  const [activeLoc, setActiveLoc] = useState<LocationKey>('praha2');
+  const activeLocation = locations.find((l) => l.key === activeLoc)!;
+  const slots = scheduleByLocation[activeLoc];
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-white">
@@ -87,40 +91,76 @@ export const HeroSection: React.FC<{ onCTAClick: () => void }> = ({ onCTAClick }
               </motion.p>
             </div>
 
-            {/* Schedule Cards */}
+            {/* Location tabs + Schedule Cards */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.7 }}
-              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 sm:gap-3 max-w-6xl mx-auto lg:mx-0"
+              className="max-w-6xl mx-auto lg:mx-0 space-y-3"
             >
-              {[
-                { age: t('age23'), time: t('time23_1100'), days: t('days23'), color: '#FACC15' },
-                { age: t('age23'), time: t('time23_1130'), days: t('days23'), color: '#F472B6' },
-                { age: t('age23'), time: t('time23'), days: t('days23'), color: '#C084FC' },
-                { age: t('age46'), time: t('time46'), days: t('days46'), color: '#EF4444' },
-                { age: t('age2535pa'), time: t('time2535pa'), days: t('days2535pa'), color: '#FB923C' },
-                { age: t('age3545'), time: t('time3545'), days: t('days3545'), color: '#34D399' },
-                { age: t('age79'), time: t('time79'), days: t('days79'), color: '#0EA5E9' },
-                { age: t('age1012'), time: t('time1012'), days: t('days1012'), color: '#6366F1' },
-              ].map((item, i) => (
-                <motion.div
-                  key={i}
-                  className="bg-white rounded-2xl p-3 lg:p-4 shadow-md border-2 border-transparent hover:border-[#FF69B4] transition-all min-w-0"
-                  whileHover={{ y: -5, boxShadow: '0 20px 40px -10px rgba(255,105,180,0.2)' }}
-                >
-                  <div className="flex items-center gap-1.5 mb-2">
-                    <Calendar className="w-4 h-4 shrink-0" style={{ color: item.color }} />
-                    <span className="text-sm font-bold text-gray-900 whitespace-nowrap">{item.age}</span>
-                  </div>
-                  <div className="text-base lg:text-lg font-extrabold mb-1 whitespace-nowrap" style={{ color: item.color }}>
-                    {item.time}
-                  </div>
-                  <div className="text-sm text-gray-600 font-semibold">
-                    {item.days}
-                  </div>
-                </motion.div>
-              ))}
+              {/* Location tabs */}
+              <div className="flex gap-2">
+                {locations.map((loc) => {
+                  const active = loc.key === activeLoc;
+                  return (
+                    <motion.button
+                      key={loc.key}
+                      type="button"
+                      onClick={() => setActiveLoc(loc.key)}
+                      className={`flex-1 flex items-center justify-center gap-2 px-3 py-2.5 rounded-xl font-bold text-sm shadow-md transition-all ${
+                        active ? 'bg-white text-gray-900' : 'bg-white/60 text-gray-600 hover:bg-white/90'
+                      }`}
+                      style={active ? { borderBottom: `3px solid ${loc.color}` } : undefined}
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                    >
+                      <MapPin className="w-4 h-4 shrink-0" style={{ color: loc.color }} />
+                      <span>{t(loc.nameKey as any)}</span>
+                      <span className="hidden sm:inline text-xs font-semibold text-gray-500">
+                        · {t(loc.addressKey as any)}
+                      </span>
+                    </motion.button>
+                  );
+                })}
+              </div>
+
+              {/* Schedule cards for active location */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 sm:gap-3">
+                {slots.map((slot) => {
+                  const days = slot.dayOverrideKey
+                    ? t(slot.dayOverrideKey as any)
+                    : t(activeLocation.daysKey as any);
+                  return (
+                    <motion.div
+                      key={slot.id}
+                      className="bg-white rounded-2xl p-3 lg:p-4 shadow-md border-2 border-transparent hover:border-[#FF69B4] transition-all min-w-0"
+                      whileHover={{ y: -5, boxShadow: '0 20px 40px -10px rgba(255,105,180,0.2)' }}
+                    >
+                      <div className="flex items-center gap-1.5 mb-1 flex-wrap">
+                        <Calendar className="w-4 h-4 shrink-0" style={{ color: slot.color }} />
+                        <span className="text-sm font-bold text-gray-900 whitespace-nowrap">
+                          {t(slot.ageKey as any)}
+                        </span>
+                      </div>
+                      {slot.titleKey && (
+                        <div
+                          className="text-xs font-semibold mb-1"
+                          style={{ color: slot.color }}
+                        >
+                          {t(slot.titleKey as any)}
+                        </div>
+                      )}
+                      <div
+                        className="text-base lg:text-lg font-extrabold mb-1 whitespace-nowrap"
+                        style={{ color: slot.color }}
+                      >
+                        {t(slot.timeKey as any)}
+                      </div>
+                      <div className="text-sm text-gray-600 font-semibold">{days}</div>
+                    </motion.div>
+                  );
+                })}
+              </div>
             </motion.div>
 
             {/* CTA Buttons */}

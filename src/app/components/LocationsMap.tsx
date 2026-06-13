@@ -8,12 +8,20 @@ export const LocationsMap: React.FC = () => {
   const locations = [
     {
       id: 1,
-      name: 'Žitná',
-      fullAddress: 'Žitná 570/26, Praha 2',
+      name: 'Praha 2',
+      fullAddress: 'Francouzská 31, Praha 2',
       color: '#FF69B4',
-      mapUrl: 'https://www.google.com/maps?q=%C5%BDitn%C3%A1+570%2F26%2C+Praha+2&hl=cs&z=17&output=embed',
-      navigateUrl: 'https://www.google.com/maps/search/?api=1&query=%C5%BDitn%C3%A1+570%2F26%2C+Praha+2',
-    }
+      mapUrl: 'https://www.google.com/maps?q=Francouzsk%C3%A1+31%2C+Praha+2&hl=cs&z=17&output=embed',
+      navigateUrl: 'https://www.google.com/maps/search/?api=1&query=Francouzsk%C3%A1+31%2C+Praha+2',
+    },
+    {
+      id: 2,
+      name: 'Praha 9',
+      fullAddress: 'Jandova 207/4, Praha 9',
+      color: '#8b5cf6',
+      mapUrl: 'https://www.google.com/maps?q=Jandova+207%2F4%2C+Praha+9&hl=cs&z=17&output=embed',
+      navigateUrl: 'https://www.google.com/maps/search/?api=1&query=Jandova+207%2F4%2C+Praha+9',
+    },
   ];
 
   return (
