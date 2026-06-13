@@ -95,9 +95,9 @@ const plans: PlanConfig[] = [
 
 export const PricingSection: React.FC<{ onCTAClick: (planKey?: string) => void }> = ({ onCTAClick }) => {
   const { t } = useLanguage();
-  const [activeLoc, setActiveLoc] = useState<LocationKey>('praha2');
-  const activeLocation = locations.find((l) => l.key === activeLoc)!;
-  const slots = scheduleByLocation[activeLoc];
+  const [activeLoc, setActiveLoc] = useState<LocationKey | null>(null);
+  const activeLocation = activeLoc ? locations.find((l) => l.key === activeLoc)! : null;
+  const slots = activeLoc ? scheduleByLocation[activeLoc] : [];
 
   const getButtonClass = (style: PlanConfig['buttonStyle']) => {
     switch (style) {
@@ -341,6 +341,7 @@ export const PricingSection: React.FC<{ onCTAClick: (planKey?: string) => void }
             })}
           </div>
 
+          {activeLocation && (
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-2 sm:gap-3">
             {slots.map((slot, index) => {
               const days = slot.dayOverrideKey
@@ -398,6 +399,7 @@ export const PricingSection: React.FC<{ onCTAClick: (planKey?: string) => void }
               );
             })}
           </div>
+          )}
         </motion.div>
       </div>
     </section>

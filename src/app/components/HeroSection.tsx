@@ -9,9 +9,9 @@ import { locations, scheduleByLocation, LocationKey } from '../scheduleData';
 export const HeroSection: React.FC<{ onCTAClick: () => void }> = ({ onCTAClick }) => {
   const { t } = useLanguage();
   const [showVideo, setShowVideo] = useState(false);
-  const [activeLoc, setActiveLoc] = useState<LocationKey>('praha2');
-  const activeLocation = locations.find((l) => l.key === activeLoc)!;
-  const slots = scheduleByLocation[activeLoc];
+  const [activeLoc, setActiveLoc] = useState<LocationKey | null>(null);
+  const activeLocation = activeLoc ? locations.find((l) => l.key === activeLoc)! : null;
+  const slots = activeLoc ? scheduleByLocation[activeLoc] : [];
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-white">
@@ -125,6 +125,7 @@ export const HeroSection: React.FC<{ onCTAClick: () => void }> = ({ onCTAClick }
               </div>
 
               {/* Schedule cards for active location */}
+              {activeLocation && (
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 sm:gap-3">
                 {slots.map((slot) => {
                   const days = slot.dayOverrideKey
@@ -161,6 +162,7 @@ export const HeroSection: React.FC<{ onCTAClick: () => void }> = ({ onCTAClick }
                   );
                 })}
               </div>
+              )}
             </motion.div>
 
             {/* CTA Buttons */}
