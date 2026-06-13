@@ -699,13 +699,30 @@ export const FinalCTA: React.FC<{ selectedPlan?: string }> = ({ selectedPlan = '
               </div>
               <div className="w-full">
                 <div className="font-bold text-base text-gray-800 mb-3">{t('addressLabel')}</div>
-                
-                {/* Single Address */}
-                <div className="bg-gradient-to-r from-[#FFF0F5] to-[#E0F2FE] rounded-xl p-3">
-                  <div className="flex items-start gap-2">
-                    <MapPin className="w-4 h-4 text-[#FF69B4] mt-0.5 flex-shrink-0" />
-                    <div className="text-sm font-medium text-gray-800">{t('address')}</div>
-                  </div>
+
+                {/* Locations */}
+                <div className="space-y-2">
+                  {locations.map((loc) => (
+                    <div
+                      key={loc.key}
+                      className="bg-gradient-to-r from-[#FFF0F5] to-[#E0F2FE] rounded-xl p-3"
+                    >
+                      <div className="flex items-start gap-2">
+                        <MapPin
+                          className="w-4 h-4 mt-0.5 flex-shrink-0"
+                          style={{ color: loc.color }}
+                        />
+                        <div className="text-sm font-medium text-gray-800">
+                          <span className="font-bold">{t(loc.nameKey as any)}</span>
+                          {' · '}
+                          {t(loc.addressKey as any)}
+                          <div className="text-xs font-semibold text-gray-500 mt-0.5">
+                            {t(loc.daysFullKey as any)}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>
