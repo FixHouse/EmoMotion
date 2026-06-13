@@ -520,6 +520,7 @@ export const translations = {
     locationFormLabel: 'Lokalita',
     locationFormPlaceholder: 'Nejprve vyberte lokalitu',
     locationRequired: 'Prosím, vyberte lokalitu',
+    scheduleStartDate: 'od 07.09.2026',
   },
   en: {
     // Header
@@ -1043,6 +1044,7 @@ export const translations = {
     locationFormLabel: 'Location',
     locationFormPlaceholder: 'Please select a location first',
     locationRequired: 'Please select a location',
+    scheduleStartDate: 'from 07.09.2026',
   },
   uk: {
     // Header
@@ -1565,6 +1567,7 @@ export const translations = {
     locationFormLabel: 'Локація',
     locationFormPlaceholder: 'Спочатку виберіть локацію',
     locationRequired: 'Будь ласка, виберіть локацію',
+    scheduleStartDate: 'з 07.09.2026',
   }
 };
 

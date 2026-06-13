@@ -306,11 +306,16 @@ export const PricingSection: React.FC<{ onCTAClick: (planKey?: string) => void }
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
         >
-          <div className="flex items-center justify-center gap-3 mb-6 sm:mb-8">
-            <Clock className="w-6 h-6 text-[#FF69B4]" />
-            <h3 className="text-2xl sm:text-3xl font-bold text-gray-900" style={{ fontFamily: 'Poppins, sans-serif' }}>
-              {t('scheduleHeader')}
-            </h3>
+          <div className="flex flex-col items-center gap-1 mb-6 sm:mb-8">
+            <div className="flex items-center gap-3">
+              <Clock className="w-6 h-6 text-[#FF69B4]" />
+              <h3 className="text-2xl sm:text-3xl font-bold text-gray-900" style={{ fontFamily: 'Poppins, sans-serif' }}>
+                {t('scheduleHeader')}
+              </h3>
+            </div>
+            <p className="text-sm sm:text-base font-semibold text-[#FF69B4]">
+              {t('scheduleStartDate')}
+            </p>
           </div>
 
           {/* Location tabs */}

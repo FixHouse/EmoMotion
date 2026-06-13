@@ -98,6 +98,16 @@ export const HeroSection: React.FC<{ onCTAClick: () => void }> = ({ onCTAClick }
               transition={{ delay: 0.7 }}
               className="max-w-6xl mx-auto lg:mx-0 space-y-3"
             >
+              {/* Schedule heading */}
+              <div className="text-center">
+                <div className="text-base sm:text-lg font-bold text-gray-900">
+                  {t('scheduleHeader')}
+                </div>
+                <div className="text-xs sm:text-sm font-semibold text-[#FF69B4]">
+                  {t('scheduleStartDate')}
+                </div>
+              </div>
+
               {/* Location tabs */}
               <div className="flex gap-2">
                 {locations.map((loc) => {
