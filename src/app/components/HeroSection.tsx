@@ -144,8 +144,13 @@ export const HeroSection: React.FC<{ onCTAClick: () => void }> = ({ onCTAClick }
                   return (
                     <motion.div
                       key={slot.id}
-                      className="bg-white rounded-2xl p-3 lg:p-4 shadow-md border-2 border-transparent hover:border-[#FF69B4] transition-all min-w-0"
+                      role="button"
+                      tabIndex={0}
+                      onClick={() => onCTAClick()}
+                      onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onCTAClick(); } }}
+                      className="bg-white rounded-2xl p-3 lg:p-4 shadow-md border-2 border-transparent hover:border-[#FF69B4] transition-all min-w-0 cursor-pointer"
                       whileHover={{ y: -5, boxShadow: '0 20px 40px -10px rgba(255,105,180,0.2)' }}
+                      whileTap={{ scale: 0.97 }}
                     >
                       <div className="flex items-center gap-1.5 mb-1 flex-wrap">
                         <Calendar className="w-4 h-4 shrink-0" style={{ color: slot.color }} />

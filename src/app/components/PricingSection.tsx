@@ -358,11 +358,16 @@ export const PricingSection: React.FC<{ onCTAClick: (planKey?: string) => void }
               return (
                 <motion.div
                   key={`${activeLoc}-${slot.id}`}
-                  className="flex flex-col h-full bg-gradient-to-br from-gray-50 to-white rounded-2xl p-3 lg:p-4 border-2 border-transparent hover:border-[#FF69B4]/30 transition-all min-w-0"
+                  role="button"
+                  tabIndex={0}
+                  onClick={() => onCTAClick()}
+                  onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onCTAClick(); } }}
+                  className="flex flex-col h-full bg-gradient-to-br from-gray-50 to-white rounded-2xl p-3 lg:p-4 border-2 border-transparent hover:border-[#FF69B4]/30 transition-all min-w-0 cursor-pointer"
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: index * 0.08 }}
                   whileHover={{ y: -5 }}
+                  whileTap={{ scale: 0.97 }}
                 >
                   <div className="flex items-center gap-1.5 mb-1 flex-wrap">
                     <Calendar className="w-4 h-4 shrink-0" style={{ color: slot.color }} />
