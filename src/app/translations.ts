@@ -522,6 +522,13 @@ export const translations = {
     locationFormPlaceholder: 'Nejprve vyberte lokalitu',
     locationRequired: 'Prosím, vyberte lokalitu',
     scheduleStartDate: 'od 07.09.2026',
+    autumnBannerTitle: 'Nábor na podzim 2026 otevřen',
+    autumnBannerSubtitle: 'Přihlášky přijímáme do 31.07.2026',
+    autumnBannerCTA: 'Zapsat se na zkušební lekci',
+    autumnBannerDays: 'dní',
+    autumnBannerHours: 'hod',
+    autumnBannerMinutes: 'min',
+    autumnBannerSeconds: 'sek',
   },
   en: {
     // Header
@@ -1047,6 +1054,13 @@ export const translations = {
     locationFormPlaceholder: 'Please select a location first',
     locationRequired: 'Please select a location',
     scheduleStartDate: 'from 07.09.2026',
+    autumnBannerTitle: 'Autumn 2026 enrollment open',
+    autumnBannerSubtitle: 'Applications accepted until 31.07.2026',
+    autumnBannerCTA: 'Register for a trial class',
+    autumnBannerDays: 'days',
+    autumnBannerHours: 'hrs',
+    autumnBannerMinutes: 'min',
+    autumnBannerSeconds: 'sec',
   },
   uk: {
     // Header
@@ -1571,6 +1585,13 @@ export const translations = {
     locationFormPlaceholder: 'Спочатку виберіть локацію',
     locationRequired: 'Будь ласка, виберіть локацію',
     scheduleStartDate: 'з 07.09.2026',
+    autumnBannerTitle: 'Набір на осінь 2026 відкрито',
+    autumnBannerSubtitle: 'Заявки приймаємо до 31.07.2026',
+    autumnBannerCTA: 'Записатись на пробне',
+    autumnBannerDays: 'днів',
+    autumnBannerHours: 'год',
+    autumnBannerMinutes: 'хв',
+    autumnBannerSeconds: 'сек',
   }
 };
 

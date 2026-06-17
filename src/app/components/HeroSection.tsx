@@ -4,6 +4,7 @@ import { motion } from 'motion/react';
 import { Play, Sparkles, Calendar, MapPin } from 'lucide-react';
 import { VideoModal } from './VideoModal';
 import { AnimalInteractive } from './AnimalInteractive';
+import { AutumnEnrollmentBanner } from './AutumnEnrollmentBanner';
 import { locations, scheduleByLocation, LocationKey } from '../scheduleData';
 
 export const HeroSection: React.FC<{ onCTAClick: () => void }> = ({ onCTAClick }) => {
@@ -45,6 +46,7 @@ export const HeroSection: React.FC<{ onCTAClick: () => void }> = ({ onCTAClick }
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20">
+        <AutumnEnrollmentBanner onCTAClick={onCTAClick} />
         <div className="grid lg:grid-cols-5 gap-8 lg:gap-12 items-center">
           {/* Left Content */}
           <motion.div
