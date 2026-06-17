@@ -49,18 +49,6 @@ const plans: PlanConfig[] = [
     buttonStyle: 'gold',
   },
   {
-    nameKey: 'plan4Name',
-    subtitleKey: 'plan4Subtitle',
-    priceKey: 'price1200',
-    priceDisplay: '',
-    emoji: '⭐',
-    accentColor: '#f59e0b',
-    bgColor: '#fefce8',
-    borderColor: '#fde68a',
-    features: ['feature1Pack4', 'feature2Pack4', 'feature3Pack4'],
-    buttonStyle: 'gold',
-  },
-  {
     nameKey: 'plan8Name',
     subtitleKey: 'plan8Subtitle',
     priceKey: 'price2000',

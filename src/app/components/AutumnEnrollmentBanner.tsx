@@ -43,7 +43,49 @@ export const AutumnEnrollmentBanner: React.FC<{ onCTAClick: () => void }> = ({ o
       transition={{ duration: 0.5 }}
       className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-[#FFF7ED] via-[#FFF0F5] to-[#FFF7ED] p-4 sm:p-5 mb-6 shadow-md"
     >
-      <div className="flex flex-col lg:flex-row items-center justify-between gap-4 lg:gap-6">
+      {/* Decorative autumn leaves */}
+      <motion.div
+        aria-hidden="true"
+        className="absolute -top-2 -left-1 text-3xl sm:text-4xl opacity-60 pointer-events-none select-none"
+        animate={{ rotate: [-8, 12, -8], y: [0, -4, 0] }}
+        transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
+      >
+        🍁
+      </motion.div>
+      <motion.div
+        aria-hidden="true"
+        className="absolute top-1 right-4 text-2xl sm:text-3xl opacity-50 pointer-events-none select-none"
+        animate={{ rotate: [10, -10, 10], y: [0, 5, 0] }}
+        transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut', delay: 0.5 }}
+      >
+        🍂
+      </motion.div>
+      <motion.div
+        aria-hidden="true"
+        className="absolute -bottom-2 right-12 text-2xl sm:text-3xl opacity-40 pointer-events-none select-none"
+        animate={{ rotate: [-15, 15, -15], y: [0, -3, 0] }}
+        transition={{ duration: 7, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
+      >
+        🍁
+      </motion.div>
+      <motion.div
+        aria-hidden="true"
+        className="absolute bottom-1 left-1/3 text-xl sm:text-2xl opacity-40 pointer-events-none select-none hidden sm:block"
+        animate={{ rotate: [0, 20, 0], x: [0, 6, 0] }}
+        transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut', delay: 1.5 }}
+      >
+        🍃
+      </motion.div>
+      <motion.div
+        aria-hidden="true"
+        className="absolute top-1/2 right-1/3 text-xl opacity-30 pointer-events-none select-none hidden lg:block"
+        animate={{ rotate: [0, -25, 0], y: [0, 4, 0] }}
+        transition={{ duration: 6.5, repeat: Infinity, ease: 'easeInOut', delay: 2 }}
+      >
+        🍂
+      </motion.div>
+
+      <div className="relative z-10 flex flex-col lg:flex-row items-center justify-between gap-4 lg:gap-6">
         {/* Left: Title + subtitle */}
         <div className="text-center lg:text-left lg:flex-1">
           <div className="text-base sm:text-lg font-extrabold text-[#FB923C]">
