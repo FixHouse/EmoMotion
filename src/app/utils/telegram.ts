@@ -57,34 +57,34 @@ export async function sendToTelegram(dataOrMessage: BookingData | string, langua
 
   const languageLabels: { [key: string]: { [key: string]: string } } = {
     'uk': {
-      title: 'НОВА ЗАЯВКА НА ПРОБНЕ ЗАНЯТТЯ!',
+      title: 'НОВА ЗАЯВКА!',
       childName: 'Ім\'я дитини',
       age: 'Вік',
       phone: 'Телефон',
       group: 'Група',
-      trialDate: 'Дата пробного заняття',
+      trialDate: 'Дата заняття',
       schedule: 'Розклад',
       location: 'Локація',
       years: 'років'
     },
     'cs': {
-      title: 'NOVÁ PŘIHLÁŠKA NA ZKUŠEBNÍ LEKCI!',
+      title: 'NOVÁ PŘIHLÁŠKA!',
       childName: 'Jméno dítěte',
       age: 'Věk',
       phone: 'Telefon',
       group: 'Skupina',
-      trialDate: 'Datum zkušební lekce',
+      trialDate: 'Datum lekce',
       schedule: 'Rozvrh',
       location: 'Umístění',
       years: 'let'
     },
     'en': {
-      title: 'NEW TRIAL CLASS APPLICATION!',
+      title: 'NEW APPLICATION!',
       childName: 'Child\'s name',
       age: 'Age',
       phone: 'Phone',
       group: 'Group',
-      trialDate: 'Trial class date',
+      trialDate: 'Class date',
       schedule: 'Schedule',
       location: 'Location',
       years: 'years'

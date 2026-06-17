@@ -131,9 +131,9 @@ export const FinalCTA: React.FC<{ selectedPlan?: string }> = ({ selectedPlan = '
     const planPriceText = planPriceMap[selectedPlan] || '';
     const planNameText = t(selectedPlan as any);
 
-    const planLabel = language === 'cs' ? (isTrialPlan ? 'Zkušební lekce' : 'Balíček') :
-                      language === 'en' ? (isTrialPlan ? 'Trial lesson' : 'Package') :
-                      (isTrialPlan ? 'Пробне заняття' : 'Пакет');
+    const planLabel = language === 'cs' ? (isTrialPlan ? 'Lekce' : 'Balíček') :
+                      language === 'en' ? (isTrialPlan ? 'Class' : 'Package') :
+                      (isTrialPlan ? 'Заняття' : 'Пакет');
     
     const parentNameLabel = language === 'cs' ? 'Jméno rodiče' :
                             language === 'en' ? 'Parent\'s name' :
@@ -160,9 +160,9 @@ export const FinalCTA: React.FC<{ selectedPlan?: string }> = ({ selectedPlan = '
                        'Email';
     
     const dateLabel = isTrialPlan
-      ? (language === 'cs' ? 'Datum zkušební lekce' :
-         language === 'en' ? 'Trial class date' :
-         'Дата пробного заняття')
+      ? (language === 'cs' ? 'Datum lekce' :
+         language === 'en' ? 'Class date' :
+         'Дата заняття')
       : (language === 'cs' ? 'Preferovaný datum startu' :
          language === 'en' ? 'Preferred start date' :
          'Бажана дата початку');
