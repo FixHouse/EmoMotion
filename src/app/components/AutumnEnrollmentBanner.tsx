@@ -41,18 +41,21 @@ export const AutumnEnrollmentBanner: React.FC<{ onCTAClick: () => void }> = ({ o
       initial={{ opacity: 0, y: -16 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
-      className="relative overflow-hidden rounded-3xl border-2 border-[#FB923C]/30 bg-gradient-to-r from-[#FFF7ED] via-[#FFF0F5] to-[#FFF7ED] p-4 sm:p-5 mb-6 shadow-md"
+      className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-[#FFF7ED] via-[#FFF0F5] to-[#FFF7ED] p-4 sm:p-5 mb-6 shadow-md"
     >
-      <div className="text-center space-y-3">
-        <div className="inline-flex items-center gap-2 text-sm sm:text-base font-extrabold text-[#FB923C]">
-          <span>🍂</span>
-          <span>{t('autumnBannerTitle')}</span>
-        </div>
-        <div className="text-xs sm:text-sm font-semibold text-gray-600">
-          {t('autumnBannerSubtitle')}
+      <div className="flex flex-col lg:flex-row items-center justify-between gap-4 lg:gap-6">
+        {/* Left: Title + subtitle */}
+        <div className="text-center lg:text-left lg:flex-1">
+          <div className="text-base sm:text-lg font-extrabold text-[#FB923C]">
+            🍂 {t('autumnBannerTitle')}
+          </div>
+          <div className="text-xs sm:text-sm font-semibold text-gray-600 mt-1">
+            {t('autumnBannerSubtitle')}
+          </div>
         </div>
 
-        <div className="flex justify-center gap-2 sm:gap-3 pt-1">
+        {/* Center: Countdown */}
+        <div className="flex gap-2 sm:gap-3">
           {units.map((u, i) => (
             <div
               key={i}
@@ -68,12 +71,13 @@ export const AutumnEnrollmentBanner: React.FC<{ onCTAClick: () => void }> = ({ o
           ))}
         </div>
 
+        {/* Right: CTA */}
         <motion.button
           type="button"
           onClick={onCTAClick}
           whileHover={{ scale: 1.03 }}
           whileTap={{ scale: 0.97 }}
-          className="inline-flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-[#FF69B4] to-[#FF1493] text-white rounded-2xl font-bold text-sm shadow-md mt-1"
+          className="inline-flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-[#FF69B4] to-[#FF1493] text-white rounded-2xl font-bold text-sm shadow-md lg:flex-shrink-0"
         >
           <Sparkles className="w-4 h-4" />
           <span>{t('autumnBannerCTA')}</span>
