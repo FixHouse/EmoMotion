@@ -17,6 +17,8 @@ const DEFAULT_STRIPE_PAYMENT_LINK_URL = 'https://buy.stripe.com/5kQbIV6wbglT1kBa
 const STRIPE_PAYMENT_LINK_URL =
   (import.meta.env.VITE_STRIPE_PAYMENT_LINK_URL as string | undefined) || DEFAULT_STRIPE_PAYMENT_LINK_URL;
 
+const ENROLLMENT_START = new Date(2026, 8, 7);
+
 function buildStripeUrl(baseUrl: string, email: string, refId: string, language: string): string {
   const url = new URL(baseUrl);
   if (email) url.searchParams.set('prefilled_email', email);
@@ -499,9 +501,9 @@ export const FinalCTA: React.FC<{ selectedPlan?: string }> = ({ selectedPlan = '
                           setIsDateOpen(false);
                         }
                       }}
-                      disabled={{ before: startOfDay(new Date()) }}
+                      disabled={{ before: ENROLLMENT_START }}
                       locale={dateLocale}
-                      defaultMonth={selectedDate}
+                      defaultMonth={selectedDate || ENROLLMENT_START}
                       classNames={{
                         day_selected: 'bg-[#FF69B4] text-white hover:bg-[#FF69B4] hover:text-white focus:bg-[#FF69B4] focus:text-white',
                         day_today: 'text-[#FF69B4] font-bold',
