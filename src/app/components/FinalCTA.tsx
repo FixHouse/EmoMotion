@@ -19,6 +19,11 @@ const STRIPE_PAYMENT_LINK_URL =
 
 const ENROLLMENT_START = new Date(2026, 8, 7);
 
+// The Telegram message uses parse_mode HTML — user-typed values must be
+// escaped or a stray "<" makes Telegram reject the whole message.
+const escapeHtml = (value: string) =>
+  value.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+
 function buildStripeUrl(baseUrl: string, email: string, refId: string, language: string): string {
   const url = new URL(baseUrl);
   if (email) url.searchParams.set('prefilled_email', email);
@@ -200,12 +205,12 @@ export const FinalCTA: React.FC<{ selectedPlan?: string }> = ({ selectedPlan = '
 🎟 <b>${planLabel}:</b> ${planNameText}${planPriceText ? ` (${planPriceText})` : ''}
 
 ━━━━━━━━━━━━━━━━━━━━
-👤 <b>${parentNameLabel}:</b> ${formData.parentName}
-👶 <b>${childNameLabel}:</b> ${formData.childName}
+👤 <b>${parentNameLabel}:</b> ${escapeHtml(formData.parentName)}
+👶 <b>${childNameLabel}:</b> ${escapeHtml(formData.childName)}
 🎂 <b>${childAgeLabel}:</b> ${formData.childAge} років / let / years
 👥 <b>${groupLabel}:</b> ${ageGroupText}
-📱 <b>${phoneLabel}:</b> ${formData.phone}
-✉️ <b>${emailLabel}:</b> ${formData.email}
+📱 <b>${phoneLabel}:</b> ${escapeHtml(formData.phone)}
+✉️ <b>${emailLabel}:</b> ${escapeHtml(formData.email)}
 📅 <b>${dateLabel}:</b> ${dateText}
 ━━━━━━━━━━━━━━━━━━━━
 <b>${paymentLabel}:</b> ${paymentValueText}
