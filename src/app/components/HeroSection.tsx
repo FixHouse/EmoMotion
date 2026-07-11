@@ -5,7 +5,7 @@ import { Play, Sparkles, Calendar, MapPin } from 'lucide-react';
 import { VideoModal } from './VideoModal';
 import { AnimalInteractive } from './AnimalInteractive';
 import { AutumnEnrollmentBanner } from './AutumnEnrollmentBanner';
-import { locations, scheduleByLocation, LocationKey } from '../scheduleData';
+import { locations, scheduleByLocation, LocationKey, groupSlots } from '../scheduleData';
 
 export const HeroSection: React.FC<{ onCTAClick: () => void }> = ({ onCTAClick }) => {
   const { t } = useLanguage();
@@ -139,13 +139,9 @@ export const HeroSection: React.FC<{ onCTAClick: () => void }> = ({ onCTAClick }
               {/* Schedule cards for active location */}
               {activeLocation && (
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 sm:gap-3">
-                {slots.map((slot) => {
-                  const days = slot.dayOverrideKey
-                    ? t(slot.dayOverrideKey as any)
-                    : t(activeLocation.daysKey as any);
-                  return (
+                {groupSlots(slots).map((group, gi) => (
                     <motion.div
-                      key={slot.id}
+                      key={`${activeLoc}-${gi}`}
                       role="button"
                       tabIndex={0}
                       onClick={() => onCTAClick()}
@@ -155,29 +151,37 @@ export const HeroSection: React.FC<{ onCTAClick: () => void }> = ({ onCTAClick }
                       whileTap={{ scale: 0.97 }}
                     >
                       <div className="flex items-center gap-1.5 mb-1 flex-wrap">
-                        <Calendar className="w-4 h-4 shrink-0" style={{ color: slot.color }} />
+                        <Calendar className="w-4 h-4 shrink-0" style={{ color: group.color }} />
                         <span className="text-sm font-bold text-gray-900 whitespace-nowrap">
-                          {t(slot.ageKey as any)}
+                          {t(group.ageKey as any)}
                         </span>
                       </div>
-                      {slot.titleKey && (
+                      {group.titleKey && (
                         <div
                           className="text-xs font-semibold mb-1"
-                          style={{ color: slot.color }}
+                          style={{ color: group.color }}
                         >
-                          {t(slot.titleKey as any)}
+                          {t(group.titleKey as any)}
                         </div>
                       )}
-                      <div
-                        className="text-base lg:text-lg font-extrabold mb-1 whitespace-nowrap"
-                        style={{ color: slot.color }}
-                      >
-                        {t(slot.timeKey as any)}
-                      </div>
-                      <div className="text-sm text-gray-600 font-semibold">{days}</div>
+                      {group.times.map((tm, ti) => {
+                        const days = tm.dayOverrideKey
+                          ? t(tm.dayOverrideKey as any)
+                          : t(activeLocation.daysKey as any);
+                        return (
+                          <div key={tm.id} className={ti > 0 ? 'mt-2 pt-2 border-t border-gray-100' : ''}>
+                            <div
+                              className="text-base lg:text-lg font-extrabold mb-0.5 whitespace-nowrap"
+                              style={{ color: group.color }}
+                            >
+                              {t(tm.timeKey as any)}
+                            </div>
+                            <div className="text-sm text-gray-600 font-semibold">{days}</div>
+                          </div>
+                        );
+                      })}
                     </motion.div>
-                  );
-                })}
+                ))}
               </div>
               )}
             </motion.div>

@@ -78,3 +78,32 @@ export const getSlotById = (
   }
   return null;
 };
+
+export type DisplayGroup = {
+  ageKey: string;
+  titleKey?: string;
+  color: string;
+  times: Array<{ id: string; timeKey: string; dayOverrideKey?: string; spots: string }>;
+};
+
+export function groupSlots(slots: ScheduleSlot[]): DisplayGroup[] {
+  const groups = new Map<string, DisplayGroup>();
+  for (const slot of slots) {
+    const key = `${slot.ageKey}::${slot.titleKey || ''}`;
+    if (!groups.has(key)) {
+      groups.set(key, {
+        ageKey: slot.ageKey,
+        titleKey: slot.titleKey,
+        color: slot.color,
+        times: [],
+      });
+    }
+    groups.get(key)!.times.push({
+      id: slot.id,
+      timeKey: slot.timeKey,
+      dayOverrideKey: slot.dayOverrideKey,
+      spots: slot.spots,
+    });
+  }
+  return Array.from(groups.values());
+}

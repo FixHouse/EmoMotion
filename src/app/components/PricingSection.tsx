@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useLanguage } from '../LanguageContext';
 import { motion } from 'motion/react';
 import { Clock, Check, Star, Calendar, MapPin } from 'lucide-react';
-import { locations, scheduleByLocation, LocationKey } from '../scheduleData';
+import { locations, scheduleByLocation, LocationKey, groupSlots } from '../scheduleData';
 
 type PlanConfig = {
   nameKey: string;
@@ -336,16 +336,9 @@ export const PricingSection: React.FC<{ onCTAClick: (planKey?: string) => void }
 
           {activeLocation && (
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-2 sm:gap-3">
-            {slots.map((slot, index) => {
-              const days = slot.dayOverrideKey
-                ? t(slot.dayOverrideKey as any)
-                : t(activeLocation.daysKey as any);
-              const [takenStr, , totalStr] = slot.spots.split(' ');
-              const taken = parseInt(takenStr);
-              const total = parseInt(totalStr);
-              return (
+            {groupSlots(slots).map((group, index) => (
                 <motion.div
-                  key={`${activeLoc}-${slot.id}`}
+                  key={`${activeLoc}-${index}`}
                   role="button"
                   tabIndex={0}
                   onClick={() => onCTAClick()}
@@ -358,44 +351,54 @@ export const PricingSection: React.FC<{ onCTAClick: (planKey?: string) => void }
                   whileTap={{ scale: 0.97 }}
                 >
                   <div className="flex items-center gap-1.5 mb-1 flex-wrap">
-                    <Calendar className="w-4 h-4 shrink-0" style={{ color: slot.color }} />
-                    <h4 className="text-sm sm:text-base font-bold whitespace-nowrap" style={{ color: slot.color }}>
-                      {t(slot.ageKey as any)}
+                    <Calendar className="w-4 h-4 shrink-0" style={{ color: group.color }} />
+                    <h4 className="text-sm sm:text-base font-bold whitespace-nowrap" style={{ color: group.color }}>
+                      {t(group.ageKey as any)}
                     </h4>
                   </div>
-                  {slot.titleKey && (
+                  {group.titleKey && (
                     <div
                       className="text-xs sm:text-sm font-extrabold mb-1"
-                      style={{ color: slot.color }}
+                      style={{ color: group.color }}
                     >
-                      {t(slot.titleKey as any)}
+                      {t(group.titleKey as any)}
                     </div>
                   )}
 
-                  <p className="text-sm font-bold text-gray-700 mb-1 whitespace-nowrap">
-                    {t(slot.timeKey as any)}
-                  </p>
-                  <p className="text-xs font-semibold text-gray-500 mb-3 whitespace-nowrap">
-                    {days}
-                  </p>
-
-                  <div className="flex items-center gap-2 mt-auto">
-                    <div className="flex-1 h-2 bg-gray-200 rounded-full overflow-hidden">
-                      <motion.div
-                        className="h-full rounded-full"
-                        style={{ backgroundColor: slot.color }}
-                        initial={{ width: 0 }}
-                        animate={{ width: `${(taken / total) * 100}%` }}
-                        transition={{ duration: 1, delay: index * 0.15 }}
-                      />
-                    </div>
-                    <span className="text-xs font-bold text-gray-600 whitespace-nowrap">
-                      {slot.spots} {t('spotsLabel')}
-                    </span>
-                  </div>
+                  {group.times.map((tm, ti) => {
+                    const days = tm.dayOverrideKey
+                      ? t(tm.dayOverrideKey as any)
+                      : t(activeLocation.daysKey as any);
+                    const [takenStr, , totalStr] = tm.spots.split(' ');
+                    const taken = parseInt(takenStr);
+                    const total = parseInt(totalStr);
+                    return (
+                      <div key={tm.id} className={ti > 0 ? 'mt-2 pt-2 border-t border-gray-100' : ''}>
+                        <p className="text-sm font-bold text-gray-700 mb-0.5 whitespace-nowrap">
+                          {t(tm.timeKey as any)}
+                        </p>
+                        <p className="text-xs font-semibold text-gray-500 mb-1.5 whitespace-nowrap">
+                          {days}
+                        </p>
+                        <div className="flex items-center gap-2">
+                          <div className="flex-1 h-2 bg-gray-200 rounded-full overflow-hidden">
+                            <motion.div
+                              className="h-full rounded-full"
+                              style={{ backgroundColor: group.color }}
+                              initial={{ width: 0 }}
+                              animate={{ width: `${(taken / total) * 100}%` }}
+                              transition={{ duration: 1, delay: index * 0.15 + ti * 0.1 }}
+                            />
+                          </div>
+                          <span className="text-xs font-bold text-gray-600 whitespace-nowrap">
+                            {tm.spots} {t('spotsLabel')}
+                          </span>
+                        </div>
+                      </div>
+                    );
+                  })}
                 </motion.div>
-              );
-            })}
+            ))}
           </div>
           )}
         </motion.div>
