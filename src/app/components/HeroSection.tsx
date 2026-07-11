@@ -164,22 +164,18 @@ export const HeroSection: React.FC<{ onCTAClick: () => void }> = ({ onCTAClick }
                           {t(group.titleKey as any)}
                         </div>
                       )}
-                      {group.times.map((tm, ti) => {
-                        const days = tm.dayOverrideKey
-                          ? t(tm.dayOverrideKey as any)
-                          : t(activeLocation.daysKey as any);
-                        return (
-                          <div key={tm.id} className={ti > 0 ? 'mt-2 pt-2 border-t border-gray-100' : ''}>
-                            <div
-                              className="text-base lg:text-lg font-extrabold mb-0.5 whitespace-nowrap"
-                              style={{ color: group.color }}
-                            >
-                              {t(tm.timeKey as any)}
-                            </div>
-                            <div className="text-sm text-gray-600 font-semibold">{days}</div>
-                          </div>
-                        );
-                      })}
+                      {group.times.map((tm) => (
+                        <div
+                          key={tm.id}
+                          className="text-base lg:text-lg font-extrabold mb-0.5 whitespace-nowrap"
+                          style={{ color: group.color }}
+                        >
+                          {t(tm.timeKey as any)}
+                        </div>
+                      ))}
+                      <div className="text-sm text-gray-600 font-semibold mt-1">
+                        {t(activeLocation.daysKey as any)}
+                      </div>
                     </motion.div>
                 ))}
               </div>

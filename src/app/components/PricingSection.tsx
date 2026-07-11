@@ -366,19 +366,13 @@ export const PricingSection: React.FC<{ onCTAClick: (planKey?: string) => void }
                   )}
 
                   {group.times.map((tm, ti) => {
-                    const days = tm.dayOverrideKey
-                      ? t(tm.dayOverrideKey as any)
-                      : t(activeLocation.daysKey as any);
                     const [takenStr, , totalStr] = tm.spots.split(' ');
                     const taken = parseInt(takenStr);
                     const total = parseInt(totalStr);
                     return (
-                      <div key={tm.id} className={ti > 0 ? 'mt-2 pt-2 border-t border-gray-100' : ''}>
-                        <p className="text-sm font-bold text-gray-700 mb-0.5 whitespace-nowrap">
+                      <div key={tm.id} className={ti > 0 ? 'mt-2' : ''}>
+                        <p className="text-sm font-bold text-gray-700 mb-1 whitespace-nowrap">
                           {t(tm.timeKey as any)}
-                        </p>
-                        <p className="text-xs font-semibold text-gray-500 mb-1.5 whitespace-nowrap">
-                          {days}
                         </p>
                         <div className="flex items-center gap-2">
                           <div className="flex-1 h-2 bg-gray-200 rounded-full overflow-hidden">
@@ -397,6 +391,9 @@ export const PricingSection: React.FC<{ onCTAClick: (planKey?: string) => void }
                       </div>
                     );
                   })}
+                  <p className="text-xs font-semibold text-gray-500 mt-2 whitespace-nowrap">
+                    {t(activeLocation.daysKey as any)}
+                  </p>
                 </motion.div>
             ))}
           </div>
