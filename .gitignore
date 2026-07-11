@@ -32,3 +32,6 @@ Thumbs.db
 .cache/
 .parcel-cache/
 .vite/
+
+# Local Netlify folder
+.netlify
