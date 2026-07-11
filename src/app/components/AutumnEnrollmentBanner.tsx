@@ -3,7 +3,7 @@ import { motion } from 'motion/react';
 import { Sparkles } from 'lucide-react';
 import { useLanguage } from '../LanguageContext';
 
-const DEADLINE = new Date('2026-07-10T23:59:59');
+const DEADLINE = new Date('2026-07-31T23:59:59');
 
 type Unit = { value: number; labelKey: string };
 
