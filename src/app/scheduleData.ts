@@ -55,16 +55,16 @@ const C_58 = '#6366F1';
 
 export const scheduleByLocation: Record<LocationKey, ScheduleSlot[]> = {
   praha2: [
-    { id: 'p2-23ua-1045', ageKey: 'ageLoc23', timeKey: 'timeLoc1045', titleKey: 'mamMalUA', color: C_23_UA, spots: '0 з 6' },
-    { id: 'p2-23cz-1130', ageKey: 'ageLoc23', timeKey: 'timeLoc1130', titleKey: 'mamMalCZ', color: C_23_CZ, spots: '0 з 6' },
-    { id: 'p2-35-1630', ageKey: 'ageLoc35', timeKey: 'timeLoc1630', color: C_35, spots: '0 з 10' },
-    { id: 'p2-58-1730', ageKey: 'ageLoc58', timeKey: 'timeLoc1730', color: C_58, spots: '0 з 10' },
+    { id: 'p2-23ua-1045', ageKey: 'ageLoc23', timeKey: 'timeLoc1045', titleKey: 'mamMalUA', color: C_23_UA, spots: '7 з 8' },
+    { id: 'p2-23cz-1130', ageKey: 'ageLoc23', timeKey: 'timeLoc1130', titleKey: 'mamMalCZ', color: C_23_CZ, spots: '1 з 8' },
+    { id: 'p2-35-1630', ageKey: 'ageLoc35', timeKey: 'timeLoc1630', color: C_35, spots: '10 з 10' },
+    { id: 'p2-58-1730', ageKey: 'ageLoc58', timeKey: 'timeLoc1730', color: C_58, spots: '4 з 8' },
   ],
   praha9: [
-    { id: 'p9-23ua-1045', ageKey: 'ageLoc23', timeKey: 'timeLoc1045', titleKey: 'mamMalUA', color: C_23_UA, spots: '0 з 6' },
-    { id: 'p9-23cz-1130', ageKey: 'ageLoc23', timeKey: 'timeLoc1130', titleKey: 'mamMalCZ', color: C_23_CZ, spots: '0 з 6' },
-    { id: 'p9-35-1630', ageKey: 'ageLoc35', timeKey: 'timeLoc1630', color: C_35, spots: '0 з 10' },
-    { id: 'p9-58-1730-po', ageKey: 'ageLoc58', timeKey: 'timeLoc1730', color: C_58, spots: '0 з 10', dayOverrideKey: 'dayPoOnly' },
+    { id: 'p9-23ua-1045', ageKey: 'ageLoc23', timeKey: 'timeLoc1045', titleKey: 'mamMalUA', color: C_23_UA, spots: '2 з 8' },
+    { id: 'p9-23cz-1130', ageKey: 'ageLoc23', timeKey: 'timeLoc1130', titleKey: 'mamMalCZ', color: C_23_CZ, spots: '1 з 8' },
+    { id: 'p9-35-1630', ageKey: 'ageLoc35', timeKey: 'timeLoc1630', color: C_35, spots: '9 з 10' },
+    { id: 'p9-58-1730-po', ageKey: 'ageLoc58', timeKey: 'timeLoc1730', color: C_58, spots: '4 з 8', dayOverrideKey: 'dayPoOnly' },
     { id: 'p9-58-1715-st', ageKey: 'ageLoc58', timeKey: 'timeLoc1715', color: C_58, spots: '0 з 10', dayOverrideKey: 'dayStOnly' },
   ],
 };
