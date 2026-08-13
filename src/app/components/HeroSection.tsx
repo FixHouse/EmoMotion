@@ -145,15 +145,22 @@ export const HeroSection: React.FC<{ onCTAClick: (request?: CTARequest) => void 
                   const request = activeLoc && firstTime
                     ? { schedule: { location: activeLoc, slotId: firstTime.id } }
                     : undefined;
+                  const scheduleLabel = [
+                    t(activeLocation.nameKey as any),
+                    t(activeLocation.addressKey as any),
+                    t(group.ageKey as any),
+                    group.titleKey ? t(group.titleKey as any) : '',
+                    group.times.map((tm) => t(tm.timeKey as any)).join(', '),
+                    t(activeLocation.daysKey as any),
+                  ].filter(Boolean).join(', ');
 
                   return (
-                    <motion.div
+                    <motion.button
                       key={`${activeLoc}-${gi}`}
-                      role="button"
-                      tabIndex={0}
+                      type="button"
+                      aria-label={scheduleLabel}
                       onClick={() => onCTAClick(request)}
-                      onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onCTAClick(request); } }}
-                      className="bg-white rounded-2xl p-3 lg:p-4 shadow-md border-2 border-transparent hover:border-[#FF69B4] transition-all min-w-0 cursor-pointer"
+                      className="w-full bg-white rounded-2xl p-3 lg:p-4 shadow-md border-2 border-transparent hover:border-[#FF69B4] transition-all min-w-0 cursor-pointer text-left"
                       whileHover={{ y: -5, boxShadow: '0 20px 40px -10px rgba(255,105,180,0.2)' }}
                       whileTap={{ scale: 0.97 }}
                     >
@@ -183,7 +190,7 @@ export const HeroSection: React.FC<{ onCTAClick: (request?: CTARequest) => void 
                       <div className="text-sm text-gray-600 font-semibold mt-1">
                         {t(activeLocation.daysKey as any)}
                       </div>
-                    </motion.div>
+                    </motion.button>
                   );
                 })}
               </div>

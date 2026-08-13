@@ -4,7 +4,7 @@ import { Languages } from 'lucide-react';
 import { motion } from 'motion/react';
 
 export const LanguageSwitcher: React.FC = () => {
-  const { language, setLanguage } = useLanguage();
+  const { language, setLanguage, t } = useLanguage();
 
   return (
     <motion.div
@@ -13,11 +13,18 @@ export const LanguageSwitcher: React.FC = () => {
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.5 }}
     >
-      <div className="flex items-center gap-1.5 sm:gap-2 bg-white rounded-full px-2 sm:px-4 py-1.5 sm:py-2 shadow-xl border-2 border-gray-100">
-        <Languages className="w-3 h-3 sm:w-4 sm:h-4 text-[#FF69B4] hidden sm:block" />
+      <div
+        className="flex items-center gap-1.5 sm:gap-2 bg-white rounded-full px-2 sm:px-4 py-1.5 sm:py-2 shadow-xl border-2 border-gray-100"
+        role="group"
+        aria-label={t('language')}
+      >
+        <Languages className="w-3 h-3 sm:w-4 sm:h-4 text-[#FF69B4] hidden sm:block" aria-hidden="true" />
         <div className="flex gap-0.5 sm:gap-1">
           <motion.button
+            type="button"
             onClick={() => setLanguage('cs')}
+            aria-label="Čeština"
+            aria-pressed={language === 'cs'}
             className={`px-2 sm:px-3 py-1 sm:py-1.5 rounded-full transition-all text-xs sm:text-sm font-bold ${
               language === 'cs'
                 ? 'bg-gradient-to-r from-[#FF69B4] to-[#FF1493] text-white'
@@ -29,7 +36,10 @@ export const LanguageSwitcher: React.FC = () => {
             CZ
           </motion.button>
           <motion.button
+            type="button"
             onClick={() => setLanguage('en')}
+            aria-label="English"
+            aria-pressed={language === 'en'}
             className={`px-2 sm:px-3 py-1 sm:py-1.5 rounded-full transition-all text-xs sm:text-sm font-bold ${
               language === 'en'
                 ? 'bg-gradient-to-r from-[#FF69B4] to-[#FF1493] text-white'
@@ -41,7 +51,10 @@ export const LanguageSwitcher: React.FC = () => {
             EN
           </motion.button>
           <motion.button
+            type="button"
             onClick={() => setLanguage('uk')}
+            aria-label="Українська"
+            aria-pressed={language === 'uk'}
             className={`px-2 sm:px-3 py-1 sm:py-1.5 rounded-full transition-all text-xs sm:text-sm font-bold ${
               language === 'uk'
                 ? 'bg-gradient-to-r from-[#FF69B4] to-[#FF1493] text-white'

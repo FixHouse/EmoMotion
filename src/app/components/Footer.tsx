@@ -35,7 +35,9 @@ export const Footer: React.FC = () => {
             </p>
             
             <button
+              type="button"
               onClick={() => setShowPrivacyPolicy(true)}
+              aria-label={t('formConsentLink')}
               className="text-white/80 hover:text-white text-xs md:text-sm underline mb-4 transition-colors"
             >
               {t('formConsentLink')}

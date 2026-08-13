@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useLanguage } from '../LanguageContext';
 import { motion, AnimatePresence } from 'motion/react';
 import { X, Sparkles } from 'lucide-react';
@@ -59,6 +59,22 @@ export const TestModal: React.FC<TestModalProps> = ({ isOpen, onClose }) => {
     onClose();
   };
 
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setStep(0);
+        setAnswers([]);
+        setResult(null);
+        onClose();
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isOpen, onClose]);
+
   return (
     <AnimatePresence>
       {isOpen && (
@@ -71,22 +87,27 @@ export const TestModal: React.FC<TestModalProps> = ({ isOpen, onClose }) => {
         >
           <motion.div
             className="relative bg-gradient-to-br from-[#FFF0F5] to-[#E0F2FE] rounded-3xl overflow-hidden max-w-2xl w-full shadow-2xl"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="test-modal-title"
             initial={{ scale: 0.5, opacity: 0, y: 50 }}
             animate={{ scale: 1, opacity: 1, y: 0 }}
             exit={{ scale: 0.5, opacity: 0, y: 50 }}
             onClick={(e) => e.stopPropagation()}
           >
             <button
+              type="button"
               onClick={handleClose}
+              aria-label={t('privacyClose')}
               className="absolute top-4 right-4 z-10 w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-lg hover:bg-gray-100 transition-all"
             >
-              <X className="w-6 h-6" />
+              <X className="w-6 h-6" aria-hidden="true" />
             </button>
 
             <div className="p-8 md:p-12">
               {!result ? (
                 <>
-                  <h2 className="text-3xl md:text-4xl font-extrabold mb-6 text-center" style={{ fontFamily: 'Poppins, sans-serif' }}>
+                  <h2 id="test-modal-title" className="text-3xl md:text-4xl font-extrabold mb-6 text-center" style={{ fontFamily: 'Poppins, sans-serif' }}>
                     {t('testTitle')}
                   </h2>
 
@@ -117,6 +138,7 @@ export const TestModal: React.FC<TestModalProps> = ({ isOpen, onClose }) => {
                       <div className="space-y-4">
                         {questions[step].answers.map((answer, index) => (
                           <motion.button
+                            type="button"
                             key={index}
                             onClick={() => handleAnswer(index)}
                             className="w-full p-6 bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all text-left text-lg font-semibold text-gray-800"
@@ -144,7 +166,7 @@ export const TestModal: React.FC<TestModalProps> = ({ isOpen, onClose }) => {
                     {result === 'testResultLion' ? '🦁' : result === 'testResultButterfly' ? '🦋' : '🐆'}
                   </motion.div>
 
-                  <h2 className="text-4xl font-extrabold mb-4" style={{ fontFamily: 'Poppins, sans-serif' }}>
+                  <h2 id="test-modal-title" className="text-4xl font-extrabold mb-4" style={{ fontFamily: 'Poppins, sans-serif' }}>
                     <span className="bg-gradient-to-r from-[#FF69B4] to-[#FF69B4] bg-clip-text text-transparent">
                       {t('testResult')}
                     </span>
@@ -156,9 +178,10 @@ export const TestModal: React.FC<TestModalProps> = ({ isOpen, onClose }) => {
 
                   <div className="flex flex-col sm:flex-row gap-4 justify-center">
                     <motion.button
+                      type="button"
                       onClick={() => {
                         handleClose();
-                        document.getElementById('final-cta')?.scrollIntoView({ behavior: 'smooth' });
+                        document.getElementById('cta')?.scrollIntoView({ behavior: 'smooth' });
                       }}
                       className="px-8 py-4 bg-[#FF69B4] text-white rounded-full text-lg font-bold shadow-2xl"
                       whileHover={{ scale: 1.05 }}
@@ -169,6 +192,7 @@ export const TestModal: React.FC<TestModalProps> = ({ isOpen, onClose }) => {
                     </motion.button>
 
                     <motion.button
+                      type="button"
                       onClick={resetTest}
                       className="px-8 py-4 bg-white text-gray-800 rounded-full text-lg font-semibold shadow-lg"
                       whileHover={{ scale: 1.05 }}

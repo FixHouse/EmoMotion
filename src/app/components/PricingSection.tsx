@@ -225,7 +225,14 @@ export const PricingSection: React.FC<{ onCTAClick: (request?: CTARequest) => vo
                       {t(plan.spotsLabelKey as any)}
                     </p>
                     <div className="flex items-center gap-2">
-                      <div className="flex-1 h-2 bg-gray-200 rounded-full overflow-hidden">
+                      <div
+                        className="flex-1 h-2 bg-gray-200 rounded-full overflow-hidden"
+                        role="meter"
+                        aria-valuemin={0}
+                        aria-valuemax={plan.capacity.total}
+                        aria-valuenow={plan.capacity.taken}
+                        aria-label={`${t(plan.spotsLabelKey as any)}: ${plan.capacity.taken} / ${plan.capacity.total}`}
+                      >
                         <div
                           className="h-full rounded-full transition-all"
                           style={{
@@ -342,15 +349,22 @@ export const PricingSection: React.FC<{ onCTAClick: (request?: CTARequest) => vo
               const request = activeLoc && firstTime
                 ? { schedule: { location: activeLoc, slotId: firstTime.id } }
                 : undefined;
+              const scheduleLabel = [
+                t(activeLocation.nameKey as any),
+                t(activeLocation.addressKey as any),
+                t(group.ageKey as any),
+                group.titleKey ? t(group.titleKey as any) : '',
+                group.times.map((tm) => t(tm.timeKey as any)).join(', '),
+                t(activeLocation.daysKey as any),
+              ].filter(Boolean).join(', ');
 
               return (
-                <motion.div
+                <motion.button
                   key={`${activeLoc}-${index}`}
-                  role="button"
-                  tabIndex={0}
+                  type="button"
+                  aria-label={scheduleLabel}
                   onClick={() => onCTAClick(request)}
-                  onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onCTAClick(request); } }}
-                  className="flex flex-col h-full bg-gradient-to-br from-gray-50 to-white rounded-2xl p-3 lg:p-4 border-2 border-transparent hover:border-[#FF69B4]/30 transition-all min-w-0 cursor-pointer"
+                  className="flex flex-col h-full bg-gradient-to-br from-gray-50 to-white rounded-2xl p-3 lg:p-4 border-2 border-transparent hover:border-[#FF69B4]/30 transition-all min-w-0 cursor-pointer text-left"
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: index * 0.08 }}
@@ -381,7 +395,14 @@ export const PricingSection: React.FC<{ onCTAClick: (request?: CTARequest) => vo
                           {t(tm.timeKey as any)}
                         </p>
                         <div className="flex items-center gap-2">
-                          <div className="flex-1 h-2 bg-gray-200 rounded-full overflow-hidden">
+                          <div
+                            className="flex-1 h-2 bg-gray-200 rounded-full overflow-hidden"
+                            role="meter"
+                            aria-valuemin={0}
+                            aria-valuemax={total}
+                            aria-valuenow={taken}
+                            aria-label={`${t(tm.timeKey as any)}: ${taken} / ${total} ${t('spotsLabel')}`}
+                          >
                             <motion.div
                               className="h-full rounded-full"
                               style={{ backgroundColor: group.color }}
@@ -400,7 +421,7 @@ export const PricingSection: React.FC<{ onCTAClick: (request?: CTARequest) => vo
                   <p className="text-xs font-semibold text-gray-500 mt-2 whitespace-nowrap">
                     {t(activeLocation.daysKey as any)}
                   </p>
-                </motion.div>
+                </motion.button>
               );
             })}
           </div>

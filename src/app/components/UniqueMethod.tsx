@@ -634,7 +634,7 @@ export const UniqueMethod: React.FC = () => {
 
                   <motion.button
                     onClick={() => {
-                      const element = document.getElementById('final-cta');
+                      const element = document.getElementById('cta');
                       if (element) {
                         element.scrollIntoView({ behavior: 'smooth', block: 'start' });
                       }

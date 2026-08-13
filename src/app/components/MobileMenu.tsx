@@ -1,11 +1,32 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useLanguage } from '../LanguageContext';
 import { motion, AnimatePresence } from 'motion/react';
 import { Menu, X, Home, Info, Star, DollarSign, Phone, Sparkles } from 'lucide-react';
 
 export const MobileMenu: React.FC = () => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const [isOpen, setIsOpen] = useState(false);
+  const menuId = 'mobile-navigation-menu';
+  const menuLabel =
+    language === 'cs' ? 'Mobilní navigace' :
+    language === 'en' ? 'Mobile navigation' :
+    'Мобільна навігація';
+  const toggleLabel = isOpen
+    ? (language === 'cs' ? 'Zavřít menu' : language === 'en' ? 'Close menu' : 'Закрити меню')
+    : (language === 'cs' ? 'Otevřít menu' : language === 'en' ? 'Open menu' : 'Відкрити меню');
+
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setIsOpen(false);
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isOpen]);
 
   const menuItems = [
     { icon: Home, label: t('menuHome'), href: '#hero', color: '#FF69B4' },
@@ -28,7 +49,11 @@ export const MobileMenu: React.FC = () => {
     <>
       {/* Hamburger Button */}
       <motion.button
+        type="button"
         onClick={() => setIsOpen(!isOpen)}
+        aria-label={toggleLabel}
+        aria-expanded={isOpen}
+        aria-controls={menuId}
         className="fixed top-4 left-4 sm:top-6 sm:left-6 z-50 lg:hidden w-12 h-12 sm:w-14 sm:h-14 bg-white rounded-full shadow-xl flex items-center justify-center border-2 border-gray-100"
         whileTap={{ scale: 0.9 }}
         whileHover={{ scale: 1.05 }}
@@ -45,7 +70,7 @@ export const MobileMenu: React.FC = () => {
               exit={{ rotate: 90, opacity: 0 }}
               transition={{ duration: 0.2 }}
             >
-              <X className="w-6 h-6 sm:w-7 sm:h-7 text-gray-800" />
+              <X className="w-6 h-6 sm:w-7 sm:h-7 text-gray-800" aria-hidden="true" />
             </motion.div>
           ) : (
             <motion.div
@@ -55,7 +80,7 @@ export const MobileMenu: React.FC = () => {
               exit={{ rotate: -90, opacity: 0 }}
               transition={{ duration: 0.2 }}
             >
-              <Menu className="w-6 h-6 sm:w-7 sm:h-7 text-[#FF69B4]" />
+              <Menu className="w-6 h-6 sm:w-7 sm:h-7 text-[#FF69B4]" aria-hidden="true" />
             </motion.div>
           )}
         </AnimatePresence>
@@ -76,6 +101,7 @@ export const MobileMenu: React.FC = () => {
 
             {/* Menu Panel */}
             <motion.div
+              id={menuId}
               className="fixed top-0 left-0 bottom-0 w-full max-w-sm bg-white z-40 lg:hidden shadow-2xl overflow-y-auto"
               initial={{ x: '-100%' }}
               animate={{ x: 0 }}
@@ -107,11 +133,12 @@ export const MobileMenu: React.FC = () => {
                 </div>
 
                 {/* Navigation */}
-                <nav className="space-y-3">
+                <nav className="space-y-3" aria-label={menuLabel}>
                   {menuItems.map((item, index) => {
                     const Icon = item.icon;
                     return (
                       <motion.button
+                        type="button"
                         key={index}
                         onClick={() => handleClick(item.href)}
                         className="w-full flex items-center gap-4 p-4 bg-gray-50 rounded-2xl hover:bg-gray-100 transition-all text-left group"
@@ -124,7 +151,7 @@ export const MobileMenu: React.FC = () => {
                           className="w-12 h-12 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform"
                           style={{ backgroundColor: `${item.color}20` }}
                         >
-                          <Icon className="w-5 h-5" style={{ color: item.color }} />
+                          <Icon className="w-5 h-5" style={{ color: item.color }} aria-hidden="true" />
                         </div>
                         <span className="font-bold text-gray-800 text-base sm:text-lg">{item.label}</span>
                       </motion.button>

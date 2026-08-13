@@ -209,11 +209,14 @@ export const AnimalInteractive: React.FC = () => {
         </div>
 
         {/* Animal selector dots */}
-        <div className="flex items-center gap-3 flex-wrap justify-center">
+        <div className="flex items-center gap-3 flex-wrap justify-center" role="group" aria-label={t('animalClick')}>
           {animals.map((animal, index) => (
             <motion.button
               key={animal.key}
+              type="button"
               onClick={() => handleAnimalClick(index)}
+              aria-label={t(animal.key as any)}
+              aria-pressed={index === currentIndex}
               className={`relative group transition-all ${
                 index === currentIndex ? 'w-16 h-16' : 'w-12 h-12'
               }`}

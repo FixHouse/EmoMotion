@@ -51,9 +51,9 @@ export const PaymentSuccessBanner: React.FC = () => {
                 type="button"
                 onClick={() => setIsVisible(false)}
                 className="p-1 rounded-full hover:bg-gray-100 transition-colors flex-shrink-0"
-                aria-label="Close"
+                aria-label={t('privacyClose')}
               >
-                <X className="w-4 h-4 text-gray-500" />
+                <X className="w-4 h-4 text-gray-500" aria-hidden="true" />
               </button>
             </div>
           </div>

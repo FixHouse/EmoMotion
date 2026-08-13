@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useLanguage } from '../LanguageContext';
 import { motion, AnimatePresence } from 'motion/react';
 import { X } from 'lucide-react';
@@ -10,6 +10,20 @@ interface PrivacyPolicyProps {
 
 export const PrivacyPolicy: React.FC<PrivacyPolicyProps> = ({ isOpen, onClose }) => {
   const { t } = useLanguage();
+  const titleId = 'privacy-policy-title';
+
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        onClose();
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isOpen, onClose]);
 
   return (
     <AnimatePresence>
@@ -30,17 +44,22 @@ export const PrivacyPolicy: React.FC<PrivacyPolicyProps> = ({ isOpen, onClose })
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.9, y: 50 }}
             className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-50 w-[95%] max-w-3xl max-h-[90vh] overflow-y-auto bg-white rounded-3xl shadow-2xl"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby={titleId}
           >
             {/* Header */}
             <div className="sticky top-0 bg-white border-b border-gray-200 px-6 sm:px-8 py-6 rounded-t-3xl flex items-center justify-between">
-              <h2 className="text-2xl sm:text-3xl font-extrabold text-gray-900" style={{ fontFamily: 'Poppins, sans-serif' }}>
+              <h2 id={titleId} className="text-2xl sm:text-3xl font-extrabold text-gray-900" style={{ fontFamily: 'Poppins, sans-serif' }}>
                 {t('privacyTitle')}
               </h2>
               <button
+                type="button"
                 onClick={onClose}
+                aria-label={t('privacyClose')}
                 className="w-10 h-10 flex items-center justify-center rounded-full hover:bg-gray-100 transition-colors"
               >
-                <X className="w-6 h-6 text-gray-600" />
+                <X className="w-6 h-6 text-gray-600" aria-hidden="true" />
               </button>
             </div>
 
@@ -97,6 +116,7 @@ export const PrivacyPolicy: React.FC<PrivacyPolicyProps> = ({ isOpen, onClose })
             {/* Footer */}
             <div className="sticky bottom-0 bg-white border-t border-gray-200 px-6 sm:px-8 py-6 rounded-b-3xl">
               <motion.button
+                type="button"
                 onClick={onClose}
                 className="w-full py-4 bg-gradient-to-r from-[#FF69B4] to-[#FF1493] text-white rounded-2xl text-lg font-bold shadow-lg"
                 whileHover={{ scale: 1.02 }}
