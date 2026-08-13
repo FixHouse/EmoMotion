@@ -6,8 +6,9 @@ import { VideoModal } from './VideoModal';
 import { AnimalInteractive } from './AnimalInteractive';
 import { AutumnEnrollmentBanner } from './AutumnEnrollmentBanner';
 import { locations, scheduleByLocation, LocationKey, groupSlots } from '../scheduleData';
+import type { CTARequest } from './ctaTypes';
 
-export const HeroSection: React.FC<{ onCTAClick: () => void }> = ({ onCTAClick }) => {
+export const HeroSection: React.FC<{ onCTAClick: (request?: CTARequest) => void }> = ({ onCTAClick }) => {
   const { t } = useLanguage();
   const [showVideo, setShowVideo] = useState(false);
   const [activeLoc, setActiveLoc] = useState<LocationKey | null>(null);
@@ -139,13 +140,19 @@ export const HeroSection: React.FC<{ onCTAClick: () => void }> = ({ onCTAClick }
               {/* Schedule cards for active location */}
               {activeLocation && (
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 sm:gap-3">
-                {groupSlots(slots).map((group, gi) => (
+                {groupSlots(slots).map((group, gi) => {
+                  const firstTime = group.times[0];
+                  const request = activeLoc && firstTime
+                    ? { schedule: { location: activeLoc, slotId: firstTime.id } }
+                    : undefined;
+
+                  return (
                     <motion.div
                       key={`${activeLoc}-${gi}`}
                       role="button"
                       tabIndex={0}
-                      onClick={() => onCTAClick()}
-                      onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onCTAClick(); } }}
+                      onClick={() => onCTAClick(request)}
+                      onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onCTAClick(request); } }}
                       className="bg-white rounded-2xl p-3 lg:p-4 shadow-md border-2 border-transparent hover:border-[#FF69B4] transition-all min-w-0 cursor-pointer"
                       whileHover={{ y: -5, boxShadow: '0 20px 40px -10px rgba(255,105,180,0.2)' }}
                       whileTap={{ scale: 0.97 }}
@@ -177,7 +184,8 @@ export const HeroSection: React.FC<{ onCTAClick: () => void }> = ({ onCTAClick }
                         {t(activeLocation.daysKey as any)}
                       </div>
                     </motion.div>
-                ))}
+                  );
+                })}
               </div>
               )}
             </motion.div>

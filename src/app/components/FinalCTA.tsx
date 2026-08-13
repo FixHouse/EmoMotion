@@ -10,6 +10,7 @@ import { LocationsMap } from './LocationsMap';
 import { Calendar } from './ui/calendar';
 import { Popover, PopoverTrigger, PopoverContent } from './ui/popover';
 import { locations, scheduleByLocation, getSlotById, LocationKey } from '../scheduleData';
+import type { SchedulePrefill } from './ctaTypes';
 
 type PaymentMethod = 'card' | 'cash' | '';
 
@@ -34,7 +35,10 @@ function buildStripeUrl(baseUrl: string, email: string, refId: string, language:
   return url.toString();
 }
 
-export const FinalCTA: React.FC<{ selectedPlan?: string }> = ({ selectedPlan = 'planTrialName' }) => {
+export const FinalCTA: React.FC<{
+  selectedPlan?: string;
+  selectedSchedule?: SchedulePrefill | null;
+}> = ({ selectedPlan = 'planTrialName', selectedSchedule = null }) => {
   const { t, language } = useLanguage();
   const isTrialPlan = selectedPlan === 'planTrialName';
   const [formData, setFormData] = useState({
@@ -69,6 +73,27 @@ export const FinalCTA: React.FC<{ selectedPlan?: string }> = ({ selectedPlan = '
       setFormData((prev) => ({ ...prev, paymentMethod: 'cash' }));
     }
   }, [isTrialPlan, formData.paymentMethod]);
+
+  useEffect(() => {
+    if (!selectedSchedule) return;
+
+    const slotExists = scheduleByLocation[selectedSchedule.location]?.some(
+      (slot) => slot.id === selectedSchedule.slotId,
+    );
+    if (!slotExists) return;
+
+    setFormData((prev) => {
+      if (prev.location === selectedSchedule.location && prev.ageGroup === selectedSchedule.slotId) {
+        return prev;
+      }
+
+      return {
+        ...prev,
+        location: selectedSchedule.location,
+        ageGroup: selectedSchedule.slotId,
+      };
+    });
+  }, [selectedSchedule]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

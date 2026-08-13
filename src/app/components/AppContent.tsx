@@ -13,18 +13,31 @@ import { FinalCTA } from './FinalCTA';
 import { Footer } from './Footer';
 import { ScrollToTop } from './ScrollToTop';
 import { PaymentSuccessBanner } from './PaymentSuccessBanner';
+import type { CTARequest, SchedulePrefill } from './ctaTypes';
 
 export const AppContent: React.FC = () => {
   // Which plan was clicked to bring the user to the form.
   // 'planTrialName' = trial lesson (150 Kc, card payment allowed via Stripe).
   // Any other key = paid package (cash only, no Stripe).
   const [selectedPlan, setSelectedPlan] = useState<string>('planTrialName');
+  const [selectedSchedule, setSelectedSchedule] = useState<SchedulePrefill | null>(null);
 
-  const scrollToFinalCTA = (planKey?: string) => {
+  const scrollToFinalCTA = (request?: CTARequest) => {
     // Defensive: callers may forward a React event by accident (onClick={fn}).
     // Only accept actual string keys; everything else is treated as the trial.
-    const nextPlan = typeof planKey === 'string' ? planKey : 'planTrialName';
+    const nextPlan =
+      typeof request === 'string'
+        ? request
+        : request && typeof request === 'object' && 'planKey' in request && typeof request.planKey === 'string'
+          ? request.planKey
+          : 'planTrialName';
+
     setSelectedPlan(nextPlan);
+
+    if (request && typeof request === 'object' && 'schedule' in request && request.schedule) {
+      setSelectedSchedule({ ...request.schedule });
+    }
+
     const element = document.getElementById('cta');
     if (element) {
       element.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -65,7 +78,7 @@ export const AppContent: React.FC = () => {
       <div id="pricing">
         <PricingSection onCTAClick={scrollToFinalCTA} />
       </div>
-      <FinalCTA selectedPlan={selectedPlan} />
+      <FinalCTA selectedPlan={selectedPlan} selectedSchedule={selectedSchedule} />
       <Footer />
     </div>
   );

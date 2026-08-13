@@ -3,6 +3,7 @@ import { useLanguage } from '../LanguageContext';
 import { motion } from 'motion/react';
 import { Clock, Check, Star, Calendar, MapPin } from 'lucide-react';
 import { locations, scheduleByLocation, LocationKey, groupSlots } from '../scheduleData';
+import type { CTARequest } from './ctaTypes';
 
 type PlanConfig = {
   nameKey: string;
@@ -81,7 +82,7 @@ const plans: PlanConfig[] = [
   },
 ];
 
-export const PricingSection: React.FC<{ onCTAClick: (planKey?: string) => void }> = ({ onCTAClick }) => {
+export const PricingSection: React.FC<{ onCTAClick: (request?: CTARequest) => void }> = ({ onCTAClick }) => {
   const { t } = useLanguage();
   const [activeLoc, setActiveLoc] = useState<LocationKey | null>(null);
   const activeLocation = activeLoc ? locations.find((l) => l.key === activeLoc)! : null;
@@ -336,13 +337,19 @@ export const PricingSection: React.FC<{ onCTAClick: (planKey?: string) => void }
 
           {activeLocation && (
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-2 sm:gap-3">
-            {groupSlots(slots).map((group, index) => (
+            {groupSlots(slots).map((group, index) => {
+              const firstTime = group.times[0];
+              const request = activeLoc && firstTime
+                ? { schedule: { location: activeLoc, slotId: firstTime.id } }
+                : undefined;
+
+              return (
                 <motion.div
                   key={`${activeLoc}-${index}`}
                   role="button"
                   tabIndex={0}
-                  onClick={() => onCTAClick()}
-                  onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onCTAClick(); } }}
+                  onClick={() => onCTAClick(request)}
+                  onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onCTAClick(request); } }}
                   className="flex flex-col h-full bg-gradient-to-br from-gray-50 to-white rounded-2xl p-3 lg:p-4 border-2 border-transparent hover:border-[#FF69B4]/30 transition-all min-w-0 cursor-pointer"
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
@@ -394,7 +401,8 @@ export const PricingSection: React.FC<{ onCTAClick: (planKey?: string) => void }
                     {t(activeLocation.daysKey as any)}
                   </p>
                 </motion.div>
-            ))}
+              );
+            })}
           </div>
           )}
         </motion.div>
