@@ -289,7 +289,7 @@ export const FinalCTA: React.FC<{
   };
 
   return (
-    <section id="cta" className="relative py-16 sm:py-20 lg:py-28 overflow-hidden bg-gradient-to-b from-white via-[#FFF0F5] to-[#E0F2FE]">
+    <section className="relative py-16 sm:py-20 lg:py-28 overflow-hidden bg-gradient-to-b from-white via-[#FFF0F5] to-[#E0F2FE]">
       {/* Animated background elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <motion.div

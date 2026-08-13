@@ -1,19 +1,34 @@
-import React, { useState } from 'react';
+import React, { Suspense, lazy, useState } from 'react';
 import { MetaTags } from './MetaTags';
 import { LanguageSwitcher } from './LanguageSwitcher';
 import { MobileMenu } from './MobileMenu';
 import { LoadingScreen } from './LoadingScreen';
 import { HeroSection } from './HeroSection';
-import { RecognizeSection } from './RecognizeSection';
-import { UniqueMethod } from './UniqueMethod';
-import { AgePrograms } from './AgePrograms';
-import { TransformationJourney } from './TransformationJourney';
-import { PricingSection } from './PricingSection';
-import { FinalCTA } from './FinalCTA';
-import { Footer } from './Footer';
 import { ScrollToTop } from './ScrollToTop';
 import { PaymentSuccessBanner } from './PaymentSuccessBanner';
 import type { CTARequest, SchedulePrefill } from './ctaTypes';
+
+const RecognizeSection = lazy(() =>
+  import('./RecognizeSection').then((module) => ({ default: module.RecognizeSection })),
+);
+const AgePrograms = lazy(() =>
+  import('./AgePrograms').then((module) => ({ default: module.AgePrograms })),
+);
+const UniqueMethod = lazy(() =>
+  import('./UniqueMethod').then((module) => ({ default: module.UniqueMethod })),
+);
+const TransformationJourney = lazy(() =>
+  import('./TransformationJourney').then((module) => ({ default: module.TransformationJourney })),
+);
+const PricingSection = lazy(() =>
+  import('./PricingSection').then((module) => ({ default: module.PricingSection })),
+);
+const FinalCTA = lazy(() =>
+  import('./FinalCTA').then((module) => ({ default: module.FinalCTA })),
+);
+const Footer = lazy(() =>
+  import('./Footer').then((module) => ({ default: module.Footer })),
+);
 
 export const AppContent: React.FC = () => {
   // Which plan was clicked to bring the user to the form.
@@ -66,20 +81,36 @@ export const AppContent: React.FC = () => {
         <HeroSection onCTAClick={scrollToFinalCTA} />
       </div>
       <div id="recognize">
-        <RecognizeSection />
+        <Suspense fallback={null}>
+          <RecognizeSection />
+        </Suspense>
       </div>
       <div id="programs">
-        <AgePrograms onCTAClick={scrollToFinalCTA} />
+        <Suspense fallback={null}>
+          <AgePrograms onCTAClick={scrollToFinalCTA} />
+        </Suspense>
       </div>
       <div id="method">
-        <UniqueMethod />
+        <Suspense fallback={null}>
+          <UniqueMethod />
+        </Suspense>
       </div>
-      <TransformationJourney />
+      <Suspense fallback={null}>
+        <TransformationJourney />
+      </Suspense>
       <div id="pricing">
-        <PricingSection onCTAClick={scrollToFinalCTA} />
+        <Suspense fallback={null}>
+          <PricingSection onCTAClick={scrollToFinalCTA} />
+        </Suspense>
       </div>
-      <FinalCTA selectedPlan={selectedPlan} selectedSchedule={selectedSchedule} />
-      <Footer />
+      <div id="cta">
+        <Suspense fallback={<div className="min-h-[640px]" aria-hidden="true" />}>
+          <FinalCTA selectedPlan={selectedPlan} selectedSchedule={selectedSchedule} />
+        </Suspense>
+      </div>
+      <Suspense fallback={null}>
+        <Footer />
+      </Suspense>
     </div>
   );
 };
