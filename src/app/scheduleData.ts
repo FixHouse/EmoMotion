@@ -11,13 +11,18 @@ export type LocationConfig = {
   color: string;
 };
 
+export type ScheduleCapacity = {
+  taken: number;
+  total: number;
+};
+
 export type ScheduleSlot = {
   id: string;
   ageKey: string;
   timeKey: string;
   titleKey?: string;
   color: string;
-  spots: string;
+  capacity: ScheduleCapacity;
   dayOverrideKey?: string;
 };
 
@@ -55,17 +60,17 @@ const C_58 = '#6366F1';
 
 export const scheduleByLocation: Record<LocationKey, ScheduleSlot[]> = {
   praha2: [
-    { id: 'p2-23ua-1045', ageKey: 'ageLoc23', timeKey: 'timeLoc1045', titleKey: 'mamMalUA', color: C_23_UA, spots: '7 з 8' },
-    { id: 'p2-23cz-1130', ageKey: 'ageLoc23', timeKey: 'timeLoc1130', titleKey: 'mamMalCZ', color: C_23_CZ, spots: '1 з 8' },
-    { id: 'p2-35-1630', ageKey: 'ageLoc35', timeKey: 'timeLoc1630', color: C_35, spots: '10 з 10' },
-    { id: 'p2-58-1730', ageKey: 'ageLoc58', timeKey: 'timeLoc1730', color: C_58, spots: '4 з 8' },
+    { id: 'p2-23ua-1045', ageKey: 'ageLoc23', timeKey: 'timeLoc1045', titleKey: 'mamMalUA', color: C_23_UA, capacity: { taken: 7, total: 8 } },
+    { id: 'p2-23cz-1130', ageKey: 'ageLoc23', timeKey: 'timeLoc1130', titleKey: 'mamMalCZ', color: C_23_CZ, capacity: { taken: 1, total: 8 } },
+    { id: 'p2-35-1630', ageKey: 'ageLoc35', timeKey: 'timeLoc1630', color: C_35, capacity: { taken: 10, total: 10 } },
+    { id: 'p2-58-1730', ageKey: 'ageLoc58', timeKey: 'timeLoc1730', color: C_58, capacity: { taken: 4, total: 8 } },
   ],
   praha9: [
-    { id: 'p9-23ua-1045', ageKey: 'ageLoc23', timeKey: 'timeLoc1045', titleKey: 'mamMalUA', color: C_23_UA, spots: '2 з 8' },
-    { id: 'p9-23cz-1130', ageKey: 'ageLoc23', timeKey: 'timeLoc1130', titleKey: 'mamMalCZ', color: C_23_CZ, spots: '1 з 8' },
-    { id: 'p9-35-1630', ageKey: 'ageLoc35', timeKey: 'timeLoc1630', color: C_35, spots: '10 з 10' },
-    { id: 'p9-58-1730-po', ageKey: 'ageLoc58', timeKey: 'timeLoc1730', color: C_58, spots: '4 з 8', dayOverrideKey: 'dayPoOnly' },
-    { id: 'p9-58-1715-st', ageKey: 'ageLoc58', timeKey: 'timeLoc1715', color: C_58, spots: '0 з 10', dayOverrideKey: 'dayStOnly' },
+    { id: 'p9-23ua-1045', ageKey: 'ageLoc23', timeKey: 'timeLoc1045', titleKey: 'mamMalUA', color: C_23_UA, capacity: { taken: 2, total: 8 } },
+    { id: 'p9-23cz-1130', ageKey: 'ageLoc23', timeKey: 'timeLoc1130', titleKey: 'mamMalCZ', color: C_23_CZ, capacity: { taken: 1, total: 8 } },
+    { id: 'p9-35-1630', ageKey: 'ageLoc35', timeKey: 'timeLoc1630', color: C_35, capacity: { taken: 10, total: 10 } },
+    { id: 'p9-58-1730-po', ageKey: 'ageLoc58', timeKey: 'timeLoc1730', color: C_58, capacity: { taken: 4, total: 8 }, dayOverrideKey: 'dayPoOnly' },
+    { id: 'p9-58-1715-st', ageKey: 'ageLoc58', timeKey: 'timeLoc1715', color: C_58, capacity: { taken: 0, total: 10 }, dayOverrideKey: 'dayStOnly' },
   ],
 };
 
@@ -83,7 +88,7 @@ export type DisplayGroup = {
   ageKey: string;
   titleKey?: string;
   color: string;
-  times: Array<{ id: string; timeKey: string; dayOverrideKey?: string; spots: string }>;
+  times: Array<{ id: string; timeKey: string; dayOverrideKey?: string; capacity: ScheduleCapacity }>;
 };
 
 export function groupSlots(slots: ScheduleSlot[]): DisplayGroup[] {
@@ -102,7 +107,7 @@ export function groupSlots(slots: ScheduleSlot[]): DisplayGroup[] {
       id: slot.id,
       timeKey: slot.timeKey,
       dayOverrideKey: slot.dayOverrideKey,
-      spots: slot.spots,
+      capacity: slot.capacity,
     });
   }
   return Array.from(groups.values());

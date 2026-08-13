@@ -366,9 +366,8 @@ export const PricingSection: React.FC<{ onCTAClick: (planKey?: string) => void }
                   )}
 
                   {group.times.map((tm, ti) => {
-                    const [takenStr, , totalStr] = tm.spots.split(' ');
-                    const taken = parseInt(takenStr);
-                    const total = parseInt(totalStr);
+                    const { taken, total } = tm.capacity;
+                    const fillPercent = total > 0 ? (taken / total) * 100 : 0;
                     return (
                       <div key={tm.id} className={ti > 0 ? 'mt-2' : ''}>
                         <p className="text-sm font-bold text-gray-700 mb-1 whitespace-nowrap">
@@ -380,12 +379,12 @@ export const PricingSection: React.FC<{ onCTAClick: (planKey?: string) => void }
                               className="h-full rounded-full"
                               style={{ backgroundColor: group.color }}
                               initial={{ width: 0 }}
-                              animate={{ width: `${(taken / total) * 100}%` }}
+                              animate={{ width: `${fillPercent}%` }}
                               transition={{ duration: 1, delay: index * 0.15 + ti * 0.1 }}
                             />
                           </div>
                           <span className="text-xs font-bold text-gray-600 whitespace-nowrap">
-                            {tm.spots} {t('spotsLabel')}
+                            {taken} з {total} {t('spotsLabel')}
                           </span>
                         </div>
                       </div>
