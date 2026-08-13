@@ -36,9 +36,9 @@ export const AgePrograms: React.FC<{ onCTAClick: () => void }> = ({ onCTAClick }
     },
     {
       emoji: '🎨',
-      color: '#FF69B4',
-      lightBg: '#FFF0F5',
-      darkColor: '#FF1493',
+      color: '#7C3AED',
+      lightBg: '#FAF7FF',
+      darkColor: '#5B21B6',
       ageRangeKey: 'ageRange25',
       durationKey: 'duration40',
       groupSizeKey: 'groupSize8',
@@ -331,7 +331,7 @@ export const AgePrograms: React.FC<{ onCTAClick: () => void }> = ({ onCTAClick }
 
             <button
               onClick={() => onCTAClick()}
-              className="relative px-8 sm:px-10 py-4 sm:py-5 bg-gradient-to-r from-[#FF69B4] to-[#FF1493] text-white rounded-2xl font-bold text-base sm:text-lg shadow-2xl hover:shadow-pink-500/50 transition-all duration-300 flex items-center gap-3"
+              className="relative px-8 sm:px-10 py-4 sm:py-5 bg-gradient-to-r from-[#7C3AED] to-[#5B21B6] text-white rounded-2xl font-bold text-base sm:text-lg shadow-2xl hover:shadow-violet-500/50 transition-all duration-300 flex items-center gap-3"
             >
               <span>{t('ageProgramsCTA')}</span>
               <motion.div
@@ -355,7 +355,7 @@ export const AgePrograms: React.FC<{ onCTAClick: () => void }> = ({ onCTAClick }
             transition={{ delay: 0.3 }}
             className="mt-6 text-sm text-gray-600"
           >
-            {t('ageProgramsFirstFree').split(' — ')[0]} — <span className="font-bold text-[#FF69B4]">{t('ageProgramsFirstFree').split(' — ')[1]}</span>
+            {t('ageProgramsFirstFree').split(' — ')[0]} — <span className="font-bold text-[#7C3AED]">{t('ageProgramsFirstFree').split(' — ')[1]}</span>
           </motion.p>
         </motion.div>
 

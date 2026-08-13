@@ -55,9 +55,9 @@ const plans: PlanConfig[] = [
     priceKey: 'price2000',
     priceDisplay: '',
     emoji: '💗',
-    accentColor: '#FF69B4',
+    accentColor: '#7C3AED',
     bgColor: '#fff0f6',
-    borderColor: '#FF69B4',
+    borderColor: '#7C3AED',
     features: ['feature1Pack8', 'feature2Pack8', 'feature3Pack8', 'feature4Pack8', 'feature5Pack8'],
     badge: 'badgeMostPopular',
     saveKey: 'plan8Save',
@@ -91,7 +91,7 @@ export const PricingSection: React.FC<{ onCTAClick: (request?: CTARequest) => vo
   const getButtonClass = (style: PlanConfig['buttonStyle']) => {
     switch (style) {
       case 'featured':
-        return 'bg-gradient-to-r from-[#FF69B4] to-[#FF1493] text-white shadow-lg shadow-pink-200';
+        return 'bg-gradient-to-r from-[#7C3AED] to-[#5B21B6] text-white shadow-lg shadow-violet-200';
       case 'primary':
         return 'bg-gradient-to-r from-[#22c55e] to-[#16a34a] text-white shadow-lg shadow-green-200';
       case 'gold':
@@ -118,9 +118,9 @@ export const PricingSection: React.FC<{ onCTAClick: (request?: CTARequest) => vo
             initial={{ opacity: 0, scale: 0.9 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
-            className="inline-block mb-4 px-6 py-2 bg-[#FF69B4]/10 rounded-full"
+            className="inline-block mb-4 px-6 py-2 bg-[#7C3AED]/10 rounded-full"
           >
-            <span className="text-sm sm:text-base font-bold text-[#FF69B4]">
+            <span className="text-sm sm:text-base font-bold text-[#7C3AED]">
               {t('pricingBadge')}
             </span>
           </motion.div>
@@ -130,7 +130,7 @@ export const PricingSection: React.FC<{ onCTAClick: (request?: CTARequest) => vo
             style={{ fontFamily: 'Poppins, sans-serif' }}
           >
             <span className="text-gray-900">{t('pricingTitlePart1')} </span>
-            <span className="bg-gradient-to-r from-[#FF69B4] to-[#FF1493] bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-[#7C3AED] to-[#5B21B6] bg-clip-text text-transparent">
               {t('pricingTitlePart2')}
             </span>
           </h2>
@@ -157,7 +157,7 @@ export const PricingSection: React.FC<{ onCTAClick: (request?: CTARequest) => vo
                   className="absolute -top-3.5 left-1/2 -translate-x-1/2 whitespace-nowrap px-3 py-1.5 rounded-full text-xs font-bold shadow-md z-20 text-white"
                   style={{
                     background: plan.isPopular
-                      ? 'linear-gradient(135deg, #FF69B4, #FF1493)'
+                      ? 'linear-gradient(135deg, #7C3AED, #5B21B6)'
                       : 'linear-gradient(135deg, #8b5cf6, #7c3aed)',
                   }}
                   animate={{ y: [0, -4, 0] }}
@@ -287,10 +287,10 @@ export const PricingSection: React.FC<{ onCTAClick: (request?: CTARequest) => vo
           viewport={{ once: true }}
         >
           <p className="text-base sm:text-lg font-bold text-gray-700 flex items-center justify-center gap-2">
-            <Star className="w-5 h-5 text-[#FF69B4]" />
+            <Star className="w-5 h-5 text-[#7C3AED]" />
             {t('smallGroupsNotice')}
           </p>
-          <p className="text-sm sm:text-base font-semibold text-[#FF69B4]">
+          <p className="text-sm sm:text-base font-semibold text-[#7C3AED]">
             {t('limitedSpotsNotice')}
           </p>
         </motion.div>
@@ -304,12 +304,12 @@ export const PricingSection: React.FC<{ onCTAClick: (request?: CTARequest) => vo
         >
           <div className="flex flex-col items-center gap-1 mb-6 sm:mb-8">
             <div className="flex items-center gap-3">
-              <Clock className="w-6 h-6 text-[#FF69B4]" />
+              <Clock className="w-6 h-6 text-[#7C3AED]" />
               <h3 className="text-2xl sm:text-3xl font-bold text-gray-900" style={{ fontFamily: 'Poppins, sans-serif' }}>
                 {t('scheduleHeader')}
               </h3>
             </div>
-            <p className="text-sm sm:text-base font-semibold text-[#FF69B4]">
+            <p className="text-sm sm:text-base font-semibold text-[#7C3AED]">
               {t('scheduleStartDate')}
             </p>
           </div>
@@ -364,7 +364,7 @@ export const PricingSection: React.FC<{ onCTAClick: (request?: CTARequest) => vo
                   type="button"
                   aria-label={scheduleLabel}
                   onClick={() => onCTAClick(request)}
-                  className="flex flex-col h-full bg-gradient-to-br from-gray-50 to-white rounded-2xl p-3 lg:p-4 border-2 border-transparent hover:border-[#FF69B4]/30 transition-all min-w-0 cursor-pointer text-left"
+                  className="flex flex-col h-full bg-gradient-to-br from-gray-50 to-white rounded-2xl p-3 lg:p-4 border-2 border-transparent hover:border-[#7C3AED]/30 transition-all min-w-0 cursor-pointer text-left"
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: index * 0.08 }}

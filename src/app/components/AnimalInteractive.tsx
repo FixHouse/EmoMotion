@@ -7,9 +7,9 @@ const animals = [
   { 
     key: 'turtle', 
     emoji: '🐢', 
-    color: '#FFB6C1',
-    gradient: 'from-[#FFB6C1] to-[#FF69B4]',
-    shadow: 'rgba(255, 182, 193, 0.4)'
+    color: '#C4B5FD',
+    gradient: 'from-[#C4B5FD] to-[#7C3AED]',
+    shadow: 'rgba(196, 181, 253, 0.4)'
   },
   { 
     key: 'lion', 

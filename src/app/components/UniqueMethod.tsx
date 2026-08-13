@@ -260,7 +260,7 @@ export const UniqueMethod: React.FC = () => {
             className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-extrabold text-gray-900 mb-5"
             style={{ fontFamily: 'Poppins, sans-serif' }}
           >
-            {t('quizTitle').split(' ')[0]} <span className="bg-gradient-to-r from-[#FF69B4] to-[#8B5CF6] bg-clip-text text-transparent">
+            {t('quizTitle').split(' ')[0]} <span className="bg-gradient-to-r from-[#7C3AED] to-[#8B5CF6] bg-clip-text text-transparent">
               {t('quizTitle').split(' ')[1]}
             </span> {t('quizTitle').split(' ').slice(2).join(' ')}
           </h2>

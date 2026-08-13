@@ -29,11 +29,11 @@ export const MobileMenu: React.FC = () => {
   }, [isOpen]);
 
   const menuItems = [
-    { icon: Home, label: t('menuHome'), href: '#hero', color: '#FF69B4' },
+    { icon: Home, label: t('menuHome'), href: '#hero', color: '#7C3AED' },
     { icon: Info, label: t('menuWhy'), href: '#recognize', color: '#7DD3FC' },
     { icon: Sparkles, label: t('menuMethod'), href: '#method', color: '#A7F3D0' },
     { icon: Star, label: t('menuPrograms'), href: '#programs', color: '#FDE047' },
-    { icon: DollarSign, label: t('menuPricing'), href: '#pricing', color: '#FF69B4' },
+    { icon: DollarSign, label: t('menuPricing'), href: '#pricing', color: '#7C3AED' },
     { icon: Phone, label: t('menuContact'), href: '#cta', color: '#7DD3FC' },
   ];
 
@@ -80,7 +80,7 @@ export const MobileMenu: React.FC = () => {
               exit={{ rotate: -90, opacity: 0 }}
               transition={{ duration: 0.2 }}
             >
-              <Menu className="w-6 h-6 sm:w-7 sm:h-7 text-[#FF69B4]" aria-hidden="true" />
+              <Menu className="w-6 h-6 sm:w-7 sm:h-7 text-[#7C3AED]" aria-hidden="true" />
             </motion.div>
           )}
         </AnimatePresence>
@@ -118,7 +118,7 @@ export const MobileMenu: React.FC = () => {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.1 }}
                   >
-                    <span className="bg-gradient-to-r from-[#FF69B4] to-[#FF1493] bg-clip-text text-transparent">
+                    <span className="bg-gradient-to-r from-[#7C3AED] to-[#5B21B6] bg-clip-text text-transparent">
                       EmoMotion
                     </span>
                   </motion.h2>

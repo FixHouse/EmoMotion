@@ -18,7 +18,7 @@ export const HeroSection: React.FC<{ onCTAClick: (request?: CTARequest) => void 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-white">
       {/* Subtle gradient background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-[#FFF0F5]/30 via-white to-[#E0F2FE]/20" />
+      <div className="absolute inset-0 bg-gradient-to-br from-[#FAF7FF]/30 via-white to-[#E0F2FE]/20" />
       
       {/* Minimal floating elements */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
@@ -31,7 +31,7 @@ export const HeroSection: React.FC<{ onCTAClick: (request?: CTARequest) => void 
               height: `${100 + i * 50}px`,
               left: `${20 + i * 15}%`,
               top: `${10 + i * 12}%`,
-              background: i % 2 === 0 ? '#FF69B4' : '#7DD3FC',
+              background: i % 2 === 0 ? '#7C3AED' : '#7DD3FC',
             }}
             animate={{
               y: [0, -20, 0],
@@ -62,9 +62,9 @@ export const HeroSection: React.FC<{ onCTAClick: (request?: CTARequest) => void 
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 0.2 }}
-                className="inline-block mb-4 px-6 py-2 bg-[#FF69B4]/10 rounded-full"
+                className="inline-block mb-4 px-6 py-2 bg-[#7C3AED]/10 rounded-full"
               >
-                <span className="text-sm sm:text-base font-bold text-[#FF69B4]">
+                <span className="text-sm sm:text-base font-bold text-[#7C3AED]">
                   ✨ {t('heroSchedule')}
                 </span>
               </motion.div>
@@ -76,7 +76,7 @@ export const HeroSection: React.FC<{ onCTAClick: (request?: CTARequest) => void 
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3 }}
               >
-                <span className="bg-gradient-to-r from-[#FF69B4] to-[#FF1493] bg-clip-text text-transparent block mb-2">
+                <span className="bg-gradient-to-r from-[#7C3AED] to-[#5B21B6] bg-clip-text text-transparent block mb-2">
                   EmoMotion
                 </span>
                 <span className="text-gray-900 block text-3xl sm:text-4xl lg:text-5xl xl:text-6xl">
@@ -106,7 +106,7 @@ export const HeroSection: React.FC<{ onCTAClick: (request?: CTARequest) => void 
                 <div className="text-base sm:text-lg font-bold text-gray-900">
                   {t('scheduleHeader')}
                 </div>
-                <div className="text-xs sm:text-sm font-semibold text-[#FF69B4]">
+                <div className="text-xs sm:text-sm font-semibold text-[#7C3AED]">
                   {t('scheduleStartDate')}
                 </div>
               </div>
@@ -160,8 +160,8 @@ export const HeroSection: React.FC<{ onCTAClick: (request?: CTARequest) => void 
                       type="button"
                       aria-label={scheduleLabel}
                       onClick={() => onCTAClick(request)}
-                      className="w-full bg-white rounded-2xl p-3 lg:p-4 shadow-md border-2 border-transparent hover:border-[#FF69B4] transition-all min-w-0 cursor-pointer text-left"
-                      whileHover={{ y: -5, boxShadow: '0 20px 40px -10px rgba(255,105,180,0.2)' }}
+                      className="w-full bg-white rounded-2xl p-3 lg:p-4 shadow-md border-2 border-transparent hover:border-[#7C3AED] transition-all min-w-0 cursor-pointer text-left"
+                      whileHover={{ y: -5, boxShadow: '0 20px 40px -10px rgba(124,58,237,0.2)' }}
                       whileTap={{ scale: 0.97 }}
                     >
                       <div className="flex items-center gap-1.5 mb-1 flex-wrap">
@@ -206,8 +206,8 @@ export const HeroSection: React.FC<{ onCTAClick: (request?: CTARequest) => void 
             >
               <motion.button
                 onClick={() => onCTAClick()}
-                className="group relative px-8 py-5 bg-gradient-to-r from-[#FF69B4] to-[#FF1493] text-white rounded-2xl font-bold text-lg shadow-xl overflow-hidden"
-                whileHover={{ scale: 1.02, boxShadow: '0 25px 50px -12px rgba(255,105,180,0.5)' }}
+                className="group relative px-8 py-5 bg-gradient-to-r from-[#7C3AED] to-[#5B21B6] text-white rounded-2xl font-bold text-lg shadow-xl overflow-hidden"
+                whileHover={{ scale: 1.02, boxShadow: '0 25px 50px -12px rgba(124,58,237,0.5)' }}
                 whileTap={{ scale: 0.98 }}
               >
                 <motion.div
@@ -267,7 +267,7 @@ export const HeroSection: React.FC<{ onCTAClick: (request?: CTARequest) => void 
             className="lg:col-span-2 relative"
           >
             {/* Decorative ring */}
-            <div className="absolute inset-0 rounded-full bg-gradient-to-br from-[#FF69B4]/10 to-[#7DD3FC]/10 blur-3xl" />
+            <div className="absolute inset-0 rounded-full bg-gradient-to-br from-[#7C3AED]/10 to-[#7DD3FC]/10 blur-3xl" />
             <div className="relative">
               <AnimalInteractive />
             </div>

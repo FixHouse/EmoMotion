@@ -18,7 +18,7 @@ export const LanguageSwitcher: React.FC = () => {
         role="group"
         aria-label={t('language')}
       >
-        <Languages className="w-3 h-3 sm:w-4 sm:h-4 text-[#FF69B4] hidden sm:block" aria-hidden="true" />
+        <Languages className="w-3 h-3 sm:w-4 sm:h-4 text-[#7C3AED] hidden sm:block" aria-hidden="true" />
         <div className="flex gap-0.5 sm:gap-1">
           <motion.button
             type="button"
@@ -27,7 +27,7 @@ export const LanguageSwitcher: React.FC = () => {
             aria-pressed={language === 'cs'}
             className={`px-2 sm:px-3 py-1 sm:py-1.5 rounded-full transition-all text-xs sm:text-sm font-bold ${
               language === 'cs'
-                ? 'bg-gradient-to-r from-[#FF69B4] to-[#FF1493] text-white'
+                ? 'bg-gradient-to-r from-[#7C3AED] to-[#5B21B6] text-white'
                 : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
             }`}
             whileHover={{ scale: 1.05 }}
@@ -42,7 +42,7 @@ export const LanguageSwitcher: React.FC = () => {
             aria-pressed={language === 'en'}
             className={`px-2 sm:px-3 py-1 sm:py-1.5 rounded-full transition-all text-xs sm:text-sm font-bold ${
               language === 'en'
-                ? 'bg-gradient-to-r from-[#FF69B4] to-[#FF1493] text-white'
+                ? 'bg-gradient-to-r from-[#7C3AED] to-[#5B21B6] text-white'
                 : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
             }`}
             whileHover={{ scale: 1.05 }}
@@ -57,7 +57,7 @@ export const LanguageSwitcher: React.FC = () => {
             aria-pressed={language === 'uk'}
             className={`px-2 sm:px-3 py-1 sm:py-1.5 rounded-full transition-all text-xs sm:text-sm font-bold ${
               language === 'uk'
-                ? 'bg-gradient-to-r from-[#FF69B4] to-[#FF1493] text-white'
+                ? 'bg-gradient-to-r from-[#7C3AED] to-[#5B21B6] text-white'
                 : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
             }`}
             whileHover={{ scale: 1.05 }}

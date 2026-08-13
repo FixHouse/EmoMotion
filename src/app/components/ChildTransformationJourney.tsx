@@ -62,7 +62,7 @@ export const ChildTransformationJourney: React.FC = () => {
             {/* Connecting Line */}
             {index < journeyStages.length - 1 && (
               <motion.div
-                className="absolute left-8 top-20 w-0.5 h-16 bg-gradient-to-b from-[#FF69B4] to-gray-200"
+                className="absolute left-8 top-20 w-0.5 h-16 bg-gradient-to-b from-[#7C3AED] to-gray-200"
                 initial={{ scaleY: 0 }}
                 whileInView={{ scaleY: 1 }}
                 viewport={{ once: true }}
@@ -82,7 +82,7 @@ export const ChildTransformationJourney: React.FC = () => {
               <motion.div
                 className={`flex-shrink-0 w-16 h-16 rounded-full flex items-center justify-center text-3xl transition-all ${
                   stage.id === 4
-                    ? 'bg-gradient-to-br from-[#FF69B4] to-[#FDE047] shadow-xl'
+                    ? 'bg-gradient-to-br from-[#7C3AED] to-[#FDE047] shadow-xl'
                     : 'bg-white shadow-lg'
                 }`}
                 whileHover={{ scale: 1.1, rotate: 5 }}
@@ -97,7 +97,7 @@ export const ChildTransformationJourney: React.FC = () => {
                     {language === 'uk' ? stage.titleUk : stage.titleCs}
                   </h4>
                   {stage.id === 4 && (
-                    <Sparkles className="w-5 h-5 text-[#FF69B4]" />
+                    <Sparkles className="w-5 h-5 text-[#7C3AED]" />
                   )}
                 </div>
                 <p className="text-gray-600 leading-relaxed">
@@ -114,7 +114,7 @@ export const ChildTransformationJourney: React.FC = () => {
         {/* Main Path Line */}
         <div className="absolute top-28 left-0 right-0 h-1 bg-gray-200 rounded-full">
           <motion.div
-            className="h-full bg-[#FF69B4] rounded-full"
+            className="h-full bg-[#7C3AED] rounded-full"
             initial={{ width: 0 }}
             whileInView={{ width: '100%' }}
             viewport={{ once: true }}
@@ -133,7 +133,7 @@ export const ChildTransformationJourney: React.FC = () => {
             ease: 'linear',
           }}
         >
-          <div className="w-3 h-3 bg-[#FF69B4] rounded-full blur-sm animate-pulse" />
+          <div className="w-3 h-3 bg-[#7C3AED] rounded-full blur-sm animate-pulse" />
         </motion.div>
 
         {/* Stages */}
@@ -151,7 +151,7 @@ export const ChildTransformationJourney: React.FC = () => {
               <motion.div
                 className={`relative z-10 w-24 h-24 rounded-full flex items-center justify-center text-4xl mb-6 transition-all cursor-pointer ${
                   stage.id === 4
-                    ? 'bg-gradient-to-br from-[#FF69B4] to-[#FDE047] shadow-2xl'
+                    ? 'bg-gradient-to-br from-[#7C3AED] to-[#FDE047] shadow-2xl'
                     : 'bg-white shadow-xl'
                 }`}
                 whileHover={{ scale: 1.15, rotate: 10 }}
@@ -180,7 +180,7 @@ export const ChildTransformationJourney: React.FC = () => {
                 className="bg-white rounded-2xl p-6 shadow-lg w-full max-w-[220px] min-h-[140px]"
                 animate={
                   activeStage === stage.id
-                    ? { scale: 1.05, boxShadow: '0 20px 50px rgba(255, 105, 180, 0.3)' }
+                    ? { scale: 1.05, boxShadow: '0 20px 50px rgba(124, 58, 237, 0.3)' }
                     : { scale: 1, boxShadow: '0 10px 30px rgba(0, 0, 0, 0.1)' }
                 }
               >
@@ -194,7 +194,7 @@ export const ChildTransformationJourney: React.FC = () => {
 
               {/* Stage Number */}
               <motion.div
-                className="mt-4 text-[#FF69B4] font-bold text-sm"
+                className="mt-4 text-[#7C3AED] font-bold text-sm"
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
                 viewport={{ once: true }}
@@ -210,7 +210,7 @@ export const ChildTransformationJourney: React.FC = () => {
         {[...Array(8)].map((_, i) => (
           <motion.div
             key={i}
-            className="absolute w-2 h-2 bg-[#FF69B4] rounded-full opacity-40"
+            className="absolute w-2 h-2 bg-[#7C3AED] rounded-full opacity-40"
             style={{
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,

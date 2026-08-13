@@ -37,7 +37,7 @@ export const locations: LocationConfig[] = [
       'https://www.google.com/maps?q=Francouzsk%C3%A1+31%2C+Praha+2&hl=cs&z=17&output=embed',
     navigateUrl:
       'https://www.google.com/maps/search/?api=1&query=Francouzsk%C3%A1+31%2C+Praha+2',
-    color: '#FF69B4',
+    color: '#7C3AED',
   },
   {
     key: 'praha9',
@@ -49,14 +49,14 @@ export const locations: LocationConfig[] = [
       'https://www.google.com/maps?q=Jandova+207%2F4%2C+Praha+9&hl=cs&z=17&output=embed',
     navigateUrl:
       'https://www.google.com/maps/search/?api=1&query=Jandova+207%2F4%2C+Praha+9',
-    color: '#8b5cf6',
+    color: '#5B21B6',
   },
 ];
 
 const C_23_UA = '#FACC15';
-const C_23_CZ = '#F472B6';
+const C_23_CZ = '#EC4899';
 const C_35 = '#0EA5E9';
-const C_58 = '#6366F1';
+const C_58 = '#7C3AED';
 
 export const scheduleByLocation: Record<LocationKey, ScheduleSlot[]> = {
   praha2: [

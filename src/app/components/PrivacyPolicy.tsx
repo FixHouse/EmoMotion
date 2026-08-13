@@ -118,7 +118,7 @@ export const PrivacyPolicy: React.FC<PrivacyPolicyProps> = ({ isOpen, onClose })
               <motion.button
                 type="button"
                 onClick={onClose}
-                className="w-full py-4 bg-gradient-to-r from-[#FF69B4] to-[#FF1493] text-white rounded-2xl text-lg font-bold shadow-lg"
+                className="w-full py-4 bg-gradient-to-r from-[#7C3AED] to-[#5B21B6] text-white rounded-2xl text-lg font-bold shadow-lg"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
               >

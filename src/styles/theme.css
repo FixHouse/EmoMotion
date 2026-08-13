@@ -41,11 +41,13 @@
   --sidebar-ring: oklch(0.708 0 0);
   
   /* EmoMotion Custom Colors */
-  --emotion-pink: #FF69B4;
+  --emotion-primary: #7C3AED;
+  --emotion-primary-deep: #5B21B6;
+  --emotion-pink: #EC4899;
   --emotion-blue: #7DD3FC;
   --emotion-yellow: #FDE047;
   --emotion-mint: #A7F3D0;
-  --emotion-gradient-start: #FFF0F5;
+  --emotion-gradient-start: #FAF7FF;
   --emotion-gradient-end: #E0F2FE;
   
   font-family: 'Inter', sans-serif;

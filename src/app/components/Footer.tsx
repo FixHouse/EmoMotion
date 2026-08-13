@@ -10,7 +10,7 @@ export const Footer: React.FC = () => {
   
   return (
     <>
-      <footer className="bg-[#FF69B4] py-8 px-4">
+      <footer className="bg-[#7C3AED] py-8 px-4">
         <div className="max-w-7xl mx-auto">
           <motion.div
             className="text-center"

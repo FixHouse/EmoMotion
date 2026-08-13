@@ -10,8 +10,8 @@ const problems = [
     emoji: '😳',
     solutionEmoji: '🎬',
     icon: Target,
-    color: '#FF69B4',
-    lightBg: '#FFF0F5',
+    color: '#7C3AED',
+    lightBg: '#FAF7FF',
   },
   {
     problemKey: 'recognizeProblem2',
@@ -457,7 +457,7 @@ export const RecognizeSection: React.FC = () => {
               className="text-xl sm:text-2xl lg:text-3xl xl:text-4xl font-extrabold text-center leading-relaxed px-12"
               style={{ fontFamily: 'Poppins, sans-serif' }}
             >
-              <span className="bg-gradient-to-r from-[#FF69B4] via-[#7DD3FC] to-[#34D399] bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-[#7C3AED] via-[#7DD3FC] to-[#34D399] bg-clip-text text-transparent">
                 {t('recognizeForWho')}
               </span>
             </p>

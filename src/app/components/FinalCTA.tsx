@@ -267,7 +267,7 @@ export const FinalCTA: React.FC<{
           const confetti = document.createElement('div');
           confetti.className = 'confetti';
           confetti.style.left = Math.random() * 100 + 'vw';
-          confetti.style.background = ['#FF69B4', '#7DD3FC', '#FFF0F5', '#E0F2FE'][Math.floor(Math.random() * 4)];
+          confetti.style.background = ['#7C3AED', '#7DD3FC', '#FAF7FF', '#E0F2FE'][Math.floor(Math.random() * 4)];
           confetti.style.animationDelay = Math.random() * 0.5 + 's';
           document.body.appendChild(confetti);
           setTimeout(() => confetti.remove(), 3000);
@@ -289,11 +289,11 @@ export const FinalCTA: React.FC<{
   };
 
   return (
-    <section className="relative py-16 sm:py-20 lg:py-28 overflow-hidden bg-gradient-to-b from-white via-[#FFF0F5] to-[#E0F2FE]">
+    <section className="relative py-16 sm:py-20 lg:py-28 overflow-hidden bg-gradient-to-b from-white via-[#FAF7FF] to-[#E0F2FE]">
       {/* Animated background elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <motion.div
-          className="absolute top-20 left-10 w-32 h-32 bg-[#FF69B4]/10 rounded-full blur-3xl"
+          className="absolute top-20 left-10 w-32 h-32 bg-[#7C3AED]/10 rounded-full blur-3xl"
           animate={{
             scale: [1, 1.2, 1],
             opacity: [0.3, 0.5, 0.3],
@@ -362,7 +362,7 @@ export const FinalCTA: React.FC<{
           viewport={{ once: true }}
         >
           <div className="flex items-center gap-3 mb-6">
-            <div className="w-12 h-12 bg-gradient-to-br from-[#FF69B4] to-[#7DD3FC] rounded-full flex items-center justify-center">
+            <div className="w-12 h-12 bg-gradient-to-br from-[#7C3AED] to-[#7DD3FC] rounded-full flex items-center justify-center">
               <Sparkles className="w-6 h-6 text-white" />
             </div>
             <h3 className="text-2xl sm:text-3xl font-bold text-gray-800">{t('formTitle')}</h3>
@@ -381,7 +381,7 @@ export const FinalCTA: React.FC<{
                   value={formData.parentName}
                   onChange={(e) => setFormData({ ...formData, parentName: e.target.value })}
                   placeholder={t('formParentNamePlaceholder')}
-                  className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-[#FF69B4] focus:outline-none transition-colors text-gray-800"
+                  className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-[#7C3AED] focus:outline-none transition-colors text-gray-800"
                 />
               </div>
 
@@ -396,7 +396,7 @@ export const FinalCTA: React.FC<{
                   value={formData.childName}
                   onChange={(e) => setFormData({ ...formData, childName: e.target.value })}
                   placeholder={t('formChildNamePlaceholder')}
-                  className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-[#FF69B4] focus:outline-none transition-colors text-gray-800"
+                  className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-[#7C3AED] focus:outline-none transition-colors text-gray-800"
                 />
               </div>
 
@@ -409,7 +409,7 @@ export const FinalCTA: React.FC<{
                   required
                   value={formData.childAge}
                   onChange={(e) => setFormData({ ...formData, childAge: e.target.value })}
-                  className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-[#FF69B4] focus:outline-none transition-colors text-gray-800 bg-white"
+                  className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-[#7C3AED] focus:outline-none transition-colors text-gray-800 bg-white"
                 >
                   <option value="">{t('formChildAgePlaceholder')}</option>
                   <option value="2">2</option>
@@ -434,7 +434,7 @@ export const FinalCTA: React.FC<{
                   value={formData.phone}
                   onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                   placeholder={t('formPhonePlaceholder')}
-                  className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-[#FF69B4] focus:outline-none transition-colors text-gray-800"
+                  className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-[#7C3AED] focus:outline-none transition-colors text-gray-800"
                 />
               </div>
 
@@ -453,7 +453,7 @@ export const FinalCTA: React.FC<{
                         onClick={() => setFormData({ ...formData, location: loc.key, ageGroup: '' })}
                         className={`flex items-center gap-2 px-3 py-3 rounded-xl border-2 text-left transition-all ${
                           active
-                            ? 'bg-white text-gray-900 border-[#FF69B4]'
+                            ? 'bg-white text-gray-900 border-[#7C3AED]'
                             : 'bg-white text-gray-700 border-gray-200 hover:border-gray-300'
                         }`}
                       >
@@ -482,7 +482,7 @@ export const FinalCTA: React.FC<{
                   value={formData.ageGroup}
                   disabled={!formData.location}
                   onChange={(e) => setFormData({ ...formData, ageGroup: e.target.value })}
-                  className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-[#FF69B4] focus:outline-none transition-colors text-gray-800 bg-white disabled:bg-gray-100 disabled:text-gray-400 disabled:cursor-not-allowed"
+                  className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-[#7C3AED] focus:outline-none transition-colors text-gray-800 bg-white disabled:bg-gray-100 disabled:text-gray-400 disabled:cursor-not-allowed"
                 >
                   <option value="">
                     {formData.location ? t('formAgePlaceholder') : t('locationFormPlaceholder')}
@@ -513,7 +513,7 @@ export const FinalCTA: React.FC<{
                   <PopoverTrigger asChild>
                     <button
                       type="button"
-                      className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 hover:border-gray-300 focus:border-[#FF69B4] focus:outline-none transition-colors bg-white text-left flex items-center justify-between"
+                      className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 hover:border-gray-300 focus:border-[#7C3AED] focus:outline-none transition-colors bg-white text-left flex items-center justify-between"
                     >
                       <span className={formData.date ? 'text-gray-800' : 'text-gray-400'}>
                         {formData.date || t('formDatePlaceholder')}
@@ -535,8 +535,8 @@ export const FinalCTA: React.FC<{
                       locale={dateLocale}
                       defaultMonth={selectedDate || ENROLLMENT_START}
                       classNames={{
-                        day_selected: 'bg-[#FF69B4] text-white hover:bg-[#FF69B4] hover:text-white focus:bg-[#FF69B4] focus:text-white',
-                        day_today: 'text-[#FF69B4] font-bold',
+                        day_selected: 'bg-[#7C3AED] text-white hover:bg-[#7C3AED] hover:text-white focus:bg-[#7C3AED] focus:text-white',
+                        day_today: 'text-[#7C3AED] font-bold',
                       }}
                       initialFocus
                     />
@@ -555,14 +555,14 @@ export const FinalCTA: React.FC<{
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                   placeholder={t('formEmailPlaceholder')}
-                  className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-[#FF69B4] focus:outline-none transition-colors text-gray-800"
+                  className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-[#7C3AED] focus:outline-none transition-colors text-gray-800"
                 />
               </div>
             </div>
 
             {/* Trial Class / Selected Plan Badge */}
-            <div className="bg-gradient-to-r from-[#FFF0F5] to-[#E0F2FE] rounded-xl p-4 flex items-center justify-center gap-2">
-              <Sparkles className="w-5 h-5 text-[#FF69B4]" />
+            <div className="bg-gradient-to-r from-[#FAF7FF] to-[#E0F2FE] rounded-xl p-4 flex items-center justify-center gap-2">
+              <Sparkles className="w-5 h-5 text-[#7C3AED]" />
               <span className="font-bold text-gray-800">
                 {isTrialPlan ? t('formTrialClassLabel') : t(selectedPlan as any)}
               </span>
@@ -582,8 +582,8 @@ export const FinalCTA: React.FC<{
                   <label
                     className={`relative flex items-start gap-3 p-4 rounded-xl border-2 cursor-pointer transition-all ${
                       formData.paymentMethod === 'card'
-                        ? 'border-[#FF69B4] bg-gradient-to-br from-[#FFF0F5] to-white shadow-md'
-                        : 'border-gray-200 bg-white hover:border-[#FF69B4]/40'
+                        ? 'border-[#7C3AED] bg-gradient-to-br from-[#FAF7FF] to-white shadow-md'
+                        : 'border-gray-200 bg-white hover:border-[#7C3AED]/40'
                     }`}
                   >
                     <input
@@ -592,11 +592,11 @@ export const FinalCTA: React.FC<{
                       value="card"
                       checked={formData.paymentMethod === 'card'}
                       onChange={() => setFormData({ ...formData, paymentMethod: 'card' })}
-                      className="mt-1 w-4 h-4 text-[#FF69B4] focus:ring-[#FF69B4] flex-shrink-0"
+                      className="mt-1 w-4 h-4 text-[#7C3AED] focus:ring-[#7C3AED] flex-shrink-0"
                     />
                     <div className="flex-1">
                       <div className="flex items-center gap-2 mb-1">
-                        <CreditCard className="w-5 h-5 text-[#FF69B4]" />
+                        <CreditCard className="w-5 h-5 text-[#7C3AED]" />
                         <span className="font-bold text-gray-800 text-sm">{t('formPaymentCard')}</span>
                       </div>
                       <p className="text-xs text-gray-600">{t('formPaymentCardDesc')}</p>
@@ -642,14 +642,14 @@ export const FinalCTA: React.FC<{
                 required
                 checked={formData.consent}
                 onChange={(e) => setFormData({ ...formData, consent: e.target.checked })}
-                className="mt-1 w-5 h-5 rounded border-2 border-gray-300 text-[#FF69B4] focus:ring-[#FF69B4]"
+                className="mt-1 w-5 h-5 rounded border-2 border-gray-300 text-[#7C3AED] focus:ring-[#7C3AED]"
               />
               <label htmlFor="consent" className="text-sm text-gray-700 flex-1">
                 {t('formConsent')}{' '}
                 <button
                   type="button"
                   onClick={() => setShowPrivacyModal(true)}
-                  className="text-[#FF69B4] font-bold underline hover:text-[#7DD3FC] transition-colors"
+                  className="text-[#7C3AED] font-bold underline hover:text-[#7DD3FC] transition-colors"
                 >
                   {t('formConsentLink')}
                 </button>
@@ -660,7 +660,7 @@ export const FinalCTA: React.FC<{
             <motion.button
               type="submit"
               disabled={isSubmitting}
-              className="w-full py-4 bg-gradient-to-r from-[#FF69B4] to-[#7DD3FC] text-white font-bold text-lg rounded-xl shadow-xl hover:shadow-2xl transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+              className="w-full py-4 bg-gradient-to-r from-[#7C3AED] to-[#7DD3FC] text-white font-bold text-lg rounded-xl shadow-xl hover:shadow-2xl transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
               whileHover={{ scale: isSubmitting ? 1 : 1.02 }}
               whileTap={{ scale: isSubmitting ? 1 : 0.98 }}
             >
@@ -699,7 +699,7 @@ export const FinalCTA: React.FC<{
               href="https://wa.me/420778616851"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-start gap-4 p-4 rounded-xl hover:bg-gradient-to-r hover:from-[#FFF0F5] hover:to-[#E0F2FE] transition-all mb-4 group"
+              className="flex items-start gap-4 p-4 rounded-xl hover:bg-gradient-to-r hover:from-[#FAF7FF] hover:to-[#E0F2FE] transition-all mb-4 group"
             >
               <div className="w-12 h-12 bg-[#25D366] rounded-full flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
                 <MessageCircle className="w-6 h-6 text-white" />
@@ -714,7 +714,7 @@ export const FinalCTA: React.FC<{
               href="https://instagram.com/emomotion_dance_praha"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-start gap-4 p-4 rounded-xl hover:bg-gradient-to-r hover:from-[#FFF0F5] hover:to-[#E0F2FE] transition-all mb-4 group"
+              className="flex items-start gap-4 p-4 rounded-xl hover:bg-gradient-to-r hover:from-[#FAF7FF] hover:to-[#E0F2FE] transition-all mb-4 group"
             >
               <div className="w-12 h-12 bg-gradient-to-br from-[#F58529] via-[#DD2A7B] to-[#8134AF] rounded-full flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
                 <Instagram className="w-6 h-6 text-white" />
@@ -737,7 +737,7 @@ export const FinalCTA: React.FC<{
                   {locations.map((loc) => (
                     <div
                       key={loc.key}
-                      className="bg-gradient-to-r from-[#FFF0F5] to-[#E0F2FE] rounded-xl p-3"
+                      className="bg-gradient-to-r from-[#FAF7FF] to-[#E0F2FE] rounded-xl p-3"
                     >
                       <div className="flex items-start gap-2">
                         <MapPin

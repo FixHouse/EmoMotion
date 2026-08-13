@@ -19,7 +19,7 @@ export const LoadingScreen: React.FC = () => {
     <AnimatePresence>
       {isLoading && (
         <motion.div
-          className="fixed inset-0 z-[100] flex items-center justify-center bg-gradient-to-br from-[#FFF0F5] via-[#E0F2FE] to-[#A7F3D0]"
+          className="fixed inset-0 z-[100] flex items-center justify-center bg-gradient-to-br from-[#FAF7FF] via-[#E0F2FE] to-[#A7F3D0]"
           initial={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.5 }}
@@ -36,7 +36,7 @@ export const LoadingScreen: React.FC = () => {
               }}
               className="mb-6"
             >
-              <Sparkles className="w-20 h-20 text-[#FF69B4] mx-auto" />
+              <Sparkles className="w-20 h-20 text-[#7C3AED] mx-auto" />
             </motion.div>
             
             <motion.h1
@@ -46,7 +46,7 @@ export const LoadingScreen: React.FC = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
             >
-              <span className="bg-gradient-to-r from-[#FF69B4] to-[#FF69B4] bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-[#7C3AED] to-[#7C3AED] bg-clip-text text-transparent">
                 EmoMotion
               </span>
             </motion.h1>
@@ -65,7 +65,7 @@ export const LoadingScreen: React.FC = () => {
               {[0, 1, 2].map((i) => (
                 <motion.div
                   key={i}
-                  className="w-3 h-3 bg-[#FF69B4] rounded-full"
+                  className="w-3 h-3 bg-[#7C3AED] rounded-full"
                   animate={{
                     y: [0, -10, 0],
                     opacity: [0.5, 1, 0.5],

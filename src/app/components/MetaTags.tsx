@@ -62,7 +62,7 @@ export const MetaTags: React.FC = () => {
     setMeta('name', 'description', copy.description);
     setMeta('name', 'keywords', copy.keywords);
     setMeta('name', 'robots', 'index, follow');
-    setMeta('name', 'theme-color', '#FF69B4');
+    setMeta('name', 'theme-color', '#7C3AED');
 
     setMeta('property', 'og:title', copy.title);
     setMeta('property', 'og:description', copy.description);

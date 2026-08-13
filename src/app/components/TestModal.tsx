@@ -86,7 +86,7 @@ export const TestModal: React.FC<TestModalProps> = ({ isOpen, onClose }) => {
           onClick={handleClose}
         >
           <motion.div
-            className="relative bg-gradient-to-br from-[#FFF0F5] to-[#E0F2FE] rounded-3xl overflow-hidden max-w-2xl w-full shadow-2xl"
+            className="relative bg-gradient-to-br from-[#FAF7FF] to-[#E0F2FE] rounded-3xl overflow-hidden max-w-2xl w-full shadow-2xl"
             role="dialog"
             aria-modal="true"
             aria-labelledby="test-modal-title"
@@ -117,7 +117,7 @@ export const TestModal: React.FC<TestModalProps> = ({ isOpen, onClose }) => {
                       <div
                         key={index}
                         className={`h-2 rounded-full transition-all ${
-                          index <= step ? 'bg-[#FF69B4] w-16' : 'bg-gray-300 w-8'
+                          index <= step ? 'bg-[#7C3AED] w-16' : 'bg-gray-300 w-8'
                         }`}
                       />
                     ))}
@@ -167,7 +167,7 @@ export const TestModal: React.FC<TestModalProps> = ({ isOpen, onClose }) => {
                   </motion.div>
 
                   <h2 id="test-modal-title" className="text-4xl font-extrabold mb-4" style={{ fontFamily: 'Poppins, sans-serif' }}>
-                    <span className="bg-gradient-to-r from-[#FF69B4] to-[#FF69B4] bg-clip-text text-transparent">
+                    <span className="bg-gradient-to-r from-[#7C3AED] to-[#7C3AED] bg-clip-text text-transparent">
                       {t('testResult')}
                     </span>
                   </h2>
@@ -183,7 +183,7 @@ export const TestModal: React.FC<TestModalProps> = ({ isOpen, onClose }) => {
                         handleClose();
                         document.getElementById('cta')?.scrollIntoView({ behavior: 'smooth' });
                       }}
-                      className="px-8 py-4 bg-[#FF69B4] text-white rounded-full text-lg font-bold shadow-2xl"
+                      className="px-8 py-4 bg-[#7C3AED] text-white rounded-full text-lg font-bold shadow-2xl"
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
                     >
