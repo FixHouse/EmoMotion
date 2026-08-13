@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useLanguage } from '../LanguageContext';
 import { motion } from 'motion/react';
-import { Sparkles, Phone, Instagram, MessageCircle, MapPin, CheckCircle, Send, CreditCard, Banknote, Calendar as CalendarIcon } from 'lucide-react';
-import { format, parse, startOfDay } from 'date-fns';
+import { Sparkles, Instagram, MessageCircle, MapPin, CheckCircle, Send, CreditCard, Banknote, Calendar as CalendarIcon } from 'lucide-react';
+import { format, parse } from 'date-fns';
 import { cs as csLocale, enUS, uk as ukLocale } from 'date-fns/locale';
 import { sendToTelegram } from '../utils/telegram';
 import { PrivacyPolicy } from './PrivacyPolicy';
@@ -798,7 +798,7 @@ export const FinalCTA: React.FC<{
       
       {/* Privacy Policy Modal */}
       {showPrivacyModal && (
-        <PrivacyPolicy onClose={() => setShowPrivacyModal(false)} />
+        <PrivacyPolicy isOpen={showPrivacyModal} onClose={() => setShowPrivacyModal(false)} />
       )}
     </section>
   );

@@ -2,12 +2,26 @@ import React, { useState } from 'react';
 import { useLanguage } from '../LanguageContext';
 import { motion } from 'motion/react';
 import { Clock, Users, Zap, Sparkles, ArrowRight } from 'lucide-react';
+import type { TranslationKey } from '../translations';
+
+interface AgeProgram {
+  emoji: string;
+  color: string;
+  lightBg: string;
+  darkColor: string;
+  ageRangeKey: TranslationKey;
+  titleKey?: TranslationKey;
+  durationKey: TranslationKey;
+  groupSizeKey: TranslationKey;
+  descriptionKey: TranslationKey;
+  transformationKey: TranslationKey;
+}
 
 export const AgePrograms: React.FC<{ onCTAClick: () => void }> = ({ onCTAClick }) => {
   const { t } = useLanguage();
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
-  const programs = [
+  const programs: AgeProgram[] = [
     {
       emoji: '👶',
       color: '#FACC15',

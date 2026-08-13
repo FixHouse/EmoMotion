@@ -13,16 +13,25 @@ import {
   Lightbulb,
   Award
 } from 'lucide-react';
+import type { TranslationKey } from '../translations';
 
 interface QuizQuestion {
   id: number;
-  questionKey: string;
+  questionKey: TranslationKey;
   options: {
-    textKey: string;
+    textKey: TranslationKey;
     icon: React.ElementType;
     color: string;
     trait: 'sensitive' | 'balanced' | 'confident' | 'creative' | 'analytical' | 'social';
   }[];
+}
+
+interface QuizProfile {
+  titleKey: TranslationKey;
+  descKey: TranslationKey;
+  talentKeys: TranslationKey[];
+  color: string;
+  icon: React.ElementType;
 }
 
 const quizQuestions: QuizQuestion[] = [
@@ -141,7 +150,7 @@ export const UniqueMethod: React.FC = () => {
     const dominant2 = sortedTraits.length > 1 ? sortedTraits[1][0] : null;
 
     // Define personality profiles
-    const profiles: Record<string, { titleKey: string; descKey: string; talentKeys: string[]; color: string; icon: React.ElementType }> = {
+    const profiles: Record<string, QuizProfile> = {
       sensitive: {
         titleKey: 'profileSensitiveTitle',
         descKey: 'profileSensitiveDesc',
@@ -580,11 +589,11 @@ export const UniqueMethod: React.FC = () => {
 
                 {/* Key insight boxes */}
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-10">
-                  {[
+                  {([
                     { icon: Brain, key: 'quizInsight1', color: '#8B5CF6' },
                     { icon: Heart, key: 'quizInsight2', color: '#EC4899' },
                     { icon: Sparkles, key: 'quizInsight3', color: '#06B6D4' },
-                  ].map((item, i) => (
+                  ] satisfies { icon: React.ElementType; key: TranslationKey; color: string }[]).map((item, i) => (
                     <motion.div
                       key={i}
                       initial={{ opacity: 0, y: 20 }}

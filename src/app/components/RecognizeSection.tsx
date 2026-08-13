@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useLanguage } from '../LanguageContext';
-import { motion, AnimatePresence } from 'motion/react';
+import { motion } from 'motion/react';
 import { Sparkles, Heart, Users, Target, Smile, Award } from 'lucide-react';
 
 const problems = [

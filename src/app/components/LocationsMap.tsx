@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { MapPin, Navigation } from 'lucide-react';
+import { Navigation } from 'lucide-react';
 import { motion } from 'motion/react';
 
 export const LocationsMap: React.FC = () => {

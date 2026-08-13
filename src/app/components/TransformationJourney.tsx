@@ -9,24 +9,22 @@ import {
   Rocket, 
   Star,
   Brain,
-  Smile,
   Zap,
-  Target,
-  Award,
   TrendingUp
 } from 'lucide-react';
+import type { TranslationKey } from '../translations';
 
 interface JourneyStep {
   id: number;
-  titleKey: string;
-  subtitleKey: string;
-  descriptionKey: string;
-  skillKeys: string[];
+  titleKey: TranslationKey;
+  subtitleKey: TranslationKey;
+  descriptionKey: TranslationKey;
+  skillKeys: TranslationKey[];
   emoji: string;
   color: string;
   gradient: string;
   icon: React.ElementType;
-  futureKey: string;
+  futureKey: TranslationKey;
 }
 
 const journeySteps: JourneyStep[] = [
