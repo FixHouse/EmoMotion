@@ -19,4 +19,41 @@ export default defineConfig({
 
   // File types to support raw imports. Never add .css, .tsx, or .ts files to this.
   assetsInclude: ['**/*.svg', '**/*.csv'],
+
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          const normalizedId = id.replace(/\\/g, '/');
+
+          if (!normalizedId.includes('node_modules')) return undefined;
+
+          if (
+            normalizedId.includes('/motion/') ||
+            normalizedId.includes('/motion-dom/') ||
+            normalizedId.includes('/motion-utils/') ||
+            normalizedId.includes('/framer-motion/')
+          ) {
+            return 'motion-vendor';
+          }
+
+          if (normalizedId.includes('/lucide-react/')) {
+            return 'icons-vendor';
+          }
+
+          if (
+            normalizedId.includes('/date-fns/') ||
+            normalizedId.includes('/react-day-picker/') ||
+            normalizedId.includes('/@radix-ui/react-popover/') ||
+            normalizedId.includes('/@radix-ui/react-popper/') ||
+            normalizedId.includes('/@floating-ui/')
+          ) {
+            return 'form-vendor';
+          }
+
+          return 'vendor';
+        },
+      },
+    },
+  },
 })
