@@ -66,8 +66,8 @@ export const scheduleByLocation: Record<LocationKey, ScheduleSlot[]> = {
     { id: 'p2-58-1730', ageKey: 'ageLoc58', timeKey: 'timeLoc1730', color: C_58, capacity: { taken: 4, total: 8 } },
   ],
   praha9: [
-    { id: 'p9-23ua-1045', ageKey: 'ageLoc23', timeKey: 'timeLoc1045', titleKey: 'mamMalUA', color: C_23_UA, capacity: { taken: 2, total: 8 } },
-    { id: 'p9-23cz-1130', ageKey: 'ageLoc23', timeKey: 'timeLoc1130', titleKey: 'mamMalCZ', color: C_23_CZ, capacity: { taken: 1, total: 8 } },
+    { id: 'p9-23cz-1045', ageKey: 'ageLoc23', timeKey: 'timeLoc1045', titleKey: 'mamMalCZ', color: C_23_CZ, capacity: { taken: 1, total: 8 } },
+    { id: 'p9-23ua-1130', ageKey: 'ageLoc23', timeKey: 'timeLoc1130', titleKey: 'mamMalUA', color: C_23_UA, capacity: { taken: 2, total: 8 } },
     { id: 'p9-35-1630', ageKey: 'ageLoc35', timeKey: 'timeLoc1630', color: C_35, capacity: { taken: 10, total: 10 } },
     { id: 'p9-58-1730-po', ageKey: 'ageLoc58', timeKey: 'timeLoc1730', color: C_58, capacity: { taken: 4, total: 8 }, dayOverrideKey: 'dayPoOnly' },
     { id: 'p9-58-1715-st', ageKey: 'ageLoc58', timeKey: 'timeLoc1715', color: C_58, capacity: { taken: 0, total: 10 }, dayOverrideKey: 'dayStOnly' },

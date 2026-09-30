@@ -5,7 +5,6 @@ import { MobileMenu } from './MobileMenu';
 import { LoadingScreen } from './LoadingScreen';
 import { HeroSection } from './HeroSection';
 import { ScrollToTop } from './ScrollToTop';
-import { PaymentSuccessBanner } from './PaymentSuccessBanner';
 import type { CTARequest, SchedulePrefill } from './ctaTypes';
 
 const RecognizeSection = lazy(() =>
@@ -112,8 +111,8 @@ const LazyOnVisible: React.FC<{
 
 export const AppContent: React.FC = () => {
   // Which plan was clicked to bring the user to the form.
-  // 'planTrialName' = trial lesson (150 Kc, card payment allowed via Stripe).
-  // Any other key = paid package (cash only, no Stripe).
+  // The selected plan is included in the registration request. Payment details
+  // are sent to the parent after the form is submitted.
   const [selectedPlan, setSelectedPlan] = useState<string>('planTrialName');
   const [selectedSchedule, setSelectedSchedule] = useState<SchedulePrefill | null>(null);
 
@@ -153,8 +152,6 @@ export const AppContent: React.FC = () => {
       {/* Scroll to Top */}
       <ScrollToTop />
 
-      {/* Payment Success Banner (shown when returning from Stripe) */}
-      <PaymentSuccessBanner />
 
       {/* All Sections */}
       <div id="hero">
