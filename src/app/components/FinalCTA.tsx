@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useLanguage } from '../LanguageContext';
 import { motion } from 'motion/react';
-import { Sparkles, Instagram, MessageCircle, MapPin, CheckCircle, Send, CreditCard, Calendar as CalendarIcon } from 'lucide-react';
+import { Sparkles, Instagram, MessageCircle, MapPin, CheckCircle, Send, CreditCard, Banknote, Calendar as CalendarIcon } from 'lucide-react';
 import { format, parse } from 'date-fns';
 import { cs as csLocale, enUS, uk as ukLocale } from 'date-fns/locale';
 import { sendToTelegram } from '../utils/telegram';
@@ -12,12 +12,28 @@ import { Popover, PopoverTrigger, PopoverContent } from './ui/popover';
 import { locations, scheduleByLocation, getSlotById, LocationKey } from '../scheduleData';
 import type { SchedulePrefill } from './ctaTypes';
 
+type PaymentMethod = 'card' | 'cash' | '';
+
+const DEFAULT_STRIPE_PAYMENT_LINK_URL = 'https://buy.stripe.com/5kQbIV6wbglT1kBaTGcjS00';
+const STRIPE_PAYMENT_LINK_URL =
+  (import.meta.env.VITE_STRIPE_PAYMENT_LINK_URL as string | undefined) || DEFAULT_STRIPE_PAYMENT_LINK_URL;
+
 const ENROLLMENT_START = new Date(2026, 8, 7);
 
 // The Telegram message uses parse_mode HTML — user-typed values must be
 // escaped or a stray "<" makes Telegram reject the whole message.
 const escapeHtml = (value: string) =>
   value.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+
+function buildStripeUrl(baseUrl: string, email: string, refId: string, language: string): string {
+  const url = new URL(baseUrl);
+  if (email) url.searchParams.set('prefilled_email', email);
+  if (refId) url.searchParams.set('client_reference_id', refId);
+  if (language === 'cs' || language === 'en') {
+    url.searchParams.set('locale', language);
+  }
+  return url.toString();
+}
 
 export const FinalCTA: React.FC<{
   selectedPlan?: string;
@@ -34,6 +50,7 @@ export const FinalCTA: React.FC<{
     location: '' as LocationKey | '',
     ageGroup: '',
     date: '',
+    paymentMethod: '' as PaymentMethod,
     consent: false,
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -48,6 +65,14 @@ export const FinalCTA: React.FC<{
         return isNaN(parsed.getTime()) ? undefined : parsed;
       })()
     : undefined;
+
+  // Non-trial plans (4 lekce, 8 lekcí, 12 lekcí, jednorázová) don't have card
+  // payment — Stripe link is only for the 150 Kč trial. Force cash automatically.
+  useEffect(() => {
+    if (!isTrialPlan && formData.paymentMethod !== 'cash') {
+      setFormData((prev) => ({ ...prev, paymentMethod: 'cash' }));
+    }
+  }, [isTrialPlan, formData.paymentMethod]);
 
   useEffect(() => {
     if (!selectedSchedule) return;
@@ -92,6 +117,11 @@ export const FinalCTA: React.FC<{
 
     if (!formData.date) {
       alert(t('formDateRequired'));
+      return;
+    }
+
+    if (!formData.paymentMethod) {
+      alert(t('formPaymentRequired'));
       return;
     }
 
@@ -175,17 +205,17 @@ export const FinalCTA: React.FC<{
                           language === 'en' ? 'Location' :
                           'Локація';
 
-    const paymentLabel = language === 'cs' ? 'Platba' :
-                         language === 'en' ? 'Payment' :
-                         'Оплата';
+    const paymentLabel = language === 'cs' ? 'Způsob platby' :
+                         language === 'en' ? 'Payment method' :
+                         'Спосіб оплати';
 
-    const paymentValueText = isTrialPlan
-      ? (language === 'cs' ? '💳 Poslat rodiči odkaz pro platbu první lekce kartou' :
-         language === 'en' ? '💳 Send the parent a card payment link for the first class' :
-         '💳 Надіслати батькам посилання для оплати першого заняття карткою')
-      : (language === 'cs' ? '📩 Poslat rodiči platební údaje k vybranému balíčku' :
-         language === 'en' ? '📩 Send the parent payment details for the selected package' :
-         '📩 Надіслати батькам реквізити для оплати вибраного пакета');
+    const paymentValueText = formData.paymentMethod === 'card'
+      ? (language === 'cs' ? '💳 Kartou (Stripe – čeká na potvrzení)' :
+         language === 'en' ? '💳 By card (Stripe – pending confirmation)' :
+         '💳 Карткою (Stripe – очікує підтвердження)')
+      : (language === 'cs' ? '💵 Hotově na první lekci' :
+         language === 'en' ? '💵 Cash at the first lesson' :
+         '💵 Готівкою на першому занятті');
 
     const refLabel = language === 'cs' ? 'Reference' :
                      language === 'en' ? 'Reference' :
@@ -221,6 +251,14 @@ export const FinalCTA: React.FC<{
     const success = await sendToTelegram(message);
 
     if (success) {
+      // Stripe Payment Link is for the 150 Kč trial lesson ONLY.
+      // Never redirect when a paid package (4/8/12 lekcí or single) is selected.
+      if (isTrialPlan && formData.paymentMethod === 'card') {
+        const stripeUrl = buildStripeUrl(STRIPE_PAYMENT_LINK_URL, formData.email, refId, language);
+        window.location.href = stripeUrl;
+        return;
+      }
+
       setIsSuccess(true);
 
       // Confetti effect
@@ -236,7 +274,7 @@ export const FinalCTA: React.FC<{
         }, i * 30);
       }
 
-      setFormData({ parentName: '', childName: '', childAge: '', phone: '', email: '', location: '', ageGroup: '', date: '', consent: false });
+      setFormData({ parentName: '', childName: '', childAge: '', phone: '', email: '', location: '', ageGroup: '', date: '', paymentMethod: '', consent: false });
 
       setTimeout(() => {
         setIsSuccess(false);
@@ -531,18 +569,68 @@ export const FinalCTA: React.FC<{
               <Sparkles className="w-5 h-5 text-[#7DD3FC]" />
             </div>
 
-            {/* Payment information. Details are sent after registration. */}
-            <div className="flex items-start gap-3 p-4 rounded-xl border-2 border-[#7C3AED]/20 bg-gradient-to-br from-[#FAF7FF] to-white">
-              <div className="w-10 h-10 rounded-full bg-[#7C3AED]/10 flex items-center justify-center flex-shrink-0">
-                <CreditCard className="w-5 h-5 text-[#7C3AED]" aria-hidden="true" />
-              </div>
-              <div className="min-w-0">
-                <p className="font-bold text-gray-800 text-sm">
-                  {isTrialPlan ? t('formPaymentInfoTrialTitle') : t('formPaymentInfoPackageTitle')}
-                </p>
-                <p className="text-xs sm:text-sm text-gray-600 mt-1 leading-relaxed">
-                  {isTrialPlan ? t('formPaymentInfoTrialDesc') : t('formPaymentInfoPackageDesc')}
-                </p>
+            {/* Payment Method Selection — card option only for trial lesson (150 Kc) */}
+            <div>
+              <label className="block text-sm font-bold text-gray-700 mb-1">
+                {isTrialPlan ? t('formPaymentMethodLabel') : t('formPaymentMethodLabelPackage')}
+              </label>
+              <p className="text-xs text-gray-500 mb-3">
+                {isTrialPlan ? t('formPaymentMethodHint') : t('formPaymentMethodHintPackage')}
+              </p>
+              <div className={`grid grid-cols-1 ${isTrialPlan ? 'md:grid-cols-2' : ''} gap-3`}>
+                {isTrialPlan && (
+                  <label
+                    className={`relative flex items-start gap-3 p-4 rounded-xl border-2 cursor-pointer transition-all ${
+                      formData.paymentMethod === 'card'
+                        ? 'border-[#7C3AED] bg-gradient-to-br from-[#FAF7FF] to-white shadow-md'
+                        : 'border-gray-200 bg-white hover:border-[#7C3AED]/40'
+                    }`}
+                  >
+                    <input
+                      type="radio"
+                      name="paymentMethod"
+                      value="card"
+                      checked={formData.paymentMethod === 'card'}
+                      onChange={() => setFormData({ ...formData, paymentMethod: 'card' })}
+                      className="mt-1 w-4 h-4 text-[#7C3AED] focus:ring-[#7C3AED] flex-shrink-0"
+                    />
+                    <div className="flex-1">
+                      <div className="flex items-center gap-2 mb-1">
+                        <CreditCard className="w-5 h-5 text-[#7C3AED]" />
+                        <span className="font-bold text-gray-800 text-sm">{t('formPaymentCard')}</span>
+                      </div>
+                      <p className="text-xs text-gray-600">{t('formPaymentCardDesc')}</p>
+                    </div>
+                  </label>
+                )}
+
+                <label
+                  className={`relative flex items-start gap-3 p-4 rounded-xl border-2 cursor-pointer transition-all ${
+                    formData.paymentMethod === 'cash'
+                      ? 'border-[#7DD3FC] bg-gradient-to-br from-[#E0F2FE] to-white shadow-md'
+                      : 'border-gray-200 bg-white hover:border-[#7DD3FC]/40'
+                  }`}
+                >
+                  <input
+                    type="radio"
+                    name="paymentMethod"
+                    value="cash"
+                    checked={formData.paymentMethod === 'cash'}
+                    onChange={() => setFormData({ ...formData, paymentMethod: 'cash' })}
+                    className="mt-1 w-4 h-4 text-[#7DD3FC] focus:ring-[#7DD3FC] flex-shrink-0"
+                  />
+                  <div className="flex-1">
+                    <div className="flex items-center gap-2 mb-1">
+                      <Banknote className="w-5 h-5 text-[#7DD3FC]" />
+                      <span className="font-bold text-gray-800 text-sm">
+                        {isTrialPlan ? t('formPaymentCash') : t('formPaymentCashPackage')}
+                      </span>
+                    </div>
+                    <p className="text-xs text-gray-600">
+                      {isTrialPlan ? t('formPaymentCashDesc') : t('formPaymentCashDescPackage')}
+                    </p>
+                  </div>
+                </label>
               </div>
             </div>
 
@@ -579,7 +667,12 @@ export const FinalCTA: React.FC<{
               {isSubmitting ? (
                 <>
                   <div className="w-5 h-5 border-3 border-white border-t-transparent rounded-full animate-spin" />
-                  {t('formSubmitting')}
+                  {formData.paymentMethod === 'card' ? t('formRedirecting') : t('formSubmitting')}
+                </>
+              ) : formData.paymentMethod === 'card' ? (
+                <>
+                  <CreditCard className="w-5 h-5" />
+                  {t('formSubmitCard')}
                 </>
               ) : (
                 <>
