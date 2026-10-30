@@ -17,10 +17,10 @@ export const LocationsMap: React.FC = () => {
     {
       id: 2,
       name: 'Praha 9',
-      fullAddress: 'Jandova 207/4, Praha 9',
+      fullAddress: 'Kolbenova 977/5f, Praha 9',
       color: '#5B21B6',
-      mapUrl: 'https://www.google.com/maps?q=Jandova+207%2F4%2C+Praha+9&hl=cs&z=17&output=embed',
-      navigateUrl: 'https://www.google.com/maps/search/?api=1&query=Jandova+207%2F4%2C+Praha+9',
+      mapUrl: 'https://www.google.com/maps?q=Kolbenova+977%2F5f%2C+Praha+9&hl=cs&z=17&output=embed',
+      navigateUrl: 'https://www.google.com/maps/search/?api=1&query=Kolbenova+977%2F5f%2C+Praha+9',
     },
   ];
 

@@ -22,8 +22,9 @@ export type ScheduleSlot = {
   timeKey: string;
   titleKey?: string;
   color: string;
-  capacity: ScheduleCapacity;
+  capacity?: ScheduleCapacity;
   dayOverrideKey?: string;
+  groupDaysKey?: string;
 };
 
 export const locations: LocationConfig[] = [
@@ -46,9 +47,9 @@ export const locations: LocationConfig[] = [
     daysKey: 'locPraha9Days',
     daysFullKey: 'locPraha9DaysFull',
     mapUrl:
-      'https://www.google.com/maps?q=Jandova+207%2F4%2C+Praha+9&hl=cs&z=17&output=embed',
+      'https://www.google.com/maps?q=Kolbenova+977%2F5f%2C+Praha+9&hl=cs&z=17&output=embed',
     navigateUrl:
-      'https://www.google.com/maps/search/?api=1&query=Jandova+207%2F4%2C+Praha+9',
+      'https://www.google.com/maps/search/?api=1&query=Kolbenova+977%2F5f%2C+Praha+9',
     color: '#5B21B6',
   },
 ];
@@ -64,13 +65,15 @@ export const scheduleByLocation: Record<LocationKey, ScheduleSlot[]> = {
     { id: 'p2-23cz-1130', ageKey: 'ageLoc23', timeKey: 'timeLoc1130', titleKey: 'mamMalCZ', color: C_23_CZ, capacity: { taken: 1, total: 8 } },
     { id: 'p2-35-1630', ageKey: 'ageLoc35', timeKey: 'timeLoc1630', color: C_35, capacity: { taken: 10, total: 10 } },
     { id: 'p2-58-1730', ageKey: 'ageLoc58', timeKey: 'timeLoc1730', color: C_58, capacity: { taken: 4, total: 8 } },
+    { id: 'p2-34-1700-ct', ageKey: 'ageLoc35', timeKey: 'timeLoc1700', color: C_58, dayOverrideKey: 'dayCtOnly', groupDaysKey: 'daysThuSat' },
+    { id: 'p2-34-1100-so', ageKey: 'ageLoc35', timeKey: 'timeLoc1100', color: C_58, dayOverrideKey: 'daySoOnly', groupDaysKey: 'daysThuSat' },
   ],
   praha9: [
     { id: 'p9-23cz-1045', ageKey: 'ageLoc23', timeKey: 'timeLoc1045', titleKey: 'mamMalCZ', color: C_23_CZ, capacity: { taken: 1, total: 8 } },
     { id: 'p9-23ua-1130', ageKey: 'ageLoc23', timeKey: 'timeLoc1130', titleKey: 'mamMalUA', color: C_23_UA, capacity: { taken: 2, total: 8 } },
     { id: 'p9-35-1630', ageKey: 'ageLoc35', timeKey: 'timeLoc1630', color: C_35, capacity: { taken: 10, total: 10 } },
-    { id: 'p9-58-1730-po', ageKey: 'ageLoc58', timeKey: 'timeLoc1730', color: C_58, capacity: { taken: 4, total: 8 }, dayOverrideKey: 'dayPoOnly' },
-    { id: 'p9-58-1715-st', ageKey: 'ageLoc58', timeKey: 'timeLoc1715', color: C_58, capacity: { taken: 0, total: 10 }, dayOverrideKey: 'dayStOnly' },
+    { id: 'p9-58-1730-po', ageKey: 'ageLoc58', timeKey: 'timeLoc1740', color: C_58, capacity: { taken: 4, total: 8 }, dayOverrideKey: 'dayPoOnly' },
+    { id: 'p9-58-1715-st', ageKey: 'ageLoc58', timeKey: 'timeLoc1740', color: C_58, capacity: { taken: 0, total: 10 }, dayOverrideKey: 'dayStOnly' },
   ],
 };
 
@@ -88,18 +91,20 @@ export type DisplayGroup = {
   ageKey: string;
   titleKey?: string;
   color: string;
-  times: Array<{ id: string; timeKey: string; dayOverrideKey?: string; capacity: ScheduleCapacity }>;
+  groupDaysKey?: string;
+  times: Array<{ id: string; timeKey: string; dayOverrideKey?: string; capacity?: ScheduleCapacity }>;
 };
 
 export function groupSlots(slots: ScheduleSlot[]): DisplayGroup[] {
   const groups = new Map<string, DisplayGroup>();
   for (const slot of slots) {
-    const key = `${slot.ageKey}::${slot.titleKey || ''}`;
+    const key = `${slot.ageKey}::${slot.titleKey || ''}::${slot.groupDaysKey || ''}`;
     if (!groups.has(key)) {
       groups.set(key, {
         ageKey: slot.ageKey,
         titleKey: slot.titleKey,
         color: slot.color,
+        groupDaysKey: slot.groupDaysKey,
         times: [],
       });
     }

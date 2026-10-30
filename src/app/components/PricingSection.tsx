@@ -354,8 +354,7 @@ export const PricingSection: React.FC<{ onCTAClick: (request?: CTARequest) => vo
                 t(activeLocation.addressKey as any),
                 t(group.ageKey as any),
                 group.titleKey ? t(group.titleKey as any) : '',
-                group.times.map((tm) => t(tm.timeKey as any)).join(', '),
-                t(activeLocation.daysKey as any),
+                group.times.map((tm) => `${t(tm.dayOverrideKey || group.groupDaysKey || activeLocation.daysKey as any)} ${t(tm.timeKey as any)}`).join(', '),
               ].filter(Boolean).join(', ');
 
               return (
@@ -365,6 +364,7 @@ export const PricingSection: React.FC<{ onCTAClick: (request?: CTARequest) => vo
                   aria-label={scheduleLabel}
                   onClick={() => onCTAClick(request)}
                   className="flex flex-col h-full bg-gradient-to-br from-gray-50 to-white rounded-2xl p-3 lg:p-4 border-2 border-transparent hover:border-[#7C3AED]/30 transition-all min-w-0 cursor-pointer text-left"
+                  style={group.times.length > 1 ? { borderColor: group.color } : undefined}
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: index * 0.08 }}
@@ -387,14 +387,17 @@ export const PricingSection: React.FC<{ onCTAClick: (request?: CTARequest) => vo
                   )}
 
                   {group.times.map((tm, ti) => {
-                    const { taken, total } = tm.capacity;
+                    const { taken, total } = tm.capacity || { taken: 0, total: 0 };
                     const fillPercent = total > 0 ? (taken / total) * 100 : 0;
                     return (
                       <div key={tm.id} className={ti > 0 ? 'mt-2' : ''}>
-                        <p className="text-sm font-bold text-gray-700 mb-1 whitespace-nowrap">
+                        <p
+                          className={group.groupDaysKey ? 'text-base lg:text-lg font-extrabold mb-0.5 whitespace-nowrap' : 'text-sm font-bold text-gray-700 mb-1 whitespace-nowrap'}
+                          style={group.groupDaysKey ? { color: group.color } : undefined}
+                        >
                           {t(tm.timeKey as any)}
                         </p>
-                        <div className="flex items-center gap-2">
+                        {tm.capacity && <div className="flex items-center gap-2">
                           <div
                             className="flex-1 h-2 bg-gray-200 rounded-full overflow-hidden"
                             role="meter"
@@ -414,12 +417,12 @@ export const PricingSection: React.FC<{ onCTAClick: (request?: CTARequest) => vo
                           <span className="text-xs font-bold text-gray-600 whitespace-nowrap">
                             {taken} з {total} {t('spotsLabel')}
                           </span>
-                        </div>
+                        </div>}
                       </div>
                     );
                   })}
                   <p className="text-xs font-semibold text-gray-500 mt-2 whitespace-nowrap">
-                    {t(activeLocation.daysKey as any)}
+                    {t(group.groupDaysKey || activeLocation.daysKey as any)}
                   </p>
                 </motion.button>
               );
