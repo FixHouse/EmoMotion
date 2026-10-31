@@ -18,7 +18,7 @@ const DEFAULT_STRIPE_PAYMENT_LINK_URL = 'https://buy.stripe.com/5kQbIV6wbglT1kBa
 const STRIPE_PAYMENT_LINK_URL =
   (import.meta.env.VITE_STRIPE_PAYMENT_LINK_URL as string | undefined) || DEFAULT_STRIPE_PAYMENT_LINK_URL;
 
-const ENROLLMENT_START = new Date(2026, 8, 7);
+const ENROLLMENT_START = new Date(2026, 10, 12);
 
 // The Telegram message uses parse_mode HTML — user-typed values must be
 // escaped or a stray "<" makes Telegram reject the whole message.
@@ -115,8 +115,13 @@ export const FinalCTA: React.FC<{
       return;
     }
 
-    if (!formData.date) {
+    if (!selectedDate) {
       alert(t('formDateRequired'));
+      return;
+    }
+
+    if (selectedDate < ENROLLMENT_START) {
+      alert(t('formDateTooEarly').replace('{date}', format(ENROLLMENT_START, 'dd.MM.yyyy')));
       return;
     }
 
@@ -532,6 +537,7 @@ export const FinalCTA: React.FC<{
                         }
                       }}
                       disabled={{ before: ENROLLMENT_START }}
+                      fromMonth={ENROLLMENT_START}
                       locale={dateLocale}
                       defaultMonth={selectedDate || ENROLLMENT_START}
                       classNames={{
